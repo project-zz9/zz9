@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "jotai": "^1.8.5",
+    "node-sass": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-lottie": "^1.2.3",
