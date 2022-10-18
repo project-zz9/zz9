@@ -1,24 +1,33 @@
-import logo from "~/assets/icons/logo.svg";
-import "./App.css";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Link,
+} from "react-router-dom";
+import { unprotectedPage } from "~/pages";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <ul>
+          {unprotectedPage.map(({ path, name }) => (
+            <li>
+              <Link key={name} to={path}>
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Routes>
+          {unprotectedPage.map(({ path, component }) => (
+            <Route key={path} path={path} element={component} />
+          ))}
+          <Route path="/" element={<Navigate replace to="/home" />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
