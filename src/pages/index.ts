@@ -12,7 +12,7 @@ type Page = {
   Component: FC;
 };
 
-const pages: Page[] = [
+export const pages: Page[] = [
   {
     path: "/home",
     name: "Home",
@@ -44,6 +44,3 @@ const pages: Page[] = [
     Component: Management,
   },
 ];
-
-export const unprotectedPage = pages.filter(({ auth }) => !auth);
-export const protectedPage = pages.filter(({ auth }) => auth);
