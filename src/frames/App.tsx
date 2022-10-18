@@ -13,16 +13,14 @@ function App() {
       <Router>
         <ul>
           {unprotectedPage.map(({ path, name }) => (
-            <li>
-              <Link key={name} to={path}>
-                {name}
-              </Link>
+            <li key={name}>
+              <Link to={path}>{name}</Link>
             </li>
           ))}
         </ul>
         <Routes>
-          {unprotectedPage.map(({ path, component }) => (
-            <Route key={path} path={path} element={component} />
+          {unprotectedPage.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
           ))}
           <Route path="/" element={<Navigate replace to="/home" />} />
         </Routes>

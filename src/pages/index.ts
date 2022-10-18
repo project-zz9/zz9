@@ -3,12 +3,13 @@ import Registration from "./registration";
 import Invitation from "./invitation";
 import Guestbook from "./guestbook";
 import Management from "./management";
+import { FC } from "react";
 
 type Page = {
   path: string;
   name: string;
   auth: boolean;
-  component: JSX.Element;
+  Component: FC;
 };
 
 const pages: Page[] = [
@@ -16,31 +17,31 @@ const pages: Page[] = [
     path: "/home",
     name: "Home",
     auth: false,
-    component: Home(),
+    Component: Home,
   },
   {
     path: "/registration",
     name: "Registration",
     auth: false,
-    component: Registration(),
+    Component: Registration,
   },
   {
     path: "/invitation/:uuid",
     name: "Invitation",
     auth: false,
-    component: Invitation(),
+    Component: Invitation,
   },
   {
     path: "/guestbook/:uuid",
     name: "Guestbook",
     auth: false,
-    component: Guestbook(),
+    Component: Guestbook,
   },
   {
     path: "/management",
     name: "Management",
     auth: true,
-    component: Management(),
+    Component: Management,
   },
 ];
 
