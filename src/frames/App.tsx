@@ -1,24 +1,57 @@
-import logo from "~/assets/icons/logo.svg";
-import "./App.css";
+import { useAtom } from "jotai";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Link,
+} from "react-router-dom";
+import { pages } from "~/pages";
+import { ProtectedRoute } from "~/routers/PrivateRoute";
+import { authAtom } from "~/stores/auth";
 
 function App() {
+  const [, setUser] = useAtom(authAtom);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <ul>
+          {pages.map(({ path, name }) => (
+            <li key={name}>
+              <Link to={path}>{name}</Link>
+            </li>
+          ))}
+        </ul>
+        <div>
+          <button onClick={() => setUser("user")}>Sign In</button>
+        </div>
+        <div>
+          <button onClick={() => setUser(null)}>Sign Out</button>
+        </div>
+        <Routes>
+          {pages.map(({ path, Component, auth }) =>
+            auth ? (
+              <Route
+                key={path}
+                path={path}
+                element={<ProtectedRoute element={<Component />} />}
+              />
+            ) : (
+              <Route key={path} path={path} element={<Component />} />
+            )
+          )}
+          <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route
+            path="*"
+            element={
+              <div>
+                <h1>404</h1>
+              </div>
+            }
+          />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
