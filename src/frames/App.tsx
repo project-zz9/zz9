@@ -5,24 +5,41 @@ import {
   Navigate,
   Link,
 } from "react-router-dom";
-import { unprotectedPage } from "~/pages";
+import { pages } from "~/pages";
+import { ProtectedRoute } from "~/routers/PrivateRoute";
 
 function App() {
   return (
     <>
       <Router>
         <ul>
-          {unprotectedPage.map(({ path, name }) => (
+          {pages.map(({ path, name }) => (
             <li key={name}>
               <Link to={path}>{name}</Link>
             </li>
           ))}
         </ul>
         <Routes>
-          {unprotectedPage.map(({ path, Component }) => (
-            <Route key={path} path={path} element={<Component />} />
-          ))}
+          {pages.map(({ path, Component, auth }) =>
+            auth ? (
+              <Route
+                key={path}
+                path={path}
+                element={<ProtectedRoute element={<Component />} />}
+              />
+            ) : (
+              <Route key={path} path={path} element={<Component />} />
+            )
+          )}
           <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route
+            path="*"
+            element={
+              <div>
+                <h1>404</h1>
+              </div>
+            }
+          />
         </Routes>
       </Router>
     </>
