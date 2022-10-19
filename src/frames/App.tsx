@@ -1,3 +1,4 @@
+import { useAtom } from "jotai";
 import {
   HashRouter as Router,
   Routes,
@@ -7,8 +8,10 @@ import {
 } from "react-router-dom";
 import { pages } from "~/pages";
 import { ProtectedRoute } from "~/routers/PrivateRoute";
+import { authAtom } from "~/stores/auth";
 
 function App() {
+  const [, setUser] = useAtom(authAtom);
   return (
     <>
       <Router>
@@ -19,6 +22,12 @@ function App() {
             </li>
           ))}
         </ul>
+        <div>
+          <button onClick={() => setUser("user")}>Sign In</button>
+        </div>
+        <div>
+          <button onClick={() => setUser(null)}>Sign Out</button>
+        </div>
         <Routes>
           {pages.map(({ path, Component, auth }) =>
             auth ? (
