@@ -44,6 +44,3 @@ export const pages: Page[] = [
     Component: Management,
   },
 ];
-
-// export const unprotectedPage = pages.filter(({ auth }) => !auth);
-// export const protectedPage = pages.filter(({ auth }) => auth);
