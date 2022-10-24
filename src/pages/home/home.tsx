@@ -1,7 +1,13 @@
-import DemoPage from "~/components/organisms/DemoPage";
+import DemoBackground from "~/layers/background/DemoBackground";
+import DemoForeground from "~/layers/foreground/DemoForeground";
 
 function Home() {
-  return <DemoPage title="Home" color="green" />;
+  return (
+    <>
+      <DemoForeground title="Home" color="green" />
+      <DemoBackground />
+    </>
+  );
 }
 
 export default Home;
