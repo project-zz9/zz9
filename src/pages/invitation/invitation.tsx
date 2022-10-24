@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { firestore } from "~/app/firesore";
-import DemoPage from "~/components/organisms/DemoPage";
+import DemoBackground from "~/layers/background/DemoBackground";
+import DemoForeground from "~/layers/foreground/DemoForeground";
 
 function Invitation() {
   // Firebase Type 정의 가져올 필요 있음
@@ -18,8 +19,9 @@ function Invitation() {
   }, []);
   return (
     <>
-      <DemoPage title="Invitation" color="green" />
+      <DemoForeground title="Invitation" color="green" />
       <pre>{great}</pre>
+      <DemoBackground />
     </>
   );
 }

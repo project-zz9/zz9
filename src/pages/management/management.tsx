@@ -1,7 +1,13 @@
-import DemoPage from "~/components/organisms/DemoPage";
+import DemoBackground from "~/layers/background/DemoBackground";
+import DemoForeground from "~/layers/foreground/DemoForeground";
 
 function Management() {
-  return <DemoPage title="Management" color="yellow" />;
+  return (
+    <>
+      <DemoForeground title="Management" color="yellow" />
+      <DemoBackground />
+    </>
+  );
 }
 
 export default Management;

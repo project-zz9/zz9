@@ -1,7 +1,13 @@
-import DemoPage from "~/components/organisms/DemoPage";
+import DemoBackground from "~/layers/background/DemoBackground";
+import DemoForeground from "~/layers/foreground/DemoForeground";
 
 function Registration() {
-  return <DemoPage title="Registration" color="red" />;
+  return (
+    <>
+      <DemoForeground title="Registration" color="red" />
+      <DemoBackground />
+    </>
+  );
 }
 
 export default Registration;
