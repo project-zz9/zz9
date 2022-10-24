@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useAtom } from "jotai";
 import {
   HashRouter as Router,
@@ -6,12 +7,15 @@ import {
   Navigate,
   Link,
 } from "react-router-dom";
+import Modal from "~/layers/modal";
 import { pages } from "~/pages";
 import { ProtectedRoute } from "~/routers/PrivateRoute";
 import { authAtom } from "~/stores/auth";
+import { modalControlAtom } from "~/stores/modal";
 
 function App() {
   const [, setUser] = useAtom(authAtom);
+  const [, setModal] = useAtom(modalControlAtom);
   return (
     <>
       <Router>
@@ -22,12 +26,44 @@ function App() {
             </li>
           ))}
         </ul>
-        <div>
-          <button onClick={() => setUser("user")}>Sign In</button>
-        </div>
-        <div>
-          <button onClick={() => setUser(null)}>Sign Out</button>
-        </div>
+        <ul>
+          <li>
+            <Button variant="contained" onClick={() => setUser("user")}>
+              Sign In
+            </Button>
+          </li>
+          <li>
+            <Button variant="contained" onClick={() => setUser(null)}>
+              Sign Out
+            </Button>
+          </li>
+          <li>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() =>
+                setModal({
+                  type: "confirm",
+                  content: {
+                    title: "MODAL",
+                    body: "테스트용 내용입니다?",
+                  },
+                  onSubmit: {
+                    label: "확인",
+                    handler: () => console.log("YEEEEE"),
+                  },
+                  onCancel: {
+                    label: "취소",
+                    handler: () => console.log("NOOOOO"),
+                  },
+                })
+              }
+            >
+              Show Modal
+            </Button>
+          </li>
+        </ul>
+
         <Routes>
           {pages.map(({ path, Component, auth }) =>
             auth ? (
@@ -51,6 +87,7 @@ function App() {
           />
         </Routes>
       </Router>
+      <Modal />
     </>
   );
 }
