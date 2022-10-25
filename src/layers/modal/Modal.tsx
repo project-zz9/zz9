@@ -53,16 +53,16 @@ function Modal() {
   const { onCancelHandler, onSubmitHandler } = useMemo(
     () => ({
       onCancelHandler() {
-        if (onCancel?.handler && typeof onCancel.handler === "function") {
+        onCancel?.handler &&
+          typeof onCancel.handler === "function" &&
           onCancel.handler();
-        }
-        setVisible(false);
+        !onCancel?.nested && setVisible(false);
       },
       onSubmitHandler() {
-        if (onSubmit?.handler && typeof onSubmit.handler === "function") {
+        onSubmit?.handler &&
+          typeof onSubmit.handler === "function" &&
           onSubmit.handler();
-        }
-        setVisible(false);
+        !onSubmit?.nested && setVisible(false);
       },
     }),
     [onCancel, onSubmit, setVisible]

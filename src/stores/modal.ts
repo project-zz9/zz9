@@ -17,6 +17,7 @@ type Content = {
 type EventHandler = {
   label?: string;
   handler?: Function;
+  nested?: boolean;
 };
 
 export const modalAtom = atom<ModalParameter | null>(null);

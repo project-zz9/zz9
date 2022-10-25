@@ -50,7 +50,18 @@ function App() {
                   },
                   onSubmit: {
                     label: "확인",
-                    handler: () => console.log("YEEEEE"),
+                    handler: () =>
+                      setModal({
+                        type: "fullscreen",
+                        content: {
+                          title: "Fullscreen",
+                          body: "많은 내용을 이 내부에 담을 것입니다.",
+                        },
+                        onSubmit: {
+                          label: "뒤로가기",
+                        },
+                      }),
+                    nested: true,
                   },
                   onCancel: {
                     label: "취소",
