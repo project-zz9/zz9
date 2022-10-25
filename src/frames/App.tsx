@@ -59,7 +59,47 @@ function App() {
                 })
               }
             >
-              Show Modal
+              Show Confirm
+            </Button>
+          </li>
+          <li>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() =>
+                setModal({
+                  type: "fullscreen",
+                  content: {
+                    title: "Fullscreen",
+                    body: "많은 내용을 이 내부에 담을 것입니다.",
+                  },
+                  onSubmit: {
+                    label: "뒤로가기",
+                  },
+                })
+              }
+            >
+              Show Fullscreen Description
+            </Button>
+          </li>
+          <li>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() =>
+                setModal({
+                  type: "information",
+                  content: {
+                    title: "Info.",
+                    body: "당신에게 새로운 정보를 제공하려고 합니다.",
+                  },
+                  onSubmit: {
+                    label: "확인",
+                  },
+                })
+              }
+            >
+              Show Information
             </Button>
           </li>
         </ul>

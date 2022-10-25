@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import type { ReactNode } from "react";
 
-type ModalParameter = {
+export type ModalParameter = {
   type: "information" | "confirm" | "fullscreen";
   content?: Content;
   elements?: ReactNode;

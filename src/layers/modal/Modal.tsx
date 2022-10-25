@@ -8,10 +8,11 @@ import {
   DialogTitle,
   Slide,
   Button,
+  DialogProps,
 } from "@mui/material";
 import type { TransitionProps } from "@mui/material/transitions";
 
-import { modalAtom, visibleAtom } from "~/stores/modal";
+import { modalAtom, ModalParameter, visibleAtom } from "~/stores/modal";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,6 +22,24 @@ const Transition = forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
+  information: {
+    keepMounted: true,
+    fullWidth: true,
+    "aria-labelledby": "alert-dialog-title",
+    "aria-describedby": "alert-dialog-description",
+  },
+  confirm: {
+    keepMounted: true,
+    "aria-labelledby": "alert-dialog-title",
+    "aria-describedby": "alert-dialog-description",
+  },
+  fullscreen: {
+    fullScreen: true,
+    TransitionComponent: Transition,
+  },
+};
 
 function Modal() {
   const [modal] = useAtom(modalAtom);
@@ -49,11 +68,8 @@ function Modal() {
   return (
     <Dialog
       open={visible}
-      keepMounted
-      fullWidth
       onClose={onCancelHandler}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      {...(type ? modalTypeProps[type] : {})}
     >
       {elements || (
         <>
