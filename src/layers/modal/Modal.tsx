@@ -38,6 +38,9 @@ const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
   fullscreen: {
     fullScreen: true,
     TransitionComponent: Transition,
+    scroll: "paper",
+    "aria-labelledby": "scroll-dialog-title",
+    "aria-describedby": "scroll-dialog-description",
   },
 };
 
@@ -76,7 +79,7 @@ function Modal() {
           {content?.title && (
             <DialogTitle id="alert-dialog-title">{content.title}</DialogTitle>
           )}
-          <DialogContent>
+          <DialogContent dividers={type === "fullscreen"}>
             <DialogContentText id="alert-dialog-description">
               {content?.body}
             </DialogContentText>
