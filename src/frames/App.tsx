@@ -1,33 +1,16 @@
-import { Button } from "@mui/material";
-import { useAtom } from "jotai";
 import {
   HashRouter as Router,
   Routes,
   Route,
   Navigate,
-  Link,
 } from "react-router-dom";
 import Modal from "~/layers/modal";
 import { pages } from "~/pages";
 import { ProtectedRoute } from "~/routers/PrivateRoute";
-import { authAtom } from "~/stores/auth";
-import { modalControlAtom } from "~/stores/modal";
 
 function App() {
-  const [, setUser] = useAtom(authAtom);
-
   return (
     <>
-      <li>
-        <Button variant="contained" onClick={() => setUser("user")}>
-          Sign In
-        </Button>
-      </li>
-      <li>
-        <Button variant="contained" onClick={() => setUser(null)}>
-          Sign Out
-        </Button>
-      </li>
       <Router>
         <Routes>
           {pages.map(({ path, Component, auth }) =>

@@ -1,10 +1,10 @@
 import DemoBackground from "~/layers/background/DemoBackground";
-import DemoForeground from "~/layers/foreground/DemoForeground";
+import SignInPageForeground from "~/layers/foreground/SignInPageForeground";
 
 function SignIn() {
   return (
     <>
-      <DemoForeground title="SignIn" color="red" />
+      <SignInPageForeground />
       <DemoBackground />
     </>
   );
