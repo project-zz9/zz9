@@ -1,10 +1,10 @@
 import DemoBackground from "~/layers/background/DemoBackground";
-import DemoForeground from "~/layers/foreground/DemoForeground";
+import MainPageForeground from "~/layers/foreground/MainPageForeground";
 
 function Home() {
   return (
     <>
-      <DemoForeground title="Home" color="green" />
+      <MainPageForeground />
       <DemoBackground />
     </>
   );
