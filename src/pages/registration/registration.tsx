@@ -1,10 +1,10 @@
 import DemoBackground from "~/layers/background/DemoBackground";
-import DemoForeground from "~/layers/foreground/DemoForeground";
+import RegistrationForeground from "~/layers/foreground/RegistrationForeground/RegistrationForeground";
 
 function Registration() {
   return (
     <>
-      <DemoForeground title="Registration" color="red" />
+      <RegistrationForeground />
       <DemoBackground />
     </>
   );
