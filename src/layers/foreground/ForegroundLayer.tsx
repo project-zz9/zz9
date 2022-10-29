@@ -11,8 +11,6 @@ const root: React.CSSProperties = {
   flex: 1,
   justifyContent: "center",
   alignItems: "flex-start",
-  marginTop: "10vw",
-  widows: "80vw",
   pointerEvents: "none",
 };
 

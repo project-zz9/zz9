@@ -2,10 +2,12 @@ import { useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
 import Ajv, { JSONSchemaType } from "ajv";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
+import ArrowBack from "@mui/icons-material/ArrowBack";
 import FormTypeTextInput from "~/components/organizations/FormTypeTextInput";
 import styledComponent from "styled-components";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
+import SchemaForm from "~/components/organizations/SchemaForm";
 
 const ajv = new Ajv({ strictSchema: false });
 
@@ -21,9 +23,9 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
       type: "string",
       label: "가명이나 닉네임을 써도 괜찮아요.",
       minLength: 2,
-      maxLength: 5,
+      maxLength: 20,
       nullable: true,
-      formType: null,
+      formType: "text-input",
       props: {
         title: ["방문할 준비를 도와드릴게요.", "이름이 무엇인가요?"],
       },
@@ -35,7 +37,7 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
       minLength: 13,
       pattern: "010[-][0-9]{4}[-][0-9]{4}",
       nullable: true,
-      formType: null,
+      formType: "text-input",
       props: {
         title: ["%name%님의", "전화번호를 입력해주세요."],
       },
@@ -46,7 +48,7 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
   },
 };
 
-const stages = ["name", "phoneNumber"];
+const stages = Object.keys(jsonSchema.properties || {});
 
 function RegistrationForeground() {
   const [stage, setStage] = useState<number>(0);
@@ -62,20 +64,22 @@ function RegistrationForeground() {
     <ForegroundLayer>
       {metaData && (
         <RootFrame>
-          <div>
-            <Button />
-          </div>
-          <div>
-            <FormTypeTextInput
+          <GoBackButtonFrame>
+            <IconButton aria-label="go-back" size="large">
+              <ArrowBack />
+            </IconButton>
+          </GoBackButtonFrame>
+          <SchemaFormFrame>
+            <SchemaForm
+              formType={metaData.formType}
               name={stages[stage]}
               data={data}
               onChange={setData}
               error={error}
-              {...metaData}
+              jsonSchema={metaData}
             />
-          </div>
-
-          <ButtonFrame>
+          </SchemaFormFrame>
+          <NextButtonFrame>
             <MonotonicButton
               onClick={() => {
                 const result = validate(data);
@@ -93,7 +97,7 @@ function RegistrationForeground() {
             >
               다음으로
             </MonotonicButton>
-          </ButtonFrame>
+          </NextButtonFrame>
         </RootFrame>
       )}
     </ForegroundLayer>
@@ -105,13 +109,26 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height: 90vh;
+    height: 100vh;
     flex-direction: column;
     justify-content: flex-start;
 `;
 
-const ButtonFrame = styledComponent.div`
+const GoBackButtonFrame = styledComponent.div`
+    margin-bottom: 20px;
+    margin-left: -30px;
+`;
+
+const SchemaFormFrame = styledComponent.div`
+    display: flex;
+    flex-direction: column;
+    height:60vw;
+    justify-content: space-evenly;
+`;
+
+const NextButtonFrame = styledComponent.div`
     display: flex;
     flex: 1;
     align-items: flex-end;
+    padding-bottom: min(50px, 10vw);
 `;
