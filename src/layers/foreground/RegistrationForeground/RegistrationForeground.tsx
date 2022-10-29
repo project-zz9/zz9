@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
 import Ajv, { JSONSchemaType } from "ajv";
 import { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import FormTypeTextInput from "~/components/organizations/FormTypeTextInput/FormTypeTextInput";
 const ajv = new Ajv({ strictSchema: false });
 
 type PrimaryData = {
@@ -15,8 +16,9 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
   properties: {
     name: {
       type: "string",
-      minLength: 5,
-      maxLength: 20,
+      label: "이름",
+      minLength: 2,
+      maxLength: 5,
       nullable: true,
       formType: null,
       props: {
@@ -26,6 +28,7 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
     },
     phoneNumber: {
       type: "string",
+      label: "전화번호",
       maxLength: 13,
       minLength: 13,
       pattern: "010[-][0-9]{4}[-][0-9]{4}",
@@ -35,6 +38,9 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
         title: ["%name%님의", "전화번호를 입력해주세요."],
         subTitle: ["정확한 번호를 입력했는지 확인해주세요."],
       },
+      options: {
+        format: "phoneNumber",
+      },
     },
   },
 };
@@ -43,15 +49,15 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
 
 const stages = ["name", "phoneNumber"];
 
-function replacePrefix(line: string, record: Record<string, string>): string {
-  return line.replace(/%[a-zA-Z]*%/, (target) => {
-    return record[target.replace(/%/g, "")] ?? target;
-  });
-}
+// function replacePrefix(line: string, record: Record<string, string>): string {
+//   return line.replace(/%[a-zA-Z]*%/, (target) => {
+//     return record[target.replace(/%/g, "")] ?? target;
+//   });
+// }
 
 function RegistrationForeground() {
   const [stage, setStage] = useState<number>(0);
-  const [data, setData] = useState<Record<string, string>>({});
+  const [data, setData] = useState<PrimaryData>({});
   const [error, setError] = useState<string | null>(null);
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
@@ -72,7 +78,7 @@ function RegistrationForeground() {
             justifyContent: "space-around",
           }}
         >
-          <div>
+          {/* <div>
             {Array.isArray(metaData?.props?.title) &&
               metaData.props.title
                 .map((line: string) => replacePrefix(line, data))
@@ -92,17 +98,28 @@ function RegistrationForeground() {
             <TextField
               key={`TextField::${stages[stage]}`}
               label={stages[stage]}
-              onChange={(event) =>
+              onChange={(event) => {
+                const value =
+                  metaData?.options?.format === "phoneNumber"
+                    ? phoneNumber(event.target.value)
+                    : event.target.value;
                 setData((prev) => ({
                   ...prev,
-                  [stages[stage]]: event.target.value,
-                }))
-              }
+                  [stages[stage]]: value,
+                }));
+              }}
               variant="outlined"
               error={!!error}
               helperText={error}
             />
-          </div>
+          </div> */}
+          <FormTypeTextInput
+            name={stages[stage]}
+            data={data}
+            onChange={setData}
+            error={error}
+            {...metaData}
+          />
           <div>
             <Button
               type="button"
@@ -110,11 +127,11 @@ function RegistrationForeground() {
                 const result = validate(data);
                 if (result) {
                   if (stages.length > stage + 1) {
-                    setError(null);
                     setStage((prev) => prev + 1);
                   } else {
                     console.log("VALIDATE");
                   }
+                  setError(null);
                 } else {
                   setError(validate.errors?.[0].message || null);
                 }
