@@ -1,4 +1,6 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
+import SubTitleLine from "~/components/atoms/SubTitleLine";
+import TitleLine from "~/components/atoms/TitleLine";
 
 interface IMultiLineText {
   type: "title" | "subTitle";
@@ -8,12 +10,16 @@ interface IMultiLineText {
 
 function MultiLineText({ type, lines: _lines_, data }: IMultiLineText) {
   const lines = Array.isArray(_lines_) ? _lines_ : [_lines_];
+  const Line = useMemo(
+    () => (type === "title" ? TitleLine : SubTitleLine),
+    [type]
+  );
   return (
     <Fragment>
       {lines
         .map((line: string) => replacePrefix(line, data))
         .map((line: string, index: number) => (
-          <div key={`${index}::${line}`}>{line}</div>
+          <Line key={`${index}::${line}`}>{line}</Line>
         ))}
     </Fragment>
   );
