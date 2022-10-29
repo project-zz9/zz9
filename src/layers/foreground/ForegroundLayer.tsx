@@ -10,12 +10,14 @@ const root: React.CSSProperties = {
   display: "flex",
   flex: 1,
   justifyContent: "center",
-  alignItems: "center",
-  paddingBottom: "25%",
+  alignItems: "flex-start",
+  marginTop: "10vw",
+  widows: "80vw",
   pointerEvents: "none",
 };
+
 const content: React.CSSProperties = {
-  backgroundColor: "yellow",
+  backgroundColor: "#5FF0F050",
   padding: "10px",
   borderRadius: 10,
   pointerEvents: "all",
