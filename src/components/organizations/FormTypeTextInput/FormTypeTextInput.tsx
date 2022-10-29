@@ -1,5 +1,5 @@
-import { TextField } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
+import TextInputField from "~/components/atoms/TextInputField";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import { phoneNumber } from "~/utils/number";
 
@@ -57,23 +57,21 @@ function FormTypeTextInput({
         )}
       </div>
       <div>
-        <TextField
+        <TextInputField
           label={label}
-          onChange={({ target }) => {
-            if (maxLength && maxLength < target.value.length) return;
+          value={value}
+          onChange={(value) => {
+            if (maxLength && maxLength < value.length) return;
             setValue(
-              options?.format === "phoneNumber"
-                ? phoneNumber(target.value)
-                : target.value
+              options?.format === "phoneNumber" ? phoneNumber(value) : value
             );
           }}
-          value={value}
-          variant="outlined"
-          error={!!error}
-          helperText={error}
-          {...(options?.format === "phoneNumber"
-            ? { inputProps: { inputMode: "numeric", pattern: "[0-9]*" } }
-            : {})}
+          error={error}
+          options={{
+            ...(options?.format === "phoneNumber"
+              ? { inputProps: { inputMode: "numeric", pattern: "[0-9]*" } }
+              : {}),
+          }}
         />
       </div>
     </Fragment>
