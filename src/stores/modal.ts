@@ -4,7 +4,7 @@ import type { FC } from "react";
 export type ModalParameter = {
   type: "information" | "confirm" | "fullscreen";
   content?: Content;
-  Element?: FC<{}>;
+  Element?: FC;
   onSubmit?: EventHandler;
   onCancel?: EventHandler;
 };
