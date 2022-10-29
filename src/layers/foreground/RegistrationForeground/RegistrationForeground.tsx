@@ -3,7 +3,10 @@ import ForegroundLayer from "../ForegroundLayer";
 import Ajv, { JSONSchemaType } from "ajv";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import FormTypeTextInput from "~/components/organizations/FormTypeTextInput/FormTypeTextInput";
+import FormTypeTextInput from "~/components/organizations/FormTypeTextInput";
+import styledComponent from "styled-components";
+import MonotonicButton from "~/components/atoms/MonotonicButton";
+
 const ajv = new Ajv({ strictSchema: false });
 
 type PrimaryData = {
@@ -16,19 +19,18 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
   properties: {
     name: {
       type: "string",
-      label: "이름",
+      label: "가명이나 닉네임을 써도 괜찮아요.",
       minLength: 2,
       maxLength: 5,
       nullable: true,
       formType: null,
       props: {
         title: ["방문할 준비를 도와드릴게요.", "이름이 무엇인가요?"],
-        subTitle: ["가명이나 닉네임을 써도 괜찮아요."],
       },
     },
     phoneNumber: {
       type: "string",
-      label: "전화번호",
+      label: "정확한 번호를 입력했는지 확인해주세요.",
       maxLength: 13,
       minLength: 13,
       pattern: "010[-][0-9]{4}[-][0-9]{4}",
@@ -36,7 +38,6 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
       formType: null,
       props: {
         title: ["%name%님의", "전화번호를 입력해주세요."],
-        subTitle: ["정확한 번호를 입력했는지 확인해주세요."],
       },
       options: {
         format: "phoneNumber",
@@ -45,15 +46,7 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
   },
 };
 
-// const validate = ajv.compile(jsonSchema);
-
 const stages = ["name", "phoneNumber"];
-
-// function replacePrefix(line: string, record: Record<string, string>): string {
-//   return line.replace(/%[a-zA-Z]*%/, (target) => {
-//     return record[target.replace(/%/g, "")] ?? target;
-//   });
-// }
 
 function RegistrationForeground() {
   const [stage, setStage] = useState<number>(0);
@@ -68,61 +61,22 @@ function RegistrationForeground() {
   return (
     <ForegroundLayer>
       {metaData && (
-        <div
-          style={{
-            display: "flex",
-            width: "80vw",
-            height: "50vh",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "space-around",
-          }}
-        >
-          {/* <div>
-            {Array.isArray(metaData?.props?.title) &&
-              metaData.props.title
-                .map((line: string) => replacePrefix(line, data))
-                .map((line: string, index: number) => (
-                  <div key={`${index}::${line}`}>{line}</div>
-                ))}
+        <RootFrame>
+          <div>
+            <Button />
           </div>
           <div>
-            {Array.isArray(metaData?.props?.subTitle) &&
-              metaData.props.subTitle
-                .map((line: string) => replacePrefix(line, data))
-                .map((line: string, index: number) => (
-                  <div key={`${index}::${line}`}>{line}</div>
-                ))}
-          </div>
-          <div>
-            <TextField
-              key={`TextField::${stages[stage]}`}
-              label={stages[stage]}
-              onChange={(event) => {
-                const value =
-                  metaData?.options?.format === "phoneNumber"
-                    ? phoneNumber(event.target.value)
-                    : event.target.value;
-                setData((prev) => ({
-                  ...prev,
-                  [stages[stage]]: value,
-                }));
-              }}
-              variant="outlined"
-              error={!!error}
-              helperText={error}
+            <FormTypeTextInput
+              name={stages[stage]}
+              data={data}
+              onChange={setData}
+              error={error}
+              {...metaData}
             />
-          </div> */}
-          <FormTypeTextInput
-            name={stages[stage]}
-            data={data}
-            onChange={setData}
-            error={error}
-            {...metaData}
-          />
-          <div>
-            <Button
-              type="button"
+          </div>
+
+          <ButtonFrame>
+            <MonotonicButton
               onClick={() => {
                 const result = validate(data);
                 if (result) {
@@ -137,13 +91,27 @@ function RegistrationForeground() {
                 }
               }}
             >
-              {stages.length > stage + 1 ? "NEXT" : "END"}
-            </Button>
-          </div>
-        </div>
+              다음으로
+            </MonotonicButton>
+          </ButtonFrame>
+        </RootFrame>
       )}
     </ForegroundLayer>
   );
 }
 
 export default RegistrationForeground;
+
+const RootFrame = styledComponent.div`
+    display: flex;
+    width: 80vw;
+    height: 90vh;
+    flex-direction: column;
+    justify-content: flex-start;
+`;
+
+const ButtonFrame = styledComponent.div`
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+`;

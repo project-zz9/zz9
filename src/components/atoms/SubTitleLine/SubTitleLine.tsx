@@ -5,12 +5,12 @@ interface ISubTitleLineProps {
   children: string | ReactNode;
 }
 
-const SubTitle = styled.div`
-  font-size: 1.2rem;
-`;
-
 function SubTitleLine({ children }: ISubTitleLineProps) {
   return <SubTitle>{children}</SubTitle>;
 }
 
 export default SubTitleLine;
+
+const SubTitle = styled.div`
+  font-size: 1.2rem;
+`;

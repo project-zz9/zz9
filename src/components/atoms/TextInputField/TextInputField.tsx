@@ -9,20 +9,6 @@ interface ITextInputFieldProps {
   options?: Record<string, any>;
 }
 
-const StyledTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "black",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "black",
-  },
-  "& .MuiOutlinedInput-root": {
-    "&.Mui-focused fieldset": {
-      borderColor: "black",
-    },
-  },
-});
-
 function TextInputField({
   label,
   value,
@@ -48,3 +34,17 @@ function TextInputField({
 }
 
 export default TextInputField;
+
+const StyledTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "black",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "black",
+  },
+  "& .MuiOutlinedInput-root": {
+    "&.Mui-focused fieldset": {
+      borderColor: "black",
+    },
+  },
+});
