@@ -7,7 +7,6 @@ interface ISubTitleLineProps {
 
 const SubTitle = styled.div`
   font-size: 1.2rem;
-  color: gray;
 `;
 
 function SubTitleLine({ children }: ISubTitleLineProps) {
