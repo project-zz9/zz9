@@ -1,5 +1,6 @@
 import { TextField } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
+import MultiLineText from "~/components/molecules/MultiLineText";
 import { phoneNumber } from "~/utils/number";
 
 interface IFormTypeTextInputProps<T = Record<string, string>> {
@@ -46,22 +47,14 @@ function FormTypeTextInput({
   return (
     <Fragment>
       <div>
-        {props &&
-          Array.isArray(props.title) &&
-          props.title
-            .map((line: string) => replacePrefix(line, data))
-            .map((line: string, index: number) => (
-              <div key={`${index}::${line}`}>{line}</div>
-            ))}
+        {props?.title && (
+          <MultiLineText type="title" lines={props.title} data={data} />
+        )}
       </div>
       <div>
-        {props &&
-          Array.isArray(props.subTitle) &&
-          props.subTitle
-            .map((line: string) => replacePrefix(line, data))
-            .map((line: string, index: number) => (
-              <div key={`${index}::${line}`}>{line}</div>
-            ))}
+        {props?.subTitle && (
+          <MultiLineText type="subTitle" lines={props.subTitle} data={data} />
+        )}
       </div>
       <div>
         <TextField
@@ -88,9 +81,3 @@ function FormTypeTextInput({
 }
 
 export default FormTypeTextInput;
-
-function replacePrefix(line: string, record: Record<string, string>): string {
-  return line.replace(/%[a-zA-Z]*%/, (target) => {
-    return record[target.replace(/%/g, "")] ?? target;
-  });
-}
