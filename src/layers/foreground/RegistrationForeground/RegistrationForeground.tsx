@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
 import Ajv, { JSONSchemaType } from "ajv";
 import { useState } from "react";
@@ -7,6 +7,10 @@ import ArrowBack from "@mui/icons-material/ArrowBack";
 import styledComponent from "styled-components";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import SchemaForm from "~/components/organizations/SchemaForm";
+import { useNavigate } from "react-router-dom";
+import { HOME_PATH } from "~/pages";
+import { useAtom } from "jotai";
+import { modalControlAtom } from "~/stores/modal";
 
 const ajv = new Ajv({ strictSchema: false });
 
@@ -22,7 +26,7 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
       type: "string",
       label: "가명이나 닉네임을 써도 괜찮아요.",
       minLength: 2,
-      maxLength: 5,
+      maxLength: 20,
       nullable: true,
       formType: "text-input",
       props: {
@@ -53,18 +57,52 @@ function RegistrationForeground() {
   const [stage, setStage] = useState<number>(0);
   const [data, setData] = useState<PrimaryData>({});
   const [error, setError] = useState<string | null>(null);
+  const [, setModal] = useAtom(modalControlAtom);
+  const navigate = useNavigate();
+
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
   );
   const validate = useMemo(() => ajv.compile(jsonSchema), []);
 
+  useEffect(() => {
+    return () => {
+      stage > 0 && setStage(0);
+      Object.keys(data).length > 0 && setData({});
+      error && setError(null);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <ForegroundLayer>
       {metaData && (
         <RootFrame>
           <GoBackButtonFrame>
-            <IconButton aria-label="go-back" size="large">
+            <IconButton
+              aria-label="go-back"
+              size="large"
+              onClick={() => {
+                if (stage > 0) {
+                  setStage((prev) => prev - 1);
+                  setData((prev) =>
+                    Object.entries(prev || {}).reduce(
+                      (accumulator, [key, value]) => {
+                        if (stages.indexOf(key) < stage && value) {
+                          accumulator[key] = value;
+                        }
+                        return accumulator;
+                      },
+                      {} as Record<string, string>
+                    )
+                  );
+                  setError(null);
+                } else {
+                  navigate(HOME_PATH);
+                }
+              }}
+            >
               <ArrowBack />
             </IconButton>
           </GoBackButtonFrame>
@@ -85,7 +123,16 @@ function RegistrationForeground() {
                   if (stages.length > stage + 1) {
                     setStage((prev) => prev + 1);
                   } else {
-                    console.log("VALIDATE");
+                    setModal({
+                      type: "confirm",
+                      Element: () => <div>TEST</div>,
+                      onSubmit: {
+                        label: "확인",
+                      },
+                      onCancel: {
+                        label: "수정",
+                      },
+                    });
                   }
                   setError(null);
                 } else {
