@@ -4,7 +4,6 @@ import Ajv, { JSONSchemaType } from "ajv";
 import { useState } from "react";
 import { IconButton } from "@mui/material";
 import ArrowBack from "@mui/icons-material/ArrowBack";
-import FormTypeTextInput from "~/components/organizations/FormTypeTextInput";
 import styledComponent from "styled-components";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import SchemaForm from "~/components/organizations/SchemaForm";
@@ -23,7 +22,7 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
       type: "string",
       label: "가명이나 닉네임을 써도 괜찮아요.",
       minLength: 2,
-      maxLength: 20,
+      maxLength: 5,
       nullable: true,
       formType: "text-input",
       props: {
@@ -71,7 +70,6 @@ function RegistrationForeground() {
           </GoBackButtonFrame>
           <SchemaFormFrame>
             <SchemaForm
-              formType={metaData.formType}
               name={stages[stage]}
               data={data}
               onChange={setData}

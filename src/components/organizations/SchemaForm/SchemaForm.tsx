@@ -8,23 +8,27 @@ const schemaFormTypes: Record<string, FC<any> | null> = {
 };
 
 interface ISchemaForm<T> {
-  formType: string;
   name: string;
-  data: Record<string, string>;
+  data: T;
   onChange: (value: T | ((prev: T) => T)) => void;
   error: string | null;
-  jsonSchema: Record<string, any>;
+  jsonSchema: {
+    formType: string;
+    [key: string]: any;
+  };
 }
 
 function SchemaForm<T>({
-  formType,
   name,
   data,
   onChange,
   error,
   jsonSchema,
 }: ISchemaForm<T>) {
-  const Input = useMemo(() => schemaFormTypes[formType], [formType]);
+  const Input = useMemo(
+    () => schemaFormTypes[jsonSchema.formType],
+    [jsonSchema]
+  );
   return (
     Input && (
       <Input
