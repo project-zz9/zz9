@@ -8,11 +8,10 @@ interface IFormTypeTextInputProps<T = Record<string, string>> {
   name: string;
   data: T;
   onChange: (data: T | ((prev: T) => T)) => void;
-  label: string;
+  label?: string;
   maxLength?: number;
   props?: {
     title: string | string[] | undefined;
-    subTitle: string | string[] | undefined;
   };
   options?: {
     format: "text" | "phoneNumber";
@@ -52,13 +51,8 @@ function FormTypeTextInput({
         )}
       </div>
       <div>
-        {props?.subTitle && (
-          <MultiLineText type="subTitle" lines={props.subTitle} data={data} />
-        )}
-      </div>
-      <div>
         <TextInputField
-          label={label}
+          label={label ?? ""}
           value={value}
           onChange={(value) => {
             if (maxLength && maxLength < value.length) return;
