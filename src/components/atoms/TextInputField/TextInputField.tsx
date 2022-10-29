@@ -1,6 +1,6 @@
-import TextField from "@mui/material/TextField";
-import { styled } from "@mui/material/styles";
-
+import { alpha, styled } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import styledComponent from "styled-components";
 interface ITextInputFieldProps {
   label: string;
   value: string;
@@ -17,34 +17,55 @@ function TextInputField({
   options,
 }: ITextInputFieldProps) {
   return (
-    <StyledTextField
-      label={label}
-      fullWidth
-      color="secondary"
-      onChange={({ target }) => {
-        onChange(target.value);
-      }}
-      value={value}
-      variant="outlined"
-      error={!!error}
-      helperText={error}
-      {...(options || {})}
-    />
+    <div>
+      <StyledTextField
+        placeholder={label}
+        fullWidth
+        color="secondary"
+        onChange={({ target }) => {
+          onChange(target.value);
+        }}
+        value={value}
+        error={!!error}
+        {...(options || {})}
+      />
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+    </div>
   );
 }
 
 export default TextInputField;
 
-const StyledTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "black",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "black",
-  },
-  "& .MuiOutlinedInput-root": {
-    "&.Mui-focused fieldset": {
+const StyledTextField = styled(InputBase)({
+  "& .MuiInputBase-input": {
+    borderRadius: 4,
+    position: "relative",
+    backgroundColor: "#00000050",
+    border: "1px solid #0E0E0E",
+    fontSize: 16,
+    padding: "10px 12px",
+    transitionProperty: "border-color, background-color, box-shadow",
+    transitionDuration: "300ms, 300ms, 300ms",
+    transitionTimingFunction:
+      "cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.4, 0, 0.2, 1)",
+    transitionDelay: "0ms, 0ms, 0ms",
+
+    "&:focus": {
+      boxShadow: `${alpha("#000000", 0.25)} 0 0 0 0.2rem`,
       borderColor: "black",
+    },
+    "&[aria-invalid='true']": {
+      borderColor: "#F00000",
+      boxShadow: `${alpha("#F00000", 0.25)} 0 0 0 0.2rem`,
+      backgroundColor: "#F0000050",
+      borderWidth: 1,
     },
   },
 });
+
+const ErrorMessage = styledComponent.div`
+    position: absolute;
+    margin-left: 15px;
+    font-size: 0.9rem;
+    color: red;
+`;
