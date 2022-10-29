@@ -1,10 +1,10 @@
 import { atom } from "jotai";
-import type { ReactNode } from "react";
+import type { FC } from "react";
 
 export type ModalParameter = {
   type: "information" | "confirm" | "fullscreen";
   content?: Content;
-  elements?: ReactNode;
+  Element?: FC<{}>;
   onSubmit?: EventHandler;
   onCancel?: EventHandler;
 };

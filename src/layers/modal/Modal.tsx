@@ -48,7 +48,7 @@ function Modal() {
   const [modal] = useAtom(modalAtom);
   const [visible, setVisible] = useAtom(visibleAtom);
 
-  const { type, content, elements, onSubmit, onCancel } = modal || {};
+  const { type, content, Element, onSubmit, onCancel } = modal || {};
 
   const { onCancelHandler, onSubmitHandler } = useMemo(
     () => ({
@@ -74,7 +74,9 @@ function Modal() {
       onClose={onCancelHandler}
       {...(type ? modalTypeProps[type] : {})}
     >
-      {elements || (
+      {Element ? (
+        <Element />
+      ) : (
         <>
           {content?.title && (
             <DialogTitle id="alert-dialog-title">{content.title}</DialogTitle>
