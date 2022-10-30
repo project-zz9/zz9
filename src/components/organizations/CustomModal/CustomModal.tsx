@@ -6,7 +6,6 @@ import {
   DialogContentText,
   DialogTitle,
   Slide,
-  Button,
   DialogProps,
 } from "@mui/material";
 import type { TransitionProps } from "@mui/material/transitions";
@@ -96,12 +95,12 @@ function CustomModal({
       {(onSubmit || onCancel) && (
         <DialogActions>
           {onCancel && (
-            <MonotonicButton variant="outlined" onClick={onCancelHandler}>
+            <MonotonicButton type="outlined" onClick={onCancelHandler}>
               {onCancel?.label || "Cancel"}
             </MonotonicButton>
           )}
           {onSubmit && (
-            <MonotonicButton variant="contained" onClick={onSubmitHandler}>
+            <MonotonicButton type="contained" onClick={onSubmitHandler}>
               {onSubmit?.label || "Submit"}
             </MonotonicButton>
           )}
