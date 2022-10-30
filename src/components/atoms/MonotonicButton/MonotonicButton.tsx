@@ -3,43 +3,43 @@ import Button, { ButtonProps } from "@mui/material/Button";
 import { ReactNode } from "react";
 
 interface IMonotonicMuttonProps {
-  children: string | ReactNode;
+  variant?: "outlined" | "contained";
   onClick: () => void;
+  children: string | ReactNode;
 }
 
-function MonotonicButton({ children, onClick }: IMonotonicMuttonProps) {
+function MonotonicButton({
+  variant = "contained",
+  onClick,
+  children,
+}: IMonotonicMuttonProps) {
   return (
-    <MonotonicButtonInner
-      variant="contained"
-      fullWidth
-      onClick={
-        onClick
-        // const result = validate(data);
-        // if (result) {
-        //   if (stages.length > stage + 1) {
-        //     setStage((prev) => prev + 1);
-        //   } else {
-        //     console.log("VALIDATE");
-        //   }
-        //   setError(null);
-        // } else {
-        //   setError(validate.errors?.[0].message || null);
-        // }
-      }
-    >
+    <MonotonicButtonInner variant={variant} fullWidth onClick={onClick}>
       {children}
     </MonotonicButtonInner>
   );
 }
-
 export default MonotonicButton;
 
-const MonotonicButtonInner = styled(Button)<ButtonProps>({
-  color: "white",
+const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
+  color: props.variant === "outlined" ? "black" : "white",
   padding: 10,
   fontSize: "1.05rem",
-  backgroundColor: "black",
+  backgroundColor:
+    props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
+  borderColor: props.variant === "outlined" ? "black" : "white",
+  borderWidth: 2,
+  fontWeight: "bold",
   "&:hover": {
-    backgroundColor: "black",
+    backgroundColor:
+      props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
+    borderColor: props.variant === "outlined" ? "black" : "white",
+    borderWidth: 2,
   },
-});
+  "&:focus": {
+    backgroundColor:
+      props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
+    borderColor: props.variant === "outlined" ? "black" : "white",
+    borderWidth: 2,
+  },
+}));

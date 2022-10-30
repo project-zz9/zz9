@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import type { TransitionProps } from "@mui/material/transitions";
 import type { ModalParameter } from "~/stores/modal";
+import MonotonicButton from "~/components/atoms/MonotonicButton";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -95,14 +96,14 @@ function CustomModal({
       {(onSubmit || onCancel) && (
         <DialogActions>
           {onCancel && (
-            <Button onClick={onCancelHandler}>
+            <MonotonicButton variant="outlined" onClick={onCancelHandler}>
               {onCancel?.label || "Cancel"}
-            </Button>
+            </MonotonicButton>
           )}
           {onSubmit && (
-            <Button onClick={onSubmitHandler}>
+            <MonotonicButton variant="contained" onClick={onSubmitHandler}>
               {onSubmit?.label || "Submit"}
-            </Button>
+            </MonotonicButton>
           )}
         </DialogActions>
       )}
