@@ -23,23 +23,21 @@ export default MonotonicButton;
 
 const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
   color: props.variant === "outlined" ? "black" : "white",
-  padding: 10,
   fontSize: "1.05rem",
   backgroundColor:
     props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
-  borderColor: props.variant === "outlined" ? "black" : "white",
-  borderWidth: 2,
+  border: "2px solid black",
   fontWeight: "bold",
+  padding: "6px 16px",
+  borderRadius: "7.5px",
   "&:hover": {
     backgroundColor:
       props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
-    borderColor: props.variant === "outlined" ? "black" : "white",
-    borderWidth: 2,
+    border: "2px solid black",
   },
   "&:focus": {
     backgroundColor:
       props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
-    borderColor: props.variant === "outlined" ? "black" : "white",
-    borderWidth: 2,
+    border: "2px solid black",
   },
 }));

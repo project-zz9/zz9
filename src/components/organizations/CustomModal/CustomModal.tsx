@@ -1,7 +1,6 @@
 import { FC, forwardRef } from "react";
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -11,6 +10,7 @@ import {
 import type { TransitionProps } from "@mui/material/transitions";
 import type { ModalParameter } from "~/stores/modal";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
+import styled from "styled-components";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -95,14 +95,18 @@ function CustomModal({
       {(onSubmit || onCancel) && (
         <DialogActions>
           {onCancel && (
-            <MonotonicButton type="outlined" onClick={onCancelHandler}>
-              {onCancel?.label || "Cancel"}
-            </MonotonicButton>
+            <ButtonFrame>
+              <MonotonicButton type="outlined" onClick={onCancelHandler}>
+                {onCancel?.label || "Cancel"}
+              </MonotonicButton>
+            </ButtonFrame>
           )}
           {onSubmit && (
-            <MonotonicButton type="contained" onClick={onSubmitHandler}>
-              {onSubmit?.label || "Submit"}
-            </MonotonicButton>
+            <ButtonFrame>
+              <MonotonicButton type="contained" onClick={onSubmitHandler}>
+                {onSubmit?.label || "Submit"}
+              </MonotonicButton>
+            </ButtonFrame>
           )}
         </DialogActions>
       )}
@@ -111,3 +115,18 @@ function CustomModal({
 }
 
 export default CustomModal;
+
+const DialogActions = styled.div`
+  display: flex;
+`;
+
+const ButtonFrame = styled.div`
+  flex: 1;
+  padding: 15px 10px 15px 10px;
+  &:first-child {
+    margin-left: 20px;
+  }
+  &:last-child {
+    margin-right: 20px;
+  }
+`;
