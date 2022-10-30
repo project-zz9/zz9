@@ -1,20 +1,19 @@
+import { FC } from "react";
 import styled from "styled-components";
 
 interface IConfirmModalInnerProps {
-  title: string[];
+  Title: FC;
   contents: {
     label: string;
     value: string;
   }[];
 }
 
-function ConfirmModalInner({ title, contents }: IConfirmModalInnerProps) {
+function ConfirmModalInner({ Title, contents }: IConfirmModalInnerProps) {
   return (
     <ConfirmModalRoot>
       <TitleFrame>
-        {title.map((line, index) => (
-          <div key={`${index}::${line}`}>{line}</div>
-        ))}
+        <Title />
       </TitleFrame>
       <ContentsFrame>
         {contents.map(({ label, value }, index) => (
