@@ -40,7 +40,7 @@ const StyledTextField = styled(InputBase)({
   "& .MuiInputBase-input": {
     borderRadius: 4,
     position: "relative",
-    backgroundColor: "#00000050",
+    backgroundColor: "transparent",
     border: "1px solid #0E0E0E",
     fontSize: 16,
     padding: "10px 12px",
@@ -55,9 +55,9 @@ const StyledTextField = styled(InputBase)({
       borderColor: "black",
     },
     "&[aria-invalid='true']": {
-      borderColor: "#F00000",
-      boxShadow: `${alpha("#F00000", 0.25)} 0 0 0 0.2rem`,
-      backgroundColor: "#F0000050",
+      borderColor: "#FF5A0D",
+      color: "#FF5A0D",
+      boxShadow: `${alpha("#FF5A0D", 0.25)} 0 0 0 0.2rem`,
       borderWidth: 1,
     },
   },
