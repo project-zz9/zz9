@@ -3,18 +3,18 @@ import Button, { ButtonProps } from "@mui/material/Button";
 import { ReactNode } from "react";
 
 interface IMonotonicMuttonProps {
-  variant?: "outlined" | "contained";
+  type?: "outlined" | "contained";
   onClick: () => void;
   children: string | ReactNode;
 }
 
 function MonotonicButton({
-  variant = "contained",
+  type = "contained",
   onClick,
   children,
 }: IMonotonicMuttonProps) {
   return (
-    <MonotonicButtonInner variant={variant} fullWidth onClick={onClick}>
+    <MonotonicButtonInner variant={type} fullWidth onClick={onClick}>
       {children}
     </MonotonicButtonInner>
   );
