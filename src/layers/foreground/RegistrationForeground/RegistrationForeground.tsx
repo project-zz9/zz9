@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
-import Ajv, { JSONSchemaType } from "ajv";
+import { JSONSchemaType } from "ajv";
 import { useState } from "react";
 import { IconButton } from "@mui/material";
 import ArrowBack from "@mui/icons-material/ArrowBack";
@@ -11,15 +11,17 @@ import { useNavigate } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
+import { validator } from "~/utils/validator";
+import ConfirmPersonalDataInner from "~/components/organizations/ConfirmPersonalDataInner";
 
-const ajv = new Ajv({ strictSchema: false });
-
-type PrimaryData = {
+type VisitorData = {
   name?: string;
   phoneNumber?: string;
+  visitDate?: string;
+  additional?: string;
 };
 
-const jsonSchema: JSONSchemaType<PrimaryData> = {
+const jsonSchema: JSONSchemaType<VisitorData> = {
   type: "object",
   properties: {
     name: {
@@ -48,6 +50,16 @@ const jsonSchema: JSONSchemaType<PrimaryData> = {
         format: "phoneNumber",
       },
     },
+    visitDate: {
+      type: "string",
+      nullable: true,
+      formType: null,
+    },
+    additional: {
+      type: "string",
+      nullable: true,
+      formType: null,
+    },
   },
 };
 
@@ -55,21 +67,55 @@ const stages = Object.keys(jsonSchema.properties || {});
 
 function RegistrationForeground() {
   const [stage, setStage] = useState<number>(0);
-  const [data, setData] = useState<PrimaryData>({});
+  const [data, setData] = useState<VisitorData>({
+    name: "보조개협곡",
+    phoneNumber: "010-0000-0000",
+  });
   const [error, setError] = useState<string | null>(null);
   const [, setModal] = useAtom(modalControlAtom);
   const navigate = useNavigate();
+
+  const checkCallbackHandlers: Record<string, () => void> = useMemo(
+    () => ({
+      phoneNumber: () => {
+        setModal({
+          type: "confirm",
+          Element: () => (
+            <ConfirmPersonalDataInner
+              name={data.name}
+              phoneNumber={data.phoneNumber}
+            />
+          ),
+          onSubmit: {
+            handler: () => {
+              console.log("WOW");
+            },
+            label: "확인",
+          },
+          onCancel: {
+            handler: () => {
+              console.log("IEW");
+            },
+            label: "수정",
+          },
+        });
+      },
+      additional: () => {},
+    }),
+    [data, setModal]
+  );
 
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
   );
-  const validate = useMemo(() => ajv.compile(jsonSchema), []);
+  const validate = useMemo(() => validator.compile(jsonSchema), []);
 
   useEffect(() => {
+    checkCallbackHandlers.phoneNumber();
     return () => {
       stage > 0 && setStage(0);
-      Object.keys(data).length > 0 && setData({});
+      // Object.keys(data).length > 0 && setData({});
       error && setError(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,19 +166,10 @@ function RegistrationForeground() {
               onClick={() => {
                 const result = validate(data);
                 if (result) {
-                  if (stages.length > stage + 1) {
-                    setStage((prev) => prev + 1);
+                  if (checkCallbackHandlers[stages[stage]]) {
+                    checkCallbackHandlers[stages[stage]]();
                   } else {
-                    setModal({
-                      type: "confirm",
-                      Element: () => <div>TEST</div>,
-                      onSubmit: {
-                        label: "확인",
-                      },
-                      onCancel: {
-                        label: "수정",
-                      },
-                    });
+                    stages.length > stage + 1 && setStage((prev) => prev + 1);
                   }
                   setError(null);
                 } else {
