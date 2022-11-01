@@ -1,13 +1,15 @@
-import { FC, useMemo } from "react";
-import FormTypeTextInput from "../FormTypeTextInput";
+import { useMemo } from "react";
+import { schemaFormTypes } from "./schemaFormTypes";
 
-const schemaFormTypes: Record<string, FC<any> | null> = {
-  "text-input": FormTypeTextInput,
-  "date-input": null,
-  "optional-input": null,
-};
-
-interface ISchemaForm<T> {
+export interface IFormTypeInputProps<T = Record<string, string>> {
+  type: string;
+  name: string;
+  data: T;
+  onChange: (data: T | ((prev: T) => T)) => void;
+  label?: string;
+  error: string | null;
+}
+interface ISchemaFormProps<T> {
   name: string;
   data: T;
   onChange: (value: T | ((prev: T) => T)) => void;
@@ -24,7 +26,7 @@ function SchemaForm<T>({
   onChange,
   error,
   jsonSchema,
-}: ISchemaForm<T>) {
+}: ISchemaFormProps<T>) {
   const Input = useMemo(
     () => schemaFormTypes[jsonSchema.formType],
     [jsonSchema]

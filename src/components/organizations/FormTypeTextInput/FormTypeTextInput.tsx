@@ -2,13 +2,10 @@ import { Fragment, useEffect, useState } from "react";
 import TextInputField from "~/components/atoms/TextInputField";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import { phoneNumber } from "~/utils/number";
+import { IFormTypeInputProps } from "../SchemaForm";
 
-interface IFormTypeTextInputProps<T = Record<string, string>> {
-  type: string;
-  name: string;
-  data: T;
-  onChange: (data: T | ((prev: T) => T)) => void;
-  label?: string;
+interface IFormTypeTextInputProps<T = Record<string, string>>
+  extends IFormTypeInputProps<T> {
   maxLength?: number;
   props?: {
     title: string | string[] | undefined;
@@ -16,7 +13,6 @@ interface IFormTypeTextInputProps<T = Record<string, string>> {
   options?: {
     format: "text" | "phoneNumber";
   };
-  error: string | null;
 }
 
 function FormTypeTextInput({

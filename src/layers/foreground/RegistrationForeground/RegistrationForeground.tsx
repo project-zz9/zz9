@@ -53,12 +53,12 @@ const jsonSchema: JSONSchemaType<VisitorData> = {
     visitDate: {
       type: "string",
       nullable: true,
-      formType: null,
+      formType: "date-input",
     },
     additional: {
       type: "string",
       nullable: true,
-      formType: null,
+      formType: "additional-input",
     },
   },
 };
@@ -66,11 +66,8 @@ const jsonSchema: JSONSchemaType<VisitorData> = {
 const stages = Object.keys(jsonSchema.properties || {});
 
 function RegistrationForeground() {
-  const [stage, setStage] = useState<number>(0);
-  const [data, setData] = useState<VisitorData>({
-    name: "보조개협곡",
-    phoneNumber: "010-0000-0000",
-  });
+  const [stage, setStage] = useState<number>(2);
+  const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
   const [, setModal] = useAtom(modalControlAtom);
   const navigate = useNavigate();
@@ -113,9 +110,9 @@ function RegistrationForeground() {
 
   useEffect(() => {
     return () => {
-      stage > 0 && setStage(0);
-      Object.keys(data).length > 0 && setData({});
-      error && setError(null);
+      // stage > 0 && setStage(0);
+      // Object.keys(data).length > 0 && setData({});
+      // error && setError(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
