@@ -115,11 +115,7 @@ function CustomModal({
         <DialogActions>
           {onCancel && !onCancel.hide && (
             <ButtonFrame>
-              <MonotonicButton
-                type="outlined"
-                onClick={onCancelHandler}
-                disabled={!activate}
-              >
+              <MonotonicButton type="outlined" onClick={onCancelHandler}>
                 {onCancel?.label || "Cancel"}
               </MonotonicButton>
             </ButtonFrame>
