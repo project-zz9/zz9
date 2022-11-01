@@ -22,6 +22,7 @@ function ContentTable({ contents }: IContentTableProps) {
           {contents.map(({ label, value }, index) => (
             <TableRow key={`${index}::${label}::${value}`}>
               <LabelCell align="left">{label}</LabelCell>
+              <VirtualCell />
               <ValueCell align="left">{value}</ValueCell>
             </TableRow>
           ))}
@@ -38,9 +39,13 @@ const defaultCellStyle = {
   border: "none",
 };
 
+const VirtualCell = styled(TableCell)({
+  ...defaultCellStyle,
+  padding: 10,
+});
+
 const LabelCell = styled(TableCell)({
   ...defaultCellStyle,
-  width: "20vw",
 });
 const ValueCell = styled(TableCell)({
   ...defaultCellStyle,

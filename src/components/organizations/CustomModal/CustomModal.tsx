@@ -27,11 +27,23 @@ const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
     fullWidth: true,
     "aria-labelledby": "alert-dialog-title",
     "aria-describedby": "alert-dialog-description",
+    sx: {
+      "& .MuiPaper-root": {
+        margin: 0,
+        width: "86vw",
+      },
+    },
   },
   confirm: {
     keepMounted: true,
     "aria-labelledby": "alert-dialog-title",
     "aria-describedby": "alert-dialog-description",
+    sx: {
+      "& .MuiPaper-root": {
+        margin: 0,
+        width: "86vw",
+      },
+    },
   },
   fullscreen: {
     fullScreen: true,

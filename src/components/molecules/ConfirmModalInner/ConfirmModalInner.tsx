@@ -26,7 +26,6 @@ function ConfirmModalInner({ title, contents }: IConfirmModalInnerProps) {
 export default ConfirmModalInner;
 
 const ConfirmModalRoot = styled.div`
-  width: 70vw;
   padding: 5vw;
   display: flex;
   flex-direction: column;
@@ -41,5 +40,4 @@ const TitleFrame = styled.div`
 
 const ContentsFrame = styled.div`
   flex: 1;
-  width: 50vw;
 `;
