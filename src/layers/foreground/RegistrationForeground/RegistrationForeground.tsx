@@ -101,7 +101,7 @@ function RegistrationForeground() {
               contents={[
                 ...(data.name ? [{ label: "이름", value: data.name }] : []),
                 ...(data.phoneNumber
-                  ? [{ label: "전화번호", value: data.phoneNumber }]
+                  ? [{ label: "연락처", value: data.phoneNumber }]
                   : []),
               ]}
             />

@@ -43,6 +43,6 @@ const TitleFrame = styled.div`
 `;
 
 const ContentsFrame = styled.div`
-  background-color: green;
   flex: 1;
+  width: 50vw;
 `;
