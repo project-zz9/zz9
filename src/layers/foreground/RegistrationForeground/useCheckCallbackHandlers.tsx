@@ -7,6 +7,7 @@ import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitT
 import type { VisitorData } from "~/app/jsonSchema";
 import type { NavigateFunction } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
+import ApprovePermissionModalInner from "~/components/organizations/ApprovePermissionModalInner";
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
@@ -19,11 +20,8 @@ export function useCheckCallbackHandlers(
       approvePermission: () => {
         setModal({
           type: "confirm",
-          Element: () => (
-            <ConfirmPersonalDataModalInner
-              name={data.name}
-              phoneNumber={data.phoneNumber}
-            />
+          Element: ({ activate }) => (
+            <ApprovePermissionModalInner activate={activate} />
           ),
           onSubmit: {
             label: "계속하기",
