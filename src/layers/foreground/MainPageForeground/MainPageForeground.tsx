@@ -41,7 +41,6 @@ function MainPageForeground() {
                           label: "뒤로가기",
                         },
                       }),
-                    nested: true,
                   },
                   onCancel: {
                     label: "취소",

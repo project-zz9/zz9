@@ -15,13 +15,13 @@ function Modal() {
         onCancel?.handler &&
           typeof onCancel.handler === "function" &&
           onCancel.handler();
-        !onCancel?.nested && setVisible(false);
+        setVisible(false);
       },
       onSubmitHandler() {
         onSubmit?.handler &&
           typeof onSubmit.handler === "function" &&
           onSubmit.handler();
-        !onSubmit?.nested && setVisible(false);
+        setVisible(false);
       },
     }),
     [onCancel, onSubmit, setVisible]

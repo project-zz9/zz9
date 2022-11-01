@@ -19,7 +19,6 @@ type Content = {
 type EventHandler = {
   label?: string;
   handler?: Function;
-  nested?: boolean;
   hide?: boolean;
 };
 
