@@ -8,11 +8,32 @@ import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitT
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
-  goNextStage: () => void
+  goNextStage: () => void,
+  goHomePage: () => void
 ) {
   const [, setModal] = useAtom(modalControlAtom);
   const checkCallbackHandlers: Record<string, () => void> = useMemo(
     () => ({
+      approvePermission: () => {
+        setModal({
+          type: "confirm",
+          Element: () => (
+            <ConfirmPersonalDataModalInner
+              name={data.name}
+              phoneNumber={data.phoneNumber}
+            />
+          ),
+          onSubmit: {
+            label: "계속하기",
+          },
+          onCancel: {
+            handler: () => {
+              goHomePage();
+            },
+            hide: true,
+          },
+        });
+      },
       phoneNumber: () => {
         setModal({
           type: "confirm",

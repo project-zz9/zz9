@@ -15,7 +15,7 @@ import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 const stages = Object.keys(jsonSchema.properties || {});
 
 function RegistrationForeground() {
-  const [stage, setStage] = useState<number>(2);
+  const [stage, setStage] = useState<number>(0);
   const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -24,7 +24,15 @@ function RegistrationForeground() {
     stages.length > stage + 1 && setStage((prev) => prev + 1);
   }, [stage]);
 
-  const checkCallbackHandlers = useCheckCallbackHandlers(data, goNextStage);
+  const goHomePage = useCallback(() => {
+    navigate(HOME_PATH);
+  }, [navigate]);
+
+  const checkCallbackHandlers = useCheckCallbackHandlers(
+    data,
+    goNextStage,
+    goHomePage
+  );
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
@@ -32,6 +40,7 @@ function RegistrationForeground() {
   const validate = useMemo(() => validator.compile(jsonSchema), []);
 
   useEffect(() => {
+    checkCallbackHandlers.approvePermission();
     return () => {
       stage > 0 && setStage(0);
       Object.keys(data).length > 0 && setData({});
@@ -64,7 +73,7 @@ function RegistrationForeground() {
                   );
                   setError(null);
                 } else {
-                  navigate(HOME_PATH);
+                  goHomePage();
                 }
               }}
             >
