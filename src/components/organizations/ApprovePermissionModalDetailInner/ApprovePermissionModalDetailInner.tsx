@@ -2,7 +2,7 @@ interface IApprovePermissionModalDetailInnerProps {
   activate?: (active: boolean | ((prev: boolean) => boolean)) => void;
 }
 
-function ApprovePermissionModalDetailInner({}: IApprovePermissionModalDetailInnerProps) {
+function ApprovePermissionModalDetailInner() {
   return (
     <div>
       <div>
