@@ -1,43 +1,69 @@
-import { FC } from "react";
+import { Fragment } from "react";
 import styled from "styled-components";
+import ContentTable from "~/components/atoms/ContentTable";
+import EmphasisTitle from "~/components/atoms/EmphasisTitle";
 
 interface IConfirmModalInnerProps {
-  Title: FC;
-  contents: {
-    label: string;
-    value: string;
-  }[];
+  name: string | undefined;
+  phoneNumber: string | undefined;
 }
 
-function ConfirmModalInner({ Title, contents }: IConfirmModalInnerProps) {
+// [
+//   ...(name ? [{ label: "이름", value: name }] : []),
+//   ...(phoneNumber ? [{ label: "전화번호", value: phoneNumber }] : []),
+// ];
+function ConfirmModalInner({ name, phoneNumber }: IConfirmModalInnerProps) {
   return (
     <ConfirmModalRoot>
       <TitleFrame>
-        <Title />
+        <EmphasisTitle
+          lines={[
+            [
+              {
+                span: "이름과 전화번호가 맞는지",
+              },
+            ],
+            [
+              {
+                type: "emphasis",
+                span: "꼼꼼히",
+              },
+              {
+                span: " 확인해주세요 🙏",
+              },
+            ],
+          ]}
+        />
       </TitleFrame>
       <ContentsFrame>
-        {contents.map(({ label, value }, index) => (
-          <div key={`${index}::${label}::${value}`}>
-            <div>
-              <div>{label}</div>
-              <div>{value}</div>
-            </div>
-          </div>
-        ))}
+        <ContentTable
+          contents={[
+            ...(name ? [{ label: "이름", value: name }] : []),
+            ...(phoneNumber ? [{ label: "전화번호", value: phoneNumber }] : []),
+          ]}
+        />
       </ContentsFrame>
     </ConfirmModalRoot>
   );
 }
+
 export default ConfirmModalInner;
 
 const ConfirmModalRoot = styled.div`
-  width: 80vw;
+  width: 70vw;
+  padding: 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const TitleFrame = styled.div`
-  background-color: red;
+  flex: 1;
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 const ContentsFrame = styled.div`
   background-color: green;
+  flex: 1;
 `;

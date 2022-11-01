@@ -12,7 +12,7 @@ import { HOME_PATH } from "~/pages";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
 import { validator } from "~/utils/validator";
-import ConfirmPersonalDataInner from "~/components/organizations/ConfirmPersonalDataInner";
+import ConfirmModalInner from "~/components/molecules/ConfirmModalInner";
 
 type VisitorData = {
   name?: string;
@@ -81,7 +81,7 @@ function RegistrationForeground() {
         setModal({
           type: "confirm",
           Element: () => (
-            <ConfirmPersonalDataInner
+            <ConfirmModalInner
               name={data.name}
               phoneNumber={data.phoneNumber}
             />
