@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
 import { useState } from "react";
 import { IconButton } from "@mui/material";
@@ -20,7 +20,11 @@ function RegistrationForeground() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const checkCallbackHandlers = useCheckCallbackHandlers(data);
+  const goNextStage = useCallback(() => {
+    stages.length > stage + 1 && setStage((prev) => prev + 1);
+  }, [stage]);
+
+  const checkCallbackHandlers = useCheckCallbackHandlers(data, goNextStage);
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
@@ -85,7 +89,7 @@ function RegistrationForeground() {
                   if (checkCallbackHandlers[stages[stage]]) {
                     checkCallbackHandlers[stages[stage]]();
                   } else {
-                    stages.length > stage + 1 && setStage((prev) => prev + 1);
+                    goNextStage();
                   }
                   setError(null);
                 } else {

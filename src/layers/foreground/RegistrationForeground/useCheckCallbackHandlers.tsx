@@ -5,7 +5,10 @@ import { modalControlAtom } from "~/stores/modal";
 
 import type { VisitorData } from "~/app/jsonSchema";
 
-export function useCheckCallbackHandlers(data: VisitorData) {
+export function useCheckCallbackHandlers(
+  data: VisitorData,
+  goNextStage: () => void
+) {
   const [, setModal] = useAtom(modalControlAtom);
   const checkCallbackHandlers: Record<string, () => void> = useMemo(
     () => ({
@@ -20,21 +23,18 @@ export function useCheckCallbackHandlers(data: VisitorData) {
           ),
           onSubmit: {
             handler: () => {
-              console.log("WOW");
+              goNextStage();
             },
             label: "확인",
           },
           onCancel: {
-            handler: () => {
-              console.log("IEW");
-            },
             label: "수정",
           },
         });
       },
       additional: () => {},
     }),
-    [data, setModal]
+    [data, goNextStage, setModal]
   );
   return checkCallbackHandlers;
 }
