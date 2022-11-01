@@ -119,7 +119,6 @@ const GoBackButtonFrame = styledComponent.div`
 const SchemaFormFrame = styledComponent.div`
     display: flex;
     flex-direction: column;
-    height:60vw;
     justify-content: space-evenly;
 `;
 
