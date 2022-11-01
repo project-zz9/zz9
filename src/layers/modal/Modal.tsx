@@ -1,13 +1,18 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAtom } from "jotai";
 import CustomModal from "~/components/organizations/CustomModal";
-import { modalAtom, visibleAtom } from "~/stores/modal";
+import { modalAtom, ModalParameter, visibleAtom } from "~/stores/modal";
 
 function Modal() {
-  const [modal] = useAtom(modalAtom);
+  const [modalData] = useAtom(modalAtom);
   const [visible, setVisible] = useAtom(visibleAtom);
+  const [historyStack, setHistoryStack] = useState<ModalParameter[]>([]);
+  useEffect(() => {
+    modalData && setHistoryStack((stack) => [...stack, modalData]);
+  }, [modalData]);
 
-  const { type, content, Element, onSubmit, onCancel } = modal || {};
+  const { type, content, Element, onSubmit, onCancel } =
+    historyStack.at(-1) || {};
 
   const { onCancelHandler, onSubmitHandler } = useMemo(
     () => ({
@@ -15,22 +20,27 @@ function Modal() {
         onCancel?.handler &&
           typeof onCancel.handler === "function" &&
           onCancel.handler();
-        setVisible(false);
+        historyStack.length > 1
+          ? setHistoryStack((stack) => stack.slice(0, -1))
+          : setVisible(false);
       },
       onSubmitHandler() {
         onSubmit?.handler &&
           typeof onSubmit.handler === "function" &&
           onSubmit.handler();
-        setVisible(false);
+        historyStack.length > 1
+          ? setHistoryStack((stack) => stack.slice(0, -1))
+          : setVisible(false);
       },
     }),
-    [onCancel, onSubmit, setVisible]
+    [historyStack, onCancel, onSubmit, setVisible]
   );
 
   return (
     <CustomModal
       visible={visible}
       type={type}
+      hash={JSON.stringify(historyStack.at(-1) || {})}
       Element={Element}
       content={content}
       onSubmit={onSubmit}

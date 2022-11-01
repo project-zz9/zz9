@@ -1,4 +1,4 @@
-import { FC, forwardRef, useState } from "react";
+import { FC, forwardRef, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -57,6 +57,7 @@ const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
 interface ICustomModalProps {
   visible: boolean;
   type: ModalParameter["type"] | undefined;
+  hash: string;
   Element:
     | FC<{
         activate?: (active: boolean | ((prev: boolean) => boolean)) => void;
@@ -83,6 +84,7 @@ interface ICustomModalProps {
 function CustomModal({
   visible,
   type,
+  hash,
   Element,
   content,
   onSubmit,
@@ -91,6 +93,9 @@ function CustomModal({
   onCancelHandler,
 }: ICustomModalProps) {
   const [activate, setActivate] = useState<boolean>(true);
+  useEffect(() => {
+    setActivate(true);
+  }, [hash]);
   return (
     <Dialog
       open={visible}
