@@ -5,7 +5,7 @@ import TitleLine from "~/components/atoms/TitleLine";
 interface IMultiLineText {
   type: "title" | "subTitle";
   lines: string | string[];
-  data: Record<string, string>;
+  data?: Record<string, string>;
 }
 
 function MultiLineText({ type, lines: _lines_, data }: IMultiLineText) {
@@ -17,7 +17,7 @@ function MultiLineText({ type, lines: _lines_, data }: IMultiLineText) {
   return (
     <Fragment>
       {lines
-        .map((line: string) => replacePrefix(line, data))
+        .map((line: string) => replacePrefix(line, data || {}))
         .map((line: string, index: number) => (
           <Line key={`${index}::${line}`}>{line}</Line>
         ))}
