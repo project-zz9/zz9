@@ -4,17 +4,24 @@ import { ReactNode } from "react";
 
 interface IMonotonicMuttonProps {
   type?: "outlined" | "contained";
+  disabled?: boolean;
   onClick: () => void;
   children: string | ReactNode;
 }
 
 function MonotonicButton({
   type = "contained",
+  disabled = false,
   onClick,
   children,
 }: IMonotonicMuttonProps) {
   return (
-    <MonotonicButtonInner variant={type} fullWidth onClick={onClick}>
+    <MonotonicButtonInner
+      disabled={disabled}
+      variant={type}
+      fullWidth
+      onClick={onClick}
+    >
       {children}
     </MonotonicButtonInner>
   );
@@ -39,5 +46,11 @@ const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
     backgroundColor:
       props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
     border: "2px solid black",
+  },
+  "&[disabled]": {
+    backgroundColor: "#505050",
+    color: "white",
+    border: "2px solid #505050",
+    opacity: 0.5,
   },
 }));

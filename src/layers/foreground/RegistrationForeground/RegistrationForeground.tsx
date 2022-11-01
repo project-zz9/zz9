@@ -78,6 +78,7 @@ function RegistrationForeground() {
           </SchemaFormFrame>
           <NextButtonFrame>
             <MonotonicButton
+              disabled={!(data as any)[stages[stage]]}
               onClick={() => {
                 const result = validate(data);
                 if (result) {
