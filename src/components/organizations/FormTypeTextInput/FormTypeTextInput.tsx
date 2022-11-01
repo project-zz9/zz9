@@ -31,12 +31,12 @@ function FormTypeTextInput({
     setValue("");
   }, [name]);
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     onChange((prev) => ({
       ...prev,
       [name]: value,
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return (
