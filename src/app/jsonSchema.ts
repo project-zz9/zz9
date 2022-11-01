@@ -3,8 +3,8 @@ import type { JSONSchemaType } from "ajv";
 export type VisitorData = {
   name?: string;
   phoneNumber?: string;
-  visitDate?: string;
-  additional?: string;
+  visitTime?: string;
+  relationship?: string;
 };
 
 export const jsonSchema: JSONSchemaType<VisitorData> = {
@@ -36,7 +36,7 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
         format: "phoneNumber",
       },
     },
-    visitDate: {
+    visitTime: {
       type: "string",
       pattern: "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:00",
       nullable: true,
@@ -84,10 +84,10 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
         options: {},
       },
     },
-    additional: {
+    relationship: {
       type: "string",
       nullable: true,
-      formType: "additional-input",
+      formType: "relationship-input",
       props: {
         title: ["지수의 지구 방문이", "확정되었어요!"],
         subTitle: [
