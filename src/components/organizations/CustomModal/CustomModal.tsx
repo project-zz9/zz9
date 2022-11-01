@@ -70,9 +70,11 @@ interface ICustomModalProps {
     | undefined;
   onSubmit?: {
     label?: string;
+    hide?: boolean;
   };
   onCancel?: {
     label?: string;
+    hide?: boolean;
   };
   onSubmitHandler: () => void;
   onCancelHandler: () => void;
@@ -111,7 +113,7 @@ function CustomModal({
       )}
       {(onSubmit || onCancel) && (
         <DialogActions>
-          {onCancel && (
+          {onCancel && !onCancel.hide && (
             <ButtonFrame>
               <MonotonicButton
                 type="outlined"
@@ -122,7 +124,7 @@ function CustomModal({
               </MonotonicButton>
             </ButtonFrame>
           )}
-          {onSubmit && (
+          {onSubmit && !onSubmit.hide && (
             <ButtonFrame>
               <MonotonicButton
                 type="contained"
