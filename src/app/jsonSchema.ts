@@ -42,6 +42,45 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       formType: "date-input",
       props: {
         title: ["언제 방문하실 예정인가요?"],
+        date: {
+          label: "방문 일을 선택해주세요 :)",
+          enum: [
+            {
+              name: "2023년 4월 28일",
+              value: "2023-04-28",
+            },
+            {
+              name: "2023년 4월 29일",
+              value: "2023-04-29",
+            },
+            {
+              name: "2023년 4월 30일",
+              value: "2023-04-30",
+            },
+          ],
+        },
+        time: {
+          label: "방문 시간을 선택해주세요 :)",
+          enum: [
+            {
+              name: "10시",
+              value: "10:00",
+            },
+            {
+              name: "12시",
+              value: "12:00",
+            },
+            {
+              name: "14시",
+              value: "14:00",
+            },
+            {
+              name: "16시",
+              value: "16:00",
+            },
+          ],
+        },
+        options: {},
       },
     },
     additional: {
