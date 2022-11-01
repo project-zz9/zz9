@@ -1,8 +1,10 @@
 import { Fragment } from "react";
 import styled from "styled-components";
 
+export type EmphasisText = { type?: "common" | "emphasis"; span: string }[][];
+
 interface IEmphasisTitleProps {
-  title: { type?: "common" | "emphasis"; span: string }[][];
+  title: EmphasisText;
 }
 
 function EmphasisTitle({ title }: IEmphasisTitleProps) {

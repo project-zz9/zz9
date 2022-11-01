@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import ContentTable from "~/components/atoms/ContentTable";
-import EmphasisTitle from "~/components/atoms/EmphasisTitle";
+import EmphasisTitle, { EmphasisText } from "~/components/atoms/EmphasisTitle";
 
 interface IConfirmModalInnerProps {
-  title: {
-    type?: "emphasis" | "common" | undefined;
-    span: string;
-  }[][];
+  title: EmphasisText;
   contents: {
     label: string;
     value: string;
