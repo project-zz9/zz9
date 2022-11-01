@@ -1,47 +1,26 @@
-import { Fragment } from "react";
 import styled from "styled-components";
 import ContentTable from "~/components/atoms/ContentTable";
 import EmphasisTitle from "~/components/atoms/EmphasisTitle";
 
 interface IConfirmModalInnerProps {
-  name: string | undefined;
-  phoneNumber: string | undefined;
+  title: {
+    type?: "emphasis" | "common" | undefined;
+    span: string;
+  }[][];
+  contents: {
+    label: string;
+    value: string;
+  }[];
 }
 
-// [
-//   ...(name ? [{ label: "이름", value: name }] : []),
-//   ...(phoneNumber ? [{ label: "전화번호", value: phoneNumber }] : []),
-// ];
-function ConfirmModalInner({ name, phoneNumber }: IConfirmModalInnerProps) {
+function ConfirmModalInner({ title, contents }: IConfirmModalInnerProps) {
   return (
     <ConfirmModalRoot>
       <TitleFrame>
-        <EmphasisTitle
-          lines={[
-            [
-              {
-                span: "이름과 전화번호가 맞는지",
-              },
-            ],
-            [
-              {
-                type: "emphasis",
-                span: "꼼꼼히",
-              },
-              {
-                span: " 확인해주세요 🙏",
-              },
-            ],
-          ]}
-        />
+        <EmphasisTitle title={title} />
       </TitleFrame>
       <ContentsFrame>
-        <ContentTable
-          contents={[
-            ...(name ? [{ label: "이름", value: name }] : []),
-            ...(phoneNumber ? [{ label: "전화번호", value: phoneNumber }] : []),
-          ]}
-        />
+        <ContentTable contents={contents} />
       </ContentsFrame>
     </ConfirmModalRoot>
   );

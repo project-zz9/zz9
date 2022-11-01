@@ -82,8 +82,28 @@ function RegistrationForeground() {
           type: "confirm",
           Element: () => (
             <ConfirmModalInner
-              name={data.name}
-              phoneNumber={data.phoneNumber}
+              title={[
+                [
+                  {
+                    span: "이름과 전화번호가 맞는지",
+                  },
+                ],
+                [
+                  {
+                    type: "emphasis",
+                    span: "꼼꼼히",
+                  },
+                  {
+                    span: " 확인해주세요 🙏",
+                  },
+                ],
+              ]}
+              contents={[
+                ...(data.name ? [{ label: "이름", value: data.name }] : []),
+                ...(data.phoneNumber
+                  ? [{ label: "전화번호", value: data.phoneNumber }]
+                  : []),
+              ]}
             />
           ),
           onSubmit: {

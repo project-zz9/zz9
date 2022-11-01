@@ -2,13 +2,13 @@ import { Fragment } from "react";
 import styled from "styled-components";
 
 interface IEmphasisTitleProps {
-  lines: { type?: "common" | "emphasis"; span: string }[][];
+  title: { type?: "common" | "emphasis"; span: string }[][];
 }
 
-function EmphasisTitle({ lines }: IEmphasisTitleProps) {
+function EmphasisTitle({ title }: IEmphasisTitleProps) {
   return (
     <Fragment>
-      {lines.map((line, index) => (
+      {title.map((line, index) => (
         <Line key={index}>
           {line.map(({ type, span }, i) =>
             type === "emphasis" ? (
