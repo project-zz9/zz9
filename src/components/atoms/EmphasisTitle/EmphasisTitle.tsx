@@ -35,7 +35,7 @@ const Common = styled.span`
 `;
 
 const Emphasis = styled.span`
-  color: red;
+  color: #ff5a0d;
   font-size: 1.1em;
   font-weight: bold;
 `;
