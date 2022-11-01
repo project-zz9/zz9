@@ -12,7 +12,7 @@ import { HOME_PATH } from "~/pages";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
 import { validator } from "~/utils/validator";
-import ConfirmModalInner from "~/components/molecules/ConfirmModalInner";
+import ConfirmPersonalDataModalInner from "~/components/organizations/ConfirmPersonalDataModalInner";
 
 type VisitorData = {
   name?: string;
@@ -81,29 +81,9 @@ function RegistrationForeground() {
         setModal({
           type: "confirm",
           Element: () => (
-            <ConfirmModalInner
-              title={[
-                [
-                  {
-                    span: "이름과 전화번호가 맞는지",
-                  },
-                ],
-                [
-                  {
-                    type: "emphasis",
-                    span: "꼼꼼히",
-                  },
-                  {
-                    span: " 확인해주세요 🙏",
-                  },
-                ],
-              ]}
-              contents={[
-                ...(data.name ? [{ label: "이름", value: data.name }] : []),
-                ...(data.phoneNumber
-                  ? [{ label: "연락처", value: data.phoneNumber }]
-                  : []),
-              ]}
+            <ConfirmPersonalDataModalInner
+              name={data.name}
+              phoneNumber={data.phoneNumber}
             />
           ),
           onSubmit: {
@@ -132,10 +112,9 @@ function RegistrationForeground() {
   const validate = useMemo(() => validator.compile(jsonSchema), []);
 
   useEffect(() => {
-    checkCallbackHandlers.phoneNumber();
     return () => {
       stage > 0 && setStage(0);
-      // Object.keys(data).length > 0 && setData({});
+      Object.keys(data).length > 0 && setData({});
       error && setError(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
