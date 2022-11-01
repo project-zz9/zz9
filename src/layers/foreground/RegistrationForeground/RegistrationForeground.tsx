@@ -24,14 +24,10 @@ function RegistrationForeground() {
     stages.length > stage + 1 && setStage((prev) => prev + 1);
   }, [stage]);
 
-  const goHomePage = useCallback(() => {
-    navigate(HOME_PATH);
-  }, [navigate]);
-
   const checkCallbackHandlers = useCheckCallbackHandlers(
     data,
     goNextStage,
-    goHomePage
+    navigate
   );
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
@@ -73,7 +69,7 @@ function RegistrationForeground() {
                   );
                   setError(null);
                 } else {
-                  goHomePage();
+                  navigate(HOME_PATH);
                 }
               }}
             >
