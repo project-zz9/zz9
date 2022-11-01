@@ -1,4 +1,4 @@
-import { FC, forwardRef } from "react";
+import { FC, forwardRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -57,7 +57,11 @@ const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
 interface ICustomModalProps {
   visible: boolean;
   type: ModalParameter["type"] | undefined;
-  Element: FC | undefined;
+  Element:
+    | FC<{
+        activate?: (active: boolean | ((prev: boolean) => boolean)) => void;
+      }>
+    | undefined;
   content:
     | {
         title?: string;
@@ -84,6 +88,7 @@ function CustomModal({
   onCancel,
   onCancelHandler,
 }: ICustomModalProps) {
+  const [activate, setActivate] = useState<boolean>(true);
   return (
     <Dialog
       open={visible}
@@ -91,7 +96,7 @@ function CustomModal({
       {...(type ? modalTypeProps[type] : {})}
     >
       {Element ? (
-        <Element />
+        <Element activate={setActivate} />
       ) : (
         <>
           {content?.title && (
@@ -108,14 +113,22 @@ function CustomModal({
         <DialogActions>
           {onCancel && (
             <ButtonFrame>
-              <MonotonicButton type="outlined" onClick={onCancelHandler}>
+              <MonotonicButton
+                type="outlined"
+                onClick={onCancelHandler}
+                disabled={!activate}
+              >
                 {onCancel?.label || "Cancel"}
               </MonotonicButton>
             </ButtonFrame>
           )}
           {onSubmit && (
             <ButtonFrame>
-              <MonotonicButton type="contained" onClick={onSubmitHandler}>
+              <MonotonicButton
+                type="contained"
+                onClick={onSubmitHandler}
+                disabled={!activate}
+              >
                 {onSubmit?.label || "Submit"}
               </MonotonicButton>
             </ButtonFrame>
