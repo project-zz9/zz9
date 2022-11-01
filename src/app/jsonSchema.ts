@@ -38,44 +38,45 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
     },
     visitDate: {
       type: "string",
+      pattern: "[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:00",
       nullable: true,
       formType: "date-input",
       props: {
         title: ["언제 방문하실 예정인가요?"],
         date: {
-          label: "방문 일을 선택해주세요 :)",
-          enum: [
+          title: "방문 일을 선택해주세요 :)",
+          options: [
             {
-              name: "2023년 4월 28일",
+              label: "2023년 4월 28일",
               value: "2023-04-28",
             },
             {
-              name: "2023년 4월 29일",
+              label: "2023년 4월 29일",
               value: "2023-04-29",
             },
             {
-              name: "2023년 4월 30일",
+              label: "2023년 4월 30일",
               value: "2023-04-30",
             },
           ],
         },
         time: {
-          label: "방문 시간을 선택해주세요 :)",
-          enum: [
+          title: "방문 시간을 선택해주세요 :)",
+          options: [
             {
-              name: "10시",
+              label: "10시",
               value: "10:00",
             },
             {
-              name: "12시",
+              label: "12시",
               value: "12:00",
             },
             {
-              name: "14시",
+              label: "14시",
               value: "14:00",
             },
             {
-              name: "16시",
+              label: "16시",
               value: "16:00",
             },
           ],
@@ -97,8 +98,8 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
           ],
         ],
         distance: {
-          label: "당신과 지수의 거리는 얼마큼 인가요?",
-          enum: [
+          title: "당신과 지수의 거리는 얼마큼 인가요?",
+          options: [
             {
               value: "10cm",
               description: "서로 안아줄 수 있는 사이",
@@ -114,8 +115,8 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
           ],
         },
         stars: {
-          label: "원하는 별 모양을 선택해주세요.",
-          enum: [
+          title: "원하는 별 모양을 선택해주세요.",
+          options: [
             {
               value: "star1",
             },
