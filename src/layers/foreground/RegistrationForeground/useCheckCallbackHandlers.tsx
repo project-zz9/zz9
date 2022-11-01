@@ -4,6 +4,7 @@ import ConfirmPersonalDataModalInner from "~/components/organizations/ConfirmPer
 import { modalControlAtom } from "~/stores/modal";
 
 import type { VisitorData } from "~/app/jsonSchema";
+import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitTimeModalInner";
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
@@ -32,7 +33,24 @@ export function useCheckCallbackHandlers(
           },
         });
       },
-      additional: () => {},
+      visitTime: () => {
+        setModal({
+          type: "confirm",
+          Element: () => (
+            <ConfirmVisitTimeModalInner visitTime={data.visitTime} />
+          ),
+          onSubmit: {
+            handler: () => {
+              goNextStage();
+            },
+            label: "확인",
+          },
+          onCancel: {
+            label: "수정",
+          },
+        });
+      },
+      relationship: () => {},
     }),
     [data, goNextStage, setModal]
   );
