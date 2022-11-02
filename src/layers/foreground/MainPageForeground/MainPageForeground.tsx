@@ -24,6 +24,7 @@ function MainPageForeground() {
               onClick={() =>
                 setModal({
                   type: "confirm",
+                  stacked: true,
                   content: {
                     title: "MODAL",
                     body: "테스트용 내용입니다?",

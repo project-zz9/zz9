@@ -20,6 +20,7 @@ export function useCheckCallbackHandlers(
       approvePermission: () => {
         setModal({
           type: "confirm",
+          stacked: true,
           Element: ({ activate }) => (
             <ApprovePermissionModalInner activate={activate} />
           ),
