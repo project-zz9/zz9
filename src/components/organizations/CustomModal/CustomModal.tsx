@@ -48,7 +48,6 @@ const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
   fullscreen: {
     fullScreen: true,
     TransitionComponent: Transition,
-    scroll: "paper",
     "aria-labelledby": "scroll-dialog-title",
     "aria-describedby": "scroll-dialog-description",
   },
@@ -102,20 +101,21 @@ function CustomModal({
       onClose={onCancelHandler}
       {...(type ? modalTypeProps[type] : {})}
     >
-      {Element ? (
-        <Element activate={setActivate} />
-      ) : (
-        <>
-          {content?.title && (
-            <DialogTitle id="alert-dialog-title">{content.title}</DialogTitle>
-          )}
-          <DialogContent dividers={type === "fullscreen"}>
-            <DialogContentText id="alert-dialog-description">
-              {content?.body}
-            </DialogContentText>
-          </DialogContent>
-        </>
-      )}
+      <DialogContentFrame>
+        {Element ? (
+          <Element activate={setActivate} />
+        ) : (
+          <>
+            {content?.title && (
+              <DialogTitle id="alert-dialog-title">{content.title}</DialogTitle>
+            )}
+            <DialogContent dividers={type === "fullscreen"}>
+              <DialogContentText>{content?.body}</DialogContentText>
+            </DialogContent>
+          </>
+        )}
+      </DialogContentFrame>
+
       {(onSubmit || onCancel) && (
         <DialogActions>
           {onCancel && !onCancel.hide && (
@@ -143,6 +143,12 @@ function CustomModal({
 }
 
 export default CustomModal;
+
+const DialogContentFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+`;
 
 const DialogActions = styled.div`
   display: flex;
