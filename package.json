@@ -17,6 +17,7 @@
     "react-lottie": "^1.2.3",
     "react-markdown": "^8.0.3",
     "react-router-dom": "^6.4.2",
+    "remark-gfm": "^3.0.1",
     "styled-components": "^5.3.6"
   },
   "scripts": {
