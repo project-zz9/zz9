@@ -1,16 +1,41 @@
 import { Button } from "@mui/material";
 import { useAtom } from "jotai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import MonotonicButton from "~/components/atoms/MonotonicButton";
+import ApprovePermissionModalInner from "~/components/organizations/ApprovePermissionModalInner";
 import { MANAGEMENT_PATH, REGISTRATION_PATH } from "~/pages";
 import { modalControlAtom } from "~/stores/modal";
 import ForegroundLayer from "../ForegroundLayer";
 
 function MainPageForeground() {
+  const navigate = useNavigate();
   const [, setModal] = useAtom(modalControlAtom);
   return (
     <ForegroundLayer>
       <div>
         <h2>
+          <MonotonicButton
+            onClick={() => {
+              setModal({
+                type: "confirm",
+                stacked: true,
+                Element: ({ activate }) => (
+                  <ApprovePermissionModalInner activate={activate} />
+                ),
+                onSubmit: {
+                  label: "계속하기",
+                  handler: () => {
+                    navigate(REGISTRATION_PATH);
+                  },
+                },
+                onCancel: {
+                  hide: true,
+                },
+              });
+            }}
+          >
+            REGISTRATION
+          </MonotonicButton>
           <Link to={REGISTRATION_PATH}>{REGISTRATION_PATH}</Link>
         </h2>
         <h2>
