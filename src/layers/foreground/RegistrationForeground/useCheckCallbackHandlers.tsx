@@ -5,36 +5,14 @@ import { modalControlAtom } from "~/stores/modal";
 import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitTimeModalInner";
 
 import type { VisitorData } from "~/app/jsonSchema";
-import type { NavigateFunction } from "react-router-dom";
-import { HOME_PATH } from "~/pages";
-import ApprovePermissionModalInner from "~/components/organizations/ApprovePermissionModalInner";
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
-  goNextStage: () => void,
-  navigate: NavigateFunction
+  goNextStage: () => void
 ) {
   const [, setModal] = useAtom(modalControlAtom);
   const checkCallbackHandlers: Record<string, () => void> = useMemo(
     () => ({
-      approvePermission: () => {
-        setModal({
-          type: "confirm",
-          stacked: true,
-          Element: ({ activate }) => (
-            <ApprovePermissionModalInner activate={activate} />
-          ),
-          onSubmit: {
-            label: "계속하기",
-          },
-          onCancel: {
-            handler: () => {
-              navigate(HOME_PATH);
-            },
-            hide: true,
-          },
-        });
-      },
       phoneNumber: () => {
         setModal({
           type: "confirm",
@@ -74,7 +52,7 @@ export function useCheckCallbackHandlers(
       },
       relationship: () => {},
     }),
-    [data, goNextStage, navigate, setModal]
+    [data, goNextStage, setModal]
   );
   return checkCallbackHandlers;
 }

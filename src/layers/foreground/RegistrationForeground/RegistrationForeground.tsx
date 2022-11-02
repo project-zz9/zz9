@@ -21,14 +21,13 @@ function RegistrationForeground() {
   const navigate = useNavigate();
 
   const goNextStage = useCallback(() => {
-    stages.length > stage + 1 && setStage((prev) => prev + 1);
+    if (stages.length > stage + 1) {
+      setStage((prev) => prev + 1);
+    } else {
+    }
   }, [stage]);
 
-  const checkCallbackHandlers = useCheckCallbackHandlers(
-    data,
-    goNextStage,
-    navigate
-  );
+  const checkCallbackHandlers = useCheckCallbackHandlers(data, goNextStage);
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
@@ -36,7 +35,7 @@ function RegistrationForeground() {
   const validate = useMemo(() => validator.compile(jsonSchema), []);
 
   useEffect(() => {
-    checkCallbackHandlers.approvePermission();
+    // checkCallbackHandlers.approvePermission();
     return () => {
       stage > 0 && setStage(0);
       Object.keys(data).length > 0 && setData({});

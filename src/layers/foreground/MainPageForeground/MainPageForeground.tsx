@@ -36,7 +36,6 @@ function MainPageForeground() {
           >
             REGISTRATION
           </MonotonicButton>
-          <Link to={REGISTRATION_PATH}>{REGISTRATION_PATH}</Link>
         </h2>
         <h2>
           <Link to={MANAGEMENT_PATH}>{MANAGEMENT_PATH}</Link>
