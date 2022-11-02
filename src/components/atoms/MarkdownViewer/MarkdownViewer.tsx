@@ -22,18 +22,22 @@ function MarkdownViewer({ markdown }: IMarkdownViewerProps) {
 export default MarkdownViewer;
 
 const MarkdownViewerFrame = styled.div`
+  p {
+    font-size: 0.9rem;
+  }
   table {
     width: 100%;
 
     thead {
-      background-color: gray;
+      background-color: black;
       th {
+        color: white;
         min-width: 5rem;
         font-size: 0.85rem;
       }
     }
     tbody {
-      background-color: lightgray;
+      background-color: #e6e6e6;
       td {
         font-size: 0.75rem;
       }
