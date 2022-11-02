@@ -11,11 +11,14 @@ import { HOME_PATH } from "~/pages";
 import { validator } from "~/utils/validator";
 import { jsonSchema, VisitorData } from "~/app/jsonSchema";
 import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
+import { useAtom } from "jotai";
+import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
 function RegistrationForeground() {
-  const [stage, setStage] = useState<number>(0);
+  const [permission] = useAtom(permissionAtom);
+  const [stage, setStage] = useState<number>(3);
   const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -35,11 +38,13 @@ function RegistrationForeground() {
   const validate = useMemo(() => validator.compile(jsonSchema), []);
 
   useEffect(() => {
-    // checkCallbackHandlers.approvePermission();
+    if (!permission[PERSONAL_DATA]) {
+      navigate(HOME_PATH);
+    }
     return () => {
-      stage > 0 && setStage(0);
-      Object.keys(data).length > 0 && setData({});
-      error && setError(null);
+      // stage > 0 && setStage(0);
+      // Object.keys(data).length > 0 && setData({});
+      // error && setError(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

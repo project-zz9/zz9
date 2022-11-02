@@ -5,10 +5,12 @@ import MonotonicButton from "~/components/atoms/MonotonicButton";
 import ApprovePermissionModalInner from "~/components/organizations/ApprovePermissionModalInner";
 import { MANAGEMENT_PATH, REGISTRATION_PATH } from "~/pages";
 import { modalControlAtom } from "~/stores/modal";
+import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import ForegroundLayer from "../ForegroundLayer";
 
 function MainPageForeground() {
   const navigate = useNavigate();
+  const [, setPermission] = useAtom(permissionAtom);
   const [, setModal] = useAtom(modalControlAtom);
   return (
     <ForegroundLayer>
@@ -24,6 +26,10 @@ function MainPageForeground() {
                 onSubmit: {
                   label: "계속하기",
                   handler: () => {
+                    setPermission((permission) => ({
+                      ...permission,
+                      [PERSONAL_DATA]: true,
+                    }));
                     navigate(REGISTRATION_PATH);
                   },
                 },
