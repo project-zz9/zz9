@@ -13,8 +13,8 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
     name: {
       type: "string",
       label: "가명이나 닉네임을 써도 괜찮아요.",
-      minLength: 2,
-      maxLength: 20,
+      minLength: 1,
+      maxLength: 10,
       nullable: true,
       formType: "text-input",
       props: {
