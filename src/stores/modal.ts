@@ -3,7 +3,6 @@ import type { FC } from "react";
 
 export type ModalParameter = {
   type: "information" | "confirm" | "fullscreen";
-  stacked?: boolean;
   content?: Content;
   Element?: FC<{
     activate?: (active: boolean | ((prev: boolean) => boolean)) => void;

@@ -17,8 +17,7 @@ function Modal() {
     history.length > 0 && setCurrentModal(history.at(-1) || null);
   }, [history]);
 
-  const { type, stacked, content, Element, onSubmit, onCancel } =
-    currentModal || {};
+  const { type, content, Element, onSubmit, onCancel } = currentModal || {};
 
   const { onCancelHandler, onSubmitHandler } = useMemo(
     () => ({
@@ -33,13 +32,11 @@ function Modal() {
         onSubmit?.handler &&
           typeof onSubmit.handler === "function" &&
           onSubmit.handler();
-        if (!stacked) {
-          setHistory((history) => history.slice(0, -1));
-          history.length === 1 && setVisible(false);
-        }
+        setHistory((history) => history.slice(0, -1));
+        history.length === 1 && setVisible(false);
       },
     }),
-    [stacked, history, onCancel, onSubmit, setVisible]
+    [history, onCancel, onSubmit, setVisible]
   );
 
   return (
