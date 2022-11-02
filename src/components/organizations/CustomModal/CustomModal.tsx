@@ -31,6 +31,8 @@ const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
       "& .MuiPaper-root": {
         margin: 0,
         width: "86vw",
+        border: "5px solid white",
+        borderRadius: "10px",
       },
     },
   },
@@ -42,6 +44,8 @@ const modalTypeProps: Record<ModalParameter["type"], Partial<DialogProps>> = {
       "& .MuiPaper-root": {
         margin: 0,
         width: "86vw",
+        border: "5px solid white",
+        borderRadius: "10px",
       },
     },
   },
