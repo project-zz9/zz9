@@ -1,5 +1,5 @@
-import { CalendarToday, Schedule } from "@mui/icons-material";
 import { Divider } from "@mui/material";
+import { Calendar, Clock } from "react-feather";
 import { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import MultiLineText from "~/components/molecules/MultiLineText";
@@ -48,7 +48,7 @@ function FormTypeDateInput({
         {dateProps && (
           <RadioGroupInput
             title={dateProps.title}
-            Icon={CalendarToday}
+            Icon={Calendar}
             value={date}
             setValue={setDate}
             options={dateProps.options}
@@ -60,7 +60,7 @@ function FormTypeDateInput({
         {timeProps && (
           <RadioGroupInput
             title={timeProps.title}
-            Icon={Schedule}
+            Icon={Clock}
             value={time}
             setValue={setTime}
             options={date ? timeProps.options : []}

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
 import { useState } from "react";
 import { IconButton } from "@mui/material";
-import ArrowBack from "@mui/icons-material/ArrowBack";
+import { ArrowLeft } from "react-feather";
 import styledComponent from "styled-components";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import SchemaForm from "~/components/organizations/SchemaForm";
@@ -72,7 +72,7 @@ function RegistrationForeground() {
                 }
               }}
             >
-              <ArrowBack />
+              <ArrowLeft />
             </IconButton>
           </GoBackButtonFrame>
           <SchemaFormFrame>

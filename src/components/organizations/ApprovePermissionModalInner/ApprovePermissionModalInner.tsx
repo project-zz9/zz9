@@ -1,8 +1,10 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import TitleLine from "~/components/atoms/TitleLine";
 import { modalAtom } from "~/stores/modal";
 import ApprovePermissionModalDetailInner from "../ApprovePermissionModalDetailInner";
+import { CheckSquare, Square } from "react-feather";
 
 interface IApprovePermissionModalInnerProps {
   activate?: (active: boolean | ((prev: boolean) => boolean)) => void;
@@ -16,12 +18,21 @@ function ApprovePermissionModalInner({
   useEffect(() => {
     activate?.(checked);
   }, [activate, checked]);
-  // activate?.(false);
 
   return (
     <div>
-      <div>지수의 지구</div>
-      <div>[] 개인정보 수집/이용 동의하기</div>
+      <TitleLine>지수의 지구</TitleLine>
+      <div>
+        <IconButton
+          size="large"
+          onClick={() => {
+            setChecked((check) => !check);
+          }}
+        >
+          {checked ? <CheckSquare color="#FF5A0D" /> : <Square />}
+        </IconButton>
+        개인정보 수집/이용 동의하기
+      </div>
       <div>개인 정보 수집, 이용 동의서 (전시 사전 등록 신청)</div>
       <div>
         <p>
@@ -34,7 +45,25 @@ function ApprovePermissionModalInner({
           등록이 제한 될 수 있습니다.
         </p>
       </div>
-      <div>|||</div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>수집목적</th>
+              <th>필수항목</th>
+              <th>보유, 이용 기간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>전시 사전 등록 신청</td>
+              <td>이름, 연락처</td>
+              <td>수집일로부터 60일간 (전시 종료일로부터 30일간)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div>
         자세한 내용은 개인정보 처리방침을 확인해주세요.{" "}
         <Button

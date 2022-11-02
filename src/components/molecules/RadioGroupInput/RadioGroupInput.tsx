@@ -1,9 +1,10 @@
-import { Fragment } from "react";
-import { FormControlLabel, Radio, RadioGroup, SvgIcon } from "@mui/material";
+import { FC, Fragment } from "react";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import styled from "styled-components";
+import { IconProps } from "react-feather";
 
 interface IRadioGroupInputProps {
-  Icon?: typeof SvgIcon;
+  Icon?: FC<IconProps>;
   title: string;
   value: string;
   setValue: (value: string | ((prev: string) => string)) => void;
