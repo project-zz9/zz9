@@ -136,10 +136,10 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height: 90vh;
+    height: 92.5vh;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 10vh;
+    padding-top: 7.5vh;
 `;
 
 const GoBackButtonFrame = styledComponent.div`
