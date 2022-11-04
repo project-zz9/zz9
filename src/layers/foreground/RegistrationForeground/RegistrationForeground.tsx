@@ -32,6 +32,7 @@ function RegistrationForeground({
   const [stage, setStage] = useState<number>(0);
   const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const goNextStage = useCallback(() => {
@@ -110,13 +111,13 @@ function RegistrationForeground({
           </SchemaFormFrame>
           <NextButtonFrame>
             <MonotonicButton
-              disabled={!(data as any)[stages[stage]]}
+              disabled={loading || !(data as any)[stages[stage]]}
               color={color === "light" ? "inherit" : "primary"}
               onClick={() => {
                 const result = validate(data);
                 if (result) {
                   if (checkCallbackHandlers[stages[stage]]) {
-                    checkCallbackHandlers[stages[stage]]();
+                    setLoading(checkCallbackHandlers[stages[stage]]());
                   } else {
                     goNextStage();
                   }
@@ -126,7 +127,7 @@ function RegistrationForeground({
                 }
               }}
             >
-              다음으로
+              {loading ? "Loading..." : "다음으로"}
             </MonotonicButton>
           </NextButtonFrame>
         </RootFrame>

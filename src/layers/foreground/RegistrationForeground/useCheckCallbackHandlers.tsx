@@ -14,7 +14,7 @@ export function useCheckCallbackHandlers(
   navigate: NavigateFunction
 ) {
   const [, setModal] = useAtom(modalControlAtom);
-  const checkCallbackHandlers: Record<string, () => void> = useMemo(
+  const checkCallbackHandlers: Record<string, () => boolean> = useMemo(
     () => ({
       phoneNumber: () => {
         setModal({
@@ -50,6 +50,7 @@ export function useCheckCallbackHandlers(
             label: "수정",
           },
         });
+        return false;
       },
       visitTime: () => {
         setModal({
@@ -67,10 +68,13 @@ export function useCheckCallbackHandlers(
             label: "수정",
           },
         });
+        return false;
       },
-      relationship: async () => {
-        await setVisitor(data);
-        navigate(INVITATION_PREVIEW_PATH);
+      relationship: () => {
+        setVisitor(data).then(() => {
+          navigate(INVITATION_PREVIEW_PATH);
+        });
+        return true;
       },
     }),
     [data, navigate, goNextStage, setModal]
