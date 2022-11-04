@@ -6,6 +6,7 @@ import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitT
 
 import type { VisitorData } from "~/app/jsonSchema";
 import type { NavigateFunction } from "react-router-dom";
+import { INVITATION_PREVIEW_PATH } from "~/pages";
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
@@ -53,10 +54,10 @@ export function useCheckCallbackHandlers(
         });
       },
       relationship: () => {
-        // navigate()
+        navigate(INVITATION_PREVIEW_PATH);
       },
     }),
-    [data, goNextStage, setModal]
+    [data, navigate, goNextStage, setModal]
   );
   return checkCallbackHandlers;
 }
