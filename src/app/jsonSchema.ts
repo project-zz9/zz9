@@ -89,7 +89,7 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       nullable: true,
       formType: "relationship-input",
       props: {
-        title: ["지수의 지구 방문이", "확정되었어요!"],
+        title: [[{ span: "지수의 지구 방문이" }], [{ span: "확정되었어요!" }]],
         subTitle: [
           [{ span: "이제 지수의 지구를 밝힐" }],
           [
