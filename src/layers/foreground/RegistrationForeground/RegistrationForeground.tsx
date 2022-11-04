@@ -13,10 +13,21 @@ import { jsonSchema, VisitorData } from "~/app/jsonSchema";
 import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
+import type { ColorCode } from "~/layers/background/MonotonicBackground";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
-function RegistrationForeground() {
+interface IRegistrationForegroundProps {
+  changeColorHandler: (
+    color:
+      | (ColorCode | undefined)
+      | ((prev: ColorCode | undefined) => ColorCode | undefined)
+  ) => void;
+}
+
+function RegistrationForeground({
+  changeColorHandler,
+}: IRegistrationForegroundProps) {
   const [permission] = useAtom(permissionAtom);
   const [stage, setStage] = useState<number>(3);
   const [data, setData] = useState<VisitorData>({});
@@ -42,9 +53,9 @@ function RegistrationForeground() {
       navigate(HOME_PATH);
     }
     return () => {
-      // stage > 0 && setStage(0);
-      // Object.keys(data).length > 0 && setData({});
-      // error && setError(null);
+      stage > 0 && setStage(0);
+      Object.keys(data).length > 0 && setData({});
+      error && setError(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

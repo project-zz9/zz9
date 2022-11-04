@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import BackgroundLayer from "../BackgroundLayer";
 
+export type ColorCode = `#${string}`;
+
 interface IMonotonicBackgroundProps {
-  color?: `#${string}`;
+  color?: ColorCode;
 }
 
 function MonotonicBackground({ color }: IMonotonicBackgroundProps) {
