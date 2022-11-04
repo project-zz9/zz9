@@ -11,6 +11,7 @@ interface IRadioGroupInputProps {
   options: {
     label?: string;
     value: string;
+    disabled?: boolean;
   }[];
 }
 
@@ -32,12 +33,13 @@ function RadioGroupInput({
       </TitleFrame>
       <RadioGroupFrame>
         <RadioGroup value={value} onChange={handleChange}>
-          {options.map(({ label, value }, index) => (
+          {options.map(({ label, value, disabled }, index) => (
             <FormControlLabel
               key={`${index}::${label}::${value}`}
               value={value}
               control={
                 <Radio
+                  disabled={disabled}
                   sx={{
                     padding: "7px",
                     color: "#000",

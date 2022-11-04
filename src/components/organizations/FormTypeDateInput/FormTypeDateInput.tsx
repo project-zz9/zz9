@@ -1,10 +1,12 @@
 import { Divider } from "@mui/material";
 import { Calendar, Clock } from "react-feather";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import RadioGroupInput from "~/components/molecules/RadioGroupInput";
 import { IFormTypeInputProps } from "../SchemaForm";
+import { useQuery } from "~/hooks/useQuery";
+import { MAX_VISITOR_ON_ONE_TIME } from "~/app/constant";
 
 interface IFormTypeDateInputProps<T = Record<string, string>>
   extends IFormTypeInputProps<T> {
@@ -28,8 +30,23 @@ function FormTypeDateInput({
 }: IFormTypeDateInputProps) {
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
-
+  const timeTable: DateTime[] | null = useQuery(
+    { collection: "schedule", method: "get" },
+    date
+  );
   const { title, date: dateProps, time: timeProps } = props || {};
+
+  const dateOptions = useMemo(() => {
+    const schedule = (timeTable || []).reduce((accumulator, { time }) => {
+      accumulator.set(time, (accumulator.get(time) ?? 0) + 1);
+      return accumulator;
+    }, new Map<string, number>());
+
+    return (timeProps?.options || []).map((time) => ({
+      ...time,
+      disabled: (schedule.get(time.value) || 0) >= MAX_VISITOR_ON_ONE_TIME,
+    }));
+  }, [timeProps, timeTable]);
 
   useEffect(() => {
     if (date && time) {
@@ -63,7 +80,7 @@ function FormTypeDateInput({
             Icon={Clock}
             value={time}
             setValue={setTime}
-            options={date ? timeProps.options : []}
+            options={date ? dateOptions : []}
           />
         )}
       </RadioGroupFrame>
