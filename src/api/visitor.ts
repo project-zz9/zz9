@@ -1,5 +1,4 @@
 import { scheduleCollection, visitorCollection } from "~/app/collections";
-import type { VisitorData } from "~/app/jsonSchema";
 import { hashing } from "~/utils/crypto";
 
 export const getVisitor = async (
@@ -40,11 +39,6 @@ const setTimeTable = async (visitor: string, timestamp: string) => {
     date,
     time,
   });
-};
-
-type DateTime = {
-  date: string;
-  time: string;
 };
 
 export const getTimeTable = async (date: string): Promise<DateTime[]> => {

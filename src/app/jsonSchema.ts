@@ -1,12 +1,5 @@
 import type { JSONSchemaType } from "ajv";
 
-export type VisitorData = {
-  name?: string;
-  phoneNumber?: string;
-  visitTime?: string;
-  relationship?: string;
-};
-
 export const jsonSchema: JSONSchemaType<VisitorData> = {
   type: "object",
   properties: {

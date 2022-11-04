@@ -9,7 +9,7 @@ import SchemaForm from "~/components/organizations/SchemaForm";
 import { useNavigate } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { validator } from "~/utils/validator";
-import { jsonSchema, VisitorData } from "~/app/jsonSchema";
+import { jsonSchema } from "~/app/jsonSchema";
 import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
@@ -29,7 +29,7 @@ function RegistrationForeground({
   changeColorHandler,
 }: IRegistrationForegroundProps) {
   const [permission] = useAtom(permissionAtom);
-  const [stage, setStage] = useState<number>(3);
+  const [stage, setStage] = useState<number>(0);
   const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();

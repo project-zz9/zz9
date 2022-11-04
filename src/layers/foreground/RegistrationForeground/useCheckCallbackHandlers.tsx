@@ -4,7 +4,6 @@ import ConfirmPersonalDataModalInner from "~/components/organizations/ConfirmPer
 import { modalControlAtom } from "~/stores/modal";
 import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitTimeModalInner";
 
-import type { VisitorData } from "~/app/jsonSchema";
 import type { NavigateFunction } from "react-router-dom";
 import { HOME_PATH, INVITATION_PREVIEW_PATH } from "~/pages";
 import { getVisitor, setVisitor } from "~/api/visitor";
