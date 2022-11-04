@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export type EmphasisTextForm = {
   type?: "common" | "emphasis";
