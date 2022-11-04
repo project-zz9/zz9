@@ -5,10 +5,12 @@ import { modalControlAtom } from "~/stores/modal";
 import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitTimeModalInner";
 
 import type { VisitorData } from "~/app/jsonSchema";
+import type { NavigateFunction } from "react-router-dom";
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
-  goNextStage: () => void
+  goNextStage: () => void,
+  navigate: NavigateFunction
 ) {
   const [, setModal] = useAtom(modalControlAtom);
   const checkCallbackHandlers: Record<string, () => void> = useMemo(
@@ -50,7 +52,9 @@ export function useCheckCallbackHandlers(
           },
         });
       },
-      relationship: () => {},
+      relationship: () => {
+        // navigate()
+      },
     }),
     [data, goNextStage, setModal]
   );

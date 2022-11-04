@@ -41,7 +41,11 @@ function RegistrationForeground({
     }
   }, [stage]);
 
-  const checkCallbackHandlers = useCheckCallbackHandlers(data, goNextStage);
+  const checkCallbackHandlers = useCheckCallbackHandlers(
+    data,
+    goNextStage,
+    navigate
+  );
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
