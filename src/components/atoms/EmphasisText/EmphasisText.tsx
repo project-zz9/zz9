@@ -54,7 +54,7 @@ const Line = styled.div<{ size?: string }>`
 
 const Common = styled.span<{ weight?: string }>`
   font-weight: ${({ weight }) => weight ?? 500};
-  color: ${({ color }) => color || "white"};
+  color: ${({ color }) => color || "#000"};
 `;
 
 const Emphasis = styled.span`

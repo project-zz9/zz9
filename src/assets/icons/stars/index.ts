@@ -11,7 +11,13 @@ import Star5Normal from "./star5-normal.png";
 import Star6Checked from "./star6-checked.png";
 import Star6Normal from "./star6-normal.png";
 
-const stars = {
+const stars: Record<
+  string,
+  {
+    checked: string;
+    normal: string;
+  }
+> = {
   star1: {
     checked: Star1Checked,
     normal: Star1Normal,

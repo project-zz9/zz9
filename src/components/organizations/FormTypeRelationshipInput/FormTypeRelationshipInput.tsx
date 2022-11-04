@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
+import { Fragment, useState } from "react";
 import styled from "styled-components";
 import { logos } from "~/assets/icons";
 import EmphasisText, {
   EmphasisTextForm,
 } from "~/components/atoms/EmphasisText";
+import DistanceRadioInput from "~/components/molecules/DistanceRadioInput";
+import StarRadioInput from "~/components/molecules/StarRadioInput";
 import { IFormTypeInputProps } from "../SchemaForm";
 
 interface IFormTypeRelationshipInputProps<T = Record<string, string>>
@@ -41,15 +43,40 @@ function FormTypeRelationshipInput({
   } = props || {};
 
   return (
-    <div>
+    <Fragment>
       <TitleFrame>
         <Title>
-          <EmphasisText title={title || []} size="1.5rem" weight="bold" />
+          {title && (
+            <EmphasisText
+              title={title}
+              size="1.5rem"
+              weight="bold"
+              color={"#fff"}
+            />
+          )}
         </Title>
         <LogoIcon src={logos.IconWhite} alt="logo" />
       </TitleFrame>
-      <EmphasisText title={subTitle || []} size="1.2rem" />
-    </div>
+      {subTitle && (
+        <EmphasisText title={subTitle || []} size="1.2rem" color={"#fff"} />
+      )}
+      <DistanceRadioInputFrame>
+        <DistanceRadioInput
+          title={distanceProps?.title}
+          options={distanceProps?.options}
+          data={distance}
+          setData={setDistance}
+        />
+      </DistanceRadioInputFrame>
+      <StarRadioInputFrame>
+        <StarRadioInput
+          title={starsProps?.title}
+          options={starsProps?.options}
+          data={star}
+          setData={setStar}
+        />
+      </StarRadioInputFrame>
+    </Fragment>
   );
 }
 
@@ -61,6 +88,7 @@ const TitleFrame = styled.div`
   margin-top: 15px;
   margin-bottom: 15px;
 `;
+
 const Title = styled.div`
   display: flex;
   flex-direction: column;
@@ -71,4 +99,12 @@ const LogoIcon = styled.img`
   margin-top: 20px;
   width: 4rem;
   object-fit: contain;
+`;
+
+const DistanceRadioInputFrame = styled.div`
+  margin-top: 3rem;
+`;
+
+const StarRadioInputFrame = styled.div`
+  background-color: green;
 `;
