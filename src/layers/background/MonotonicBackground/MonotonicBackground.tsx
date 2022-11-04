@@ -21,4 +21,5 @@ const Background = styled.div`
   position: fixed;
   inset: 0;
   background-color: ${(props) => props.color || "#fff"};
+  transition: background-color 250ms ease;
 `;
