@@ -72,7 +72,6 @@ function RegistrationForeground({
           <GoBackButtonFrame>
             <IconButton
               aria-label="go-back"
-              size="large"
               onClick={() => {
                 if (stage > 0) {
                   setStage((prev) => prev - 1);
@@ -137,14 +136,21 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height: 100vh;
+    height: 90vh;
     flex-direction: column;
     justify-content: flex-start;
+    padding-top: 10vh;
 `;
 
 const GoBackButtonFrame = styledComponent.div`
-    margin-bottom: 20px;
-    margin-left: -30px;
+    position:fixed;
+    top:15px;
+    left:15px;
+    
+    svg {
+      width:32px;
+      height:32px;
+    }
 `;
 
 const SchemaFormFrame = styledComponent.div`

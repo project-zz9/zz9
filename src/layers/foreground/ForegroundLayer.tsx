@@ -1,30 +1,38 @@
 import type { ReactNode } from "react";
+import styled from "styled-components";
 
 interface IForegroundLayerProps {
   children: ReactNode;
 }
 
-const root: React.CSSProperties = {
-  position: "fixed",
-  inset: 0,
-  display: "flex",
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "flex-start",
-  pointerEvents: "none",
-};
-
-const content: React.CSSProperties = {
-  padding: "10px",
-  pointerEvents: "all",
-};
-
 function ForegroundLayer({ children }: IForegroundLayerProps) {
   return (
-    <div style={root}>
-      <div style={content}>{children}</div>
-    </div>
+    <Root>
+      <Content>{children}</Content>
+    </Root>
   );
 }
 
 export default ForegroundLayer;
+
+const Root = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: "none";
+`;
+
+const Content = styled.div`
+  padding: 10px;
+  pointer-events: all;
+  overflow-y: scroll;
+  overflow-x: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
