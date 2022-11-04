@@ -23,22 +23,18 @@ function ApprovePermissionModalInner({
     <ModalInnerFrame>
       <TitleFrame>지수의 지구</TitleFrame>
       <ConfirmFrame>
-        <label>
-          <IconButton
-            sx={{
-              padding: 0,
-              marginRight: "0.5rem",
-            }}
-            onClick={() => {
-              setChecked((check) => !check);
-            }}
-          >
-            <span>
-              {checked ? <CheckSquare color="#FF5A0D" /> : <Square />}
-            </span>
-          </IconButton>
-          개인정보 수집 / 이용 동의하기
-        </label>
+        <IconButton
+          sx={{
+            padding: 0,
+            marginRight: "0.5rem",
+          }}
+          onClick={() => {
+            setChecked((check) => !check);
+          }}
+        >
+          <span>{checked ? <CheckSquare color="#FF5A0D" /> : <Square />}</span>
+        </IconButton>
+        개인정보 수집 / 이용 동의하기
       </ConfirmFrame>
       <InformationFrame>
         개인 정보 수집, 이용 동의서 (전시 사전 등록 신청)
