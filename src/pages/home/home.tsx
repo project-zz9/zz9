@@ -1,11 +1,11 @@
-import DemoBackground from "~/layers/background/DemoBackground";
+import MonotonicBackground from "~/layers/background/MonotonicBackground";
 import MainPageForeground from "~/layers/foreground/MainPageForeground";
 
 function Home() {
   return (
     <>
       <MainPageForeground />
-      <DemoBackground />
+      <MonotonicBackground />
     </>
   );
 }

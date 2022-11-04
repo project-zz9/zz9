@@ -1,11 +1,11 @@
-import DemoBackground from "~/layers/background/DemoBackground";
+import MonotonicBackground from "~/layers/background/MonotonicBackground";
 import DemoForeground from "~/layers/foreground/DemoForeground";
 
 function Management() {
   return (
     <>
       <DemoForeground title="Management" color="yellow" />
-      <DemoBackground />
+      <MonotonicBackground />
     </>
   );
 }
