@@ -1,132 +1,172 @@
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
-import Ajv, { JSONSchemaType } from "ajv";
 import { useState } from "react";
-import { Button, TextField } from "@mui/material";
-const ajv = new Ajv({ strictSchema: false });
+import { IconButton } from "@mui/material";
+import { ArrowLeft } from "react-feather";
+import styledComponent from "styled-components";
+import MonotonicButton from "~/components/atoms/MonotonicButton";
+import SchemaForm from "~/components/organizations/SchemaForm";
+import { useNavigate } from "react-router-dom";
+import { HOME_PATH } from "~/pages";
+import { validator } from "~/utils/validator";
+import { jsonSchema } from "~/app/jsonSchema";
+import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
+import { useAtom } from "jotai";
+import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
+import type { ColorCode } from "~/layers/background/MonotonicBackground";
 
-type PrimaryData = {
-  name?: string;
-  phoneNumber?: string;
-};
+const stages = Object.keys(jsonSchema.properties || {});
 
-const jsonSchema: JSONSchemaType<PrimaryData> = {
-  type: "object",
-  properties: {
-    name: {
-      type: "string",
-      minLength: 5,
-      maxLength: 20,
-      nullable: true,
-      formType: null,
-      props: {
-        title: ["방문할 준비를 도와드릴게요.", "이름이 무엇인가요?"],
-        subTitle: ["가명이나 닉네임을 써도 괜찮아요."],
-      },
-    },
-    phoneNumber: {
-      type: "string",
-      maxLength: 13,
-      minLength: 13,
-      pattern: "010[-][0-9]{4}[-][0-9]{4}",
-      nullable: true,
-      formType: null,
-      props: {
-        title: ["%name%님의", "전화번호를 입력해주세요."],
-        subTitle: ["정확한 번호를 입력했는지 확인해주세요."],
-      },
-    },
-  },
-};
-
-// const validate = ajv.compile(jsonSchema);
-
-const stages = ["name", "phoneNumber"];
-
-function replacePrefix(line: string, record: Record<string, string>): string {
-  return line.replace(/%[a-zA-Z]*%/, (target) => {
-    return record[target.replace(/%/g, "")] ?? target;
-  });
+interface IRegistrationForegroundProps {
+  changeColorHandler: (
+    color:
+      | (ColorCode | undefined)
+      | ((prev: ColorCode | undefined) => ColorCode | undefined)
+  ) => void;
 }
 
-function RegistrationForeground() {
+function RegistrationForeground({
+  changeColorHandler,
+}: IRegistrationForegroundProps) {
+  const [permission] = useAtom(permissionAtom);
   const [stage, setStage] = useState<number>(0);
-  const [data, setData] = useState<Record<string, string>>({});
+  const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const goNextStage = useCallback(() => {
+    if (stages.length > stage + 1) {
+      setStage((prev) => prev + 1);
+    } else {
+    }
+  }, [stage]);
+
+  const checkCallbackHandlers = useCheckCallbackHandlers(
+    data,
+    goNextStage,
+    navigate
+  );
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
   );
-  const validate = useMemo(() => ajv.compile(jsonSchema), []);
+  const color = stage < 3 ? "light" : "dark";
+  const validate = useMemo(() => validator.compile(jsonSchema), []);
+
+  useEffect(() => {
+    if (!permission[PERSONAL_DATA]) {
+      navigate(HOME_PATH);
+    }
+    return () => {
+      stage > 0 && setStage(0);
+      Object.keys(data).length > 0 && setData({});
+      error && setError(null);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    changeColorHandler(color === "light" ? "#fff" : "#000");
+  }, [changeColorHandler, color]);
 
   return (
     <ForegroundLayer>
       {metaData && (
-        <div
-          style={{
-            display: "flex",
-            width: "80vw",
-            height: "50vh",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "space-around",
-          }}
-        >
-          <div>
-            {Array.isArray(metaData?.props?.title) &&
-              metaData.props.title
-                .map((line: string) => replacePrefix(line, data))
-                .map((line: string, index: number) => (
-                  <div key={`${index}::${line}`}>{line}</div>
-                ))}
-          </div>
-          <div>
-            {Array.isArray(metaData?.props?.subTitle) &&
-              metaData.props.subTitle
-                .map((line: string) => replacePrefix(line, data))
-                .map((line: string, index: number) => (
-                  <div key={`${index}::${line}`}>{line}</div>
-                ))}
-          </div>
-          <div>
-            <TextField
-              key={`TextField::${stages[stage]}`}
-              label={stages[stage]}
-              onChange={(event) =>
-                setData((prev) => ({
-                  ...prev,
-                  [stages[stage]]: event.target.value,
-                }))
-              }
-              variant="outlined"
-              error={!!error}
-              helperText={error}
+        <RootFrame>
+          <GoBackButtonFrame>
+            <IconButton
+              aria-label="go-back"
+              onClick={() => {
+                if (stage > 0) {
+                  setStage((prev) => prev - 1);
+                  setData((prev) =>
+                    Object.entries(prev || {}).reduce(
+                      (accumulator, [key, value]) => {
+                        if (stages.indexOf(key) < stage && value) {
+                          accumulator[key] = value;
+                        }
+                        return accumulator;
+                      },
+                      {} as Record<string, string>
+                    )
+                  );
+                  setError(null);
+                } else {
+                  navigate(HOME_PATH);
+                }
+              }}
+            >
+              <ArrowLeft color={color === "light" ? "#000" : "#fff"} />
+            </IconButton>
+          </GoBackButtonFrame>
+          <SchemaFormFrame>
+            <SchemaForm
+              name={stages[stage]}
+              data={data}
+              onChange={setData}
+              error={error}
+              jsonSchema={metaData}
             />
-          </div>
-          <div>
-            <Button
-              type="button"
+          </SchemaFormFrame>
+          <NextButtonFrame>
+            <MonotonicButton
+              disabled={loading || !(data as any)[stages[stage]]}
+              color={color === "light" ? "inherit" : "primary"}
               onClick={() => {
                 const result = validate(data);
                 if (result) {
-                  if (stages.length > stage + 1) {
-                    setError(null);
-                    setStage((prev) => prev + 1);
+                  if (checkCallbackHandlers[stages[stage]]) {
+                    setLoading(checkCallbackHandlers[stages[stage]]());
                   } else {
-                    console.log("VALIDATE");
+                    goNextStage();
                   }
+                  setError(null);
                 } else {
                   setError(validate.errors?.[0].message || null);
                 }
               }}
             >
-              {stages.length > stage + 1 ? "NEXT" : "END"}
-            </Button>
-          </div>
-        </div>
+              {loading ? "Loading..." : "다음으로"}
+            </MonotonicButton>
+          </NextButtonFrame>
+        </RootFrame>
       )}
     </ForegroundLayer>
   );
 }
 
 export default RegistrationForeground;
+
+const RootFrame = styledComponent.div`
+    display: flex;
+    width: 80vw;
+    height: 92.5vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 7.5vh;
+`;
+
+const GoBackButtonFrame = styledComponent.div`
+    position:fixed;
+    top:15px;
+    left:15px;
+    
+    svg {
+      width:32px;
+      height:32px;
+    }
+`;
+
+const SchemaFormFrame = styledComponent.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+`;
+
+const NextButtonFrame = styledComponent.div`
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    padding-bottom: min(50px, 10vw);
+`;

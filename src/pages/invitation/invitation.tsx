@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { firestore } from "~/app/firesore";
-import DemoBackground from "~/layers/background/DemoBackground";
+import MonotonicBackground from "~/layers/background/MonotonicBackground";
 import DemoForeground from "~/layers/foreground/DemoForeground";
 
 function Invitation() {
@@ -21,7 +21,7 @@ function Invitation() {
     <>
       <DemoForeground title="Invitation" color="green" />
       <pre>{great}</pre>
-      <DemoBackground />
+      <MonotonicBackground />
     </>
   );
 }

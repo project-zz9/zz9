@@ -1,6 +1,7 @@
 import Home from "./home";
 import Registration from "./registration";
 import Invitation from "./invitation";
+import InvitationPreview from "./invitation-preview";
 import Guestbook from "./guestbook";
 import Management from "./management";
 import SignIn from "./sign-in";
@@ -16,6 +17,7 @@ type Page = {
 export const HOME_PATH = "/home";
 export const REGISTRATION_PATH = "/registration";
 export const INVITATION_PATH = "/invitation/:uuid";
+export const INVITATION_PREVIEW_PATH = "/invitation-preview/:uuid";
 export const GUESTBOOK_PATH = "/guestbook/:uuid";
 export const SIGNIN_PATH = "/sign-in";
 export const MANAGEMENT_PATH = "/management";
@@ -32,6 +34,12 @@ export const pages: Page[] = [
     name: "Registration",
     auth: false,
     Component: Registration,
+  },
+  {
+    path: INVITATION_PREVIEW_PATH,
+    name: "InvitationPreview",
+    auth: false,
+    Component: InvitationPreview,
   },
   {
     path: INVITATION_PATH,

@@ -1,11 +1,15 @@
-import DemoBackground from "~/layers/background/DemoBackground";
+import { useState } from "react";
+import MonotonicBackground, {
+  ColorCode,
+} from "~/layers/background/MonotonicBackground";
 import RegistrationForeground from "~/layers/foreground/RegistrationForeground/RegistrationForeground";
 
 function Registration() {
+  const [color, setColor] = useState<ColorCode | undefined>();
   return (
     <>
-      <RegistrationForeground />
-      <DemoBackground />
+      <RegistrationForeground changeColorHandler={setColor} />
+      <MonotonicBackground color={color} />
     </>
   );
 }

@@ -5,16 +5,22 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.10",
     "ajv": "^8.11.0",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.6",
+    "feather-icons": "^4.29.0",
     "firebase": "^9.12.1",
     "jotai": "^1.8.5",
     "node-sass": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
     "react-lottie": "^1.2.3",
-    "react-router-dom": "^6.4.2"
+    "react-markdown": "^8.0.3",
+    "react-router-dom": "^6.4.2",
+    "remark-gfm": "^3.0.1",
+    "styled-components": "^5.3.6"
   },
   "scripts": {
     "start": "craco start",
@@ -45,10 +51,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/crypto-js": "^4.1.1",
+    "@types/feather-icons": "^4.7.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.65",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
     "react-scripts": "5.0.1",
     "typescript": "^4.8.4"
   }

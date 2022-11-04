@@ -1,20 +1,21 @@
-import { DemoImage } from "~/assets/images";
 import BackgroundLayer from "../BackgroundLayer";
 
 interface IDemoBackgroundProps {
   uri?: string;
 }
 
-function DemoBackground({ uri = DemoImage }: IDemoBackgroundProps) {
+function DemoBackground({ uri }: IDemoBackgroundProps) {
   return (
     <BackgroundLayer>
-      <img
-        src={uri}
-        alt=""
-        style={{
-          opacity: 0.5,
-        }}
-      />
+      {uri && (
+        <img
+          src={uri}
+          alt=""
+          style={{
+            opacity: 0.5,
+          }}
+        />
+      )}
     </BackgroundLayer>
   );
 }
