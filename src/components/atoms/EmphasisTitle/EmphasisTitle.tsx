@@ -1,22 +1,34 @@
 import { Fragment } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export type EmphasisText = { type?: "common" | "emphasis"; span: string }[][];
 
 interface IEmphasisTitleProps {
   title: EmphasisText;
+  size?: string;
+  color?: string;
+  emphasisColor?: string;
 }
 
-function EmphasisTitle({ title }: IEmphasisTitleProps) {
+function EmphasisTitle({
+  title,
+  size,
+  color,
+  emphasisColor,
+}: IEmphasisTitleProps) {
   return (
     <Fragment>
       {title.map((line, index) => (
-        <Line key={index}>
+        <Line key={index} size={size}>
           {line.map(({ type, span }, i) =>
             type === "emphasis" ? (
-              <Emphasis key={`${i}::${type}::${span}`}>{span}</Emphasis>
+              <Emphasis key={`${i}::${type}::${span}`} color={color}>
+                {span}
+              </Emphasis>
             ) : (
-              <Common key={`${i}::${type}::${span}`}>{span}</Common>
+              <Common key={`${i}::${type}::${span}`} color={emphasisColor}>
+                {span}
+              </Common>
             )
           )}
         </Line>
@@ -27,15 +39,20 @@ function EmphasisTitle({ title }: IEmphasisTitleProps) {
 
 export default EmphasisTitle;
 
-const Line = styled.div``;
+const Line = styled.div<{ size?: string }>`
+  font-size: ${({ size }) => (size ? "" : "1.1em")};
+`;
 
 const Common = styled.span`
-  font-size: 1.1em;
   font-weight: 500;
+  ${({ color }) =>
+    color &&
+    css`
+      color: ${color};
+    `}
 `;
 
 const Emphasis = styled.span`
-  color: #ff5a0d;
-  font-size: 1.1em;
+  color: ${({ color }) => (color ? color : "#ff5a0d")};
   font-weight: bold;
 `;
