@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import ContentTable from "~/components/atoms/ContentTable";
-import EmphasisTitle, { EmphasisText } from "~/components/atoms/EmphasisTitle";
+import EmphasisText, {
+  EmphasisTextForm,
+} from "~/components/atoms/EmphasisText";
 
 interface IConfirmModalInnerProps {
-  title: EmphasisText;
+  title: EmphasisTextForm;
   contents: {
     label: string;
     value: string;
@@ -14,7 +16,7 @@ function ConfirmModalInner({ title, contents }: IConfirmModalInnerProps) {
   return (
     <ConfirmModalRoot>
       <TitleFrame>
-        <EmphasisTitle title={title} />
+        <EmphasisText title={title} />
       </TitleFrame>
       <ContentsFrame>
         <ContentTable contents={contents} />
