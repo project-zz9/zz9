@@ -1,6 +1,5 @@
-import { Chip, ChipProps } from "@mui/material";
 import { Fragment } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { stars } from "~/assets/icons";
 
 interface IStarRadioInputProps<T> {
