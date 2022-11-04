@@ -15,9 +15,7 @@ const root: React.CSSProperties = {
 };
 
 const content: React.CSSProperties = {
-  backgroundColor: "#5FF0F050",
   padding: "10px",
-  borderRadius: 10,
   pointerEvents: "all",
 };
 

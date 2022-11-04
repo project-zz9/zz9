@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 
 interface IMonotonicMuttonProps {
   type?: "outlined" | "contained";
+  color?: "inherit" | "primary" | "secondary";
   disabled?: boolean;
   onClick: () => void;
   children: string | ReactNode;
@@ -11,6 +12,7 @@ interface IMonotonicMuttonProps {
 
 function MonotonicButton({
   type = "contained",
+  color = "inherit",
   disabled = false,
   onClick,
   children,
@@ -19,6 +21,7 @@ function MonotonicButton({
     <MonotonicButtonInner
       disabled={disabled}
       variant={type}
+      color={color}
       fullWidth
       onClick={onClick}
     >
@@ -32,23 +35,35 @@ const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
   color: props.variant === "outlined" ? "black" : "white",
   fontSize: "1.05rem",
   backgroundColor:
-    props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
-  border: "2px solid black",
+    props.color === "primary"
+      ? "#FF5A0D"
+      : props.variant === "outlined"
+      ? "rgba(25, 118, 210, 0.04)"
+      : "black",
+  border: `2px solid ${props.color === "primary" ? "#FF5A0D" : "black"}`,
   fontWeight: "bold",
   padding: "6px 16px",
   borderRadius: "7.5px",
   "&:hover": {
     backgroundColor:
-      props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
-    border: "2px solid black",
+      props.color === "primary"
+        ? "#FF5A0D"
+        : props.variant === "outlined"
+        ? "rgba(25, 118, 210, 0.04)"
+        : "black",
+    border: `2px solid ${props.color === "primary" ? "#FF5A0D" : "black"}`,
   },
   "&:focus": {
     backgroundColor:
-      props.variant === "outlined" ? "rgba(25, 118, 210, 0.04)" : "black",
-    border: "2px solid black",
+      props.color === "primary"
+        ? "#FF5A0D"
+        : props.variant === "outlined"
+        ? "rgba(25, 118, 210, 0.04)"
+        : "black",
+    border: `2px solid ${props.color === "primary" ? "#FF5A0D" : "black"}`,
   },
   "&[disabled]": {
-    backgroundColor: "#505050",
+    backgroundColor: props.color === "primary" ? "#D8D8D8" : "#505050",
     color: "white",
     border: "2px solid #505050",
     opacity: 0.5,

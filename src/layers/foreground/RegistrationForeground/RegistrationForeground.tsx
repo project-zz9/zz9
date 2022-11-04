@@ -46,19 +46,24 @@ function RegistrationForeground({
     () => jsonSchema.properties[stages[stage]] ?? {},
     [stage]
   );
+  const color = stage < 3 ? "light" : "dark";
   const validate = useMemo(() => validator.compile(jsonSchema), []);
 
   useEffect(() => {
-    if (!permission[PERSONAL_DATA]) {
-      navigate(HOME_PATH);
-    }
+    // if (!permission[PERSONAL_DATA]) {
+    //   navigate(HOME_PATH);
+    // }
     return () => {
-      stage > 0 && setStage(0);
-      Object.keys(data).length > 0 && setData({});
-      error && setError(null);
+      // stage > 0 && setStage(0);
+      // Object.keys(data).length > 0 && setData({});
+      // error && setError(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    changeColorHandler(color === "light" ? "#fff" : "#000");
+  }, [changeColorHandler, color]);
 
   return (
     <ForegroundLayer>
@@ -88,7 +93,7 @@ function RegistrationForeground({
                 }
               }}
             >
-              <ArrowLeft />
+              <ArrowLeft color={color === "light" ? "#000" : "#fff"} />
             </IconButton>
           </GoBackButtonFrame>
           <SchemaFormFrame>
@@ -103,6 +108,7 @@ function RegistrationForeground({
           <NextButtonFrame>
             <MonotonicButton
               disabled={!(data as any)[stages[stage]]}
+              color={color === "light" ? "inherit" : "primary"}
               onClick={() => {
                 const result = validate(data);
                 if (result) {
