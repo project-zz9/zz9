@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { logos } from "~/assets/icons";
 import EmphasisText, {
@@ -26,14 +26,21 @@ interface IFormTypeRelationshipInputProps<T = Record<string, string>>
 
 function FormTypeRelationshipInput({
   name,
-  data,
   onChange,
-  label,
-  error,
   props,
 }: IFormTypeRelationshipInputProps) {
   const [distance, setDistance] = useState<string>("");
   const [star, setStar] = useState<string>("");
+
+  useEffect(() => {
+    if (distance && star) {
+      onChange((prev) => ({
+        ...prev,
+        [name]: `${distance}::${star}`,
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [distance, star]);
 
   const {
     title,
@@ -105,6 +112,4 @@ const DistanceRadioInputFrame = styled.div`
   margin-top: 3rem;
 `;
 
-const StarRadioInputFrame = styled.div`
-  background-color: green;
-`;
+const StarRadioInputFrame = styled.div``;
