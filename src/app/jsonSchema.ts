@@ -110,7 +110,7 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
             },
             {
               value: "1m",
-              description: "웃을 수 있는 사이",
+              description: "함께 웃을 수 있는 사이",
             },
           ],
         },
