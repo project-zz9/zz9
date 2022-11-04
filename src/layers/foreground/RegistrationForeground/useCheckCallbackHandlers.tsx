@@ -6,7 +6,8 @@ import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitT
 
 import type { VisitorData } from "~/app/jsonSchema";
 import type { NavigateFunction } from "react-router-dom";
-import { INVITATION_PREVIEW_PATH } from "~/pages";
+import { HOME_PATH, INVITATION_PREVIEW_PATH } from "~/pages";
+import { getVisitor, setVisitor } from "~/api/visitor";
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
@@ -26,8 +27,23 @@ export function useCheckCallbackHandlers(
             />
           ),
           onSubmit: {
-            handler: () => {
-              goNextStage();
+            handler: async () => {
+              const visitor = await getVisitor(data);
+              if (visitor) {
+                navigate(HOME_PATH);
+                setModal({
+                  type: "information",
+                  content: {
+                    title: "이미 사전 등록을 진행하셨습니다",
+                    body: "시간을 변경해야 하신다면, 지수에게 연락해주세요!",
+                  },
+                  onSubmit: {
+                    label: "확인",
+                  },
+                });
+              } else {
+                goNextStage();
+              }
             },
             label: "확인",
           },
@@ -53,7 +69,8 @@ export function useCheckCallbackHandlers(
           },
         });
       },
-      relationship: () => {
+      relationship: async () => {
+        await setVisitor(data);
         navigate(INVITATION_PREVIEW_PATH);
       },
     }),

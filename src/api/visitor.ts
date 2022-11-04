@@ -3,8 +3,11 @@ import type { VisitorData } from "~/app/jsonSchema";
 import { hashing } from "~/utils/crypto";
 
 export const getVisitor = async (
-  visitor: string
+  visitorData: VisitorData
 ): Promise<VisitorData | null> => {
+  const { name, phoneNumber } = visitorData;
+  if (!name || !phoneNumber) return null;
+  const visitor = hashing(`${name}::${phoneNumber}`);
   try {
     const visitorData = (
       await visitorCollection.doc(visitor).get()
