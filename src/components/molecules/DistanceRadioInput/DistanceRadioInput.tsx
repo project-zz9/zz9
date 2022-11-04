@@ -61,7 +61,7 @@ const Title = styledComponents.div`
 const OptionGroupFrame = styledComponents.div`
     display: flex;
     flex-direction: row;  
-    height: 5.5rem;
+    height: 4.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 `;
