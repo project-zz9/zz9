@@ -8,7 +8,7 @@ function Application() {
   const location = useLocation();
   return (
     <TransitionGroup>
-      <CSSTransition key={location.key} classNames="fade" timeout={300}>
+      <CSSTransition key={location.key} classNames="fade" timeout={350}>
         <Routes>
           {pages.map(({ path, Component, auth }) =>
             auth ? (
