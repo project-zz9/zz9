@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { logos } from "~/assets/icons";
-import EmphasisText from "~/components/atoms/EmphasisText";
 import DistanceRadioInput from "~/components/molecules/DistanceRadioInput";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import StarRadioInput from "~/components/molecules/StarRadioInput";

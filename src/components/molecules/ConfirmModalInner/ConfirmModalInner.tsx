@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ContentTable from "~/components/atoms/ContentTable";
-import EmphasisText from "~/components/atoms/EmphasisText";
 import MultiLineText from "../MultiLineText";
 
 interface IConfirmModalInnerProps {
