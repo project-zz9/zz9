@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import MonotonicBackground from "~/layers/background/MonotonicBackground";
-import DemoForeground from "~/layers/foreground/DemoForeground";
+import InvitationPreviewForeground from "~/layers/foreground/InvitationPreviewForeground";
 
 function InvitationPreview() {
   const { uuid } = useParams();
   return (
     <>
-      <DemoForeground title="InvitationPreview" color="red" />
-      <MonotonicBackground />
+      <InvitationPreviewForeground uuid={uuid} />
+      <MonotonicBackground color="#000" />
     </>
   );
 }
