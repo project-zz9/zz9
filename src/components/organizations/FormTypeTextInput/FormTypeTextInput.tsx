@@ -8,7 +8,7 @@ interface IFormTypeTextInputProps<T = Record<string, string>>
   extends IFormTypeInputProps<T> {
   maxLength?: number;
   props?: {
-    title: string | string[] | undefined;
+    title: EmphasisTextForm[] | undefined;
   };
   options?: {
     format: "text" | "phoneNumber";
@@ -43,7 +43,12 @@ function FormTypeTextInput({
     <Fragment>
       <div>
         {props?.title && (
-          <MultiLineText type="title" lines={props.title} data={data} />
+          <MultiLineText
+            lines={props.title}
+            data={data}
+            size="1.5rem"
+            weight="bold"
+          />
         )}
       </div>
       <div>

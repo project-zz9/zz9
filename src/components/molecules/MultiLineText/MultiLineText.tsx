@@ -1,26 +1,43 @@
 import { Fragment, useMemo } from "react";
-import SubTitleLine from "~/components/atoms/SubTitleLine";
-import TitleLine from "~/components/atoms/TitleLine";
+import EmphasisText from "~/components/atoms/EmphasisText";
 
 interface IMultiLineText {
-  type: "title" | "subTitle";
-  lines: string | string[];
+  lines: EmphasisTextForm[];
+  size?: `${number}rem`;
+  color?: ColorCode;
+  weight?: number | "bold";
   data?: Record<string, string>;
 }
 
-function MultiLineText({ type, lines: _lines_, data }: IMultiLineText) {
-  const lines = Array.isArray(_lines_) ? _lines_ : [_lines_];
-  const Line = useMemo(
-    () => (type === "title" ? TitleLine : SubTitleLine),
-    [type]
-  );
+function MultiLineText({
+  lines: rawLines,
+  size,
+  color,
+  weight,
+  data,
+}: IMultiLineText) {
+  const lines = useMemo(() => {
+    return data
+      ? rawLines.map((line) => {
+          return line.map((span) => ({
+            ...span,
+            span: replacePrefix(span.value, data),
+          }));
+        })
+      : rawLines;
+  }, [rawLines, data]);
+
   return (
     <Fragment>
-      {lines
-        .map((line: string) => replacePrefix(line, data || {}))
-        .map((line: string, index: number) => (
-          <Line key={`${index}::${line}`}>{line}</Line>
-        ))}
+      {lines.map((line: EmphasisTextForm, index: number) => (
+        <EmphasisText
+          key={`${index}::${line}`}
+          text={line}
+          size={size}
+          color={color}
+          weight={weight}
+        />
+      ))}
     </Fragment>
   );
 }

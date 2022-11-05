@@ -3,14 +3,15 @@ import styled from "styled-components";
 import { logos } from "~/assets/icons";
 import EmphasisText from "~/components/atoms/EmphasisText";
 import DistanceRadioInput from "~/components/molecules/DistanceRadioInput";
+import MultiLineText from "~/components/molecules/MultiLineText";
 import StarRadioInput from "~/components/molecules/StarRadioInput";
 import { IFormTypeInputProps } from "../SchemaForm";
 
 interface IFormTypeRelationshipInputProps<T = Record<string, string>>
   extends IFormTypeInputProps<T> {
   props?: {
-    title: EmphasisTextForm;
-    subTitle: EmphasisTextForm;
+    title: EmphasisTextForm[];
+    subTitle: EmphasisTextForm[];
     distance: {
       title: string;
       options: { value: string; description: string }[];
@@ -52,18 +53,18 @@ function FormTypeRelationshipInput({
       <TitleFrame>
         <Title>
           {title && (
-            <EmphasisText
-              title={title}
+            <MultiLineText
+              lines={title}
               size="1.5rem"
               weight="bold"
-              color={"#fff"}
+              color="#fff"
             />
           )}
         </Title>
         <LogoIcon src={logos.IconWhite} alt="logo" />
       </TitleFrame>
       {subTitle && (
-        <EmphasisText title={subTitle || []} size="1.2rem" color={"#fff"} />
+        <MultiLineText lines={subTitle || []} size="1.2rem" color="#fff" />
       )}
       <DistanceRadioInputFrame>
         <DistanceRadioInput

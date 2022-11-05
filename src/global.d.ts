@@ -12,7 +12,7 @@ type VisitorData = {
 
 type EmphasisTextForm = {
   type?: "common" | "emphasis";
-  span: string;
-}[][];
+  value: string;
+}[];
 
 type ColorCode = `#${string}`;

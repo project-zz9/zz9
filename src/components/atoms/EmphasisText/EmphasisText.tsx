@@ -1,53 +1,44 @@
-import { Fragment } from "react";
 import styled from "styled-components";
 
 interface IEmphasisTextProps {
-  title: EmphasisTextForm;
-  size?: string;
-  weight?: string;
+  text: EmphasisTextForm;
+  size?: `${number}rem`;
+  weight?: number | "bold";
   color?: string;
   emphasisColor?: string;
 }
 
 function EmphasisText({
-  title,
+  text,
   size,
   weight,
   color,
   emphasisColor,
 }: IEmphasisTextProps) {
   return (
-    <Fragment>
-      {title.map((line, index) => (
-        <Line key={index} size={size}>
-          {line.map(({ type, span }, i) =>
-            type === "emphasis" ? (
-              <Emphasis key={`${i}::${type}::${span}`} color={emphasisColor}>
-                {span}
-              </Emphasis>
-            ) : (
-              <Common
-                key={`${i}::${type}::${span}`}
-                color={color}
-                weight={weight}
-              >
-                {span}
-              </Common>
-            )
-          )}
-        </Line>
-      ))}
-    </Fragment>
+    <Line size={size}>
+      {text.map(({ type, value }, i) =>
+        type === "emphasis" ? (
+          <Emphasis key={`${i}::${type}::${value}`} color={emphasisColor}>
+            {value}
+          </Emphasis>
+        ) : (
+          <Common key={`${i}::${type}::${value}`} color={color} weight={weight}>
+            {value}
+          </Common>
+        )
+      )}
+    </Line>
   );
 }
 
 export default EmphasisText;
 
 const Line = styled.div<{ size?: string }>`
-  font-size: ${({ size }) => size || "1.1em"};
+  font-size: ${({ size }) => size || "1.1rem"};
 `;
 
-const Common = styled.span<{ weight?: string }>`
+const Common = styled.span<{ weight?: number | "bold" }>`
   font-weight: ${({ weight }) => weight ?? 500};
   color: ${({ color }) => color || "#000"};
 `;
