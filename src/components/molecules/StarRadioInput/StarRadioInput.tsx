@@ -1,6 +1,7 @@
 import { Fragment } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { stars } from "~/assets/icons";
+import PhotoCard from "~/components/atoms/PhotoCard";
 
 interface IStarRadioInputProps<T> {
   title?: string;
@@ -26,26 +27,15 @@ function StarRadioInput<T>({
         <OptionGroupFrame>
           {options.map(({ value }, index) => {
             return (
-              <StarCard
+              <PhotoCard
                 key={`${index}::${value}`}
+                source={stars[value].normal}
+                shadow={stars[value].checked}
+                activate={data === value}
                 onClick={() => {
                   setData(value as T);
                 }}
-              >
-                <Card
-                  checked={data === value}
-                  draggable={false}
-                  src={stars[value].normal}
-                  alt={value}
-                />
-                {data === value && (
-                  <CheckedCard
-                    draggable={false}
-                    src={stars[value].checked}
-                    alt={value}
-                  />
-                )}
-              </StarCard>
+              />
             );
           })}
         </OptionGroupFrame>
@@ -67,38 +57,4 @@ const OptionGroupFrame = styled.div`
   grid-template-columns: repeat(3, 1fr);
   margin-top: 1rem;
   margin-bottom: 1rem;
-`;
-
-const StarCard = styled.div`
-  position: relative;
-  width: 27vw;
-`;
-
-const Card = styled.img<{ checked: boolean }>`
-  object-fit: cover;
-  opacity: ${({ checked }) => (checked ? 0.75 : 0.35)};
-  transition: opacity 500ms;
-  height: 100%;
-  width: 100%;
-`;
-
-const glow = keyframes`
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-`;
-
-const CheckedCard = styled.img`
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-  animation: ${glow} 2s infinite linear alternate;
 `;
