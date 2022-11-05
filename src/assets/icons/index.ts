@@ -1,3 +1,1 @@
-import logos from "./logo";
-
-export { logos };
+export {};

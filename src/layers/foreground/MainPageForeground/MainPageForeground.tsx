@@ -1,9 +1,10 @@
-import { Button } from "@mui/material";
+import styled from "styled-components";
 import { useAtom } from "jotai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logos } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import ApprovePermissionModalInner from "~/components/organizations/ApprovePermissionModalInner";
-import { MANAGEMENT_PATH, REGISTRATION_PATH } from "~/pages";
+import { REGISTRATION_PATH } from "~/pages";
 import { modalControlAtom } from "~/stores/modal";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import ForegroundLayer from "../ForegroundLayer";
@@ -14,9 +15,14 @@ function MainPageForeground() {
   const [, setModal] = useAtom(modalControlAtom);
   return (
     <ForegroundLayer>
-      <div>
-        <h2>
+      <RootFrame>
+        <LogoFrame>
+          <Logo src={logos.Logo1} alt="" />
+        </LogoFrame>
+        <MessageFrame>지수의 지구에 오신걸 환영합니다.</MessageFrame>
+        <ButtonFrame>
           <MonotonicButton
+            color="secondary"
             onClick={() => {
               setModal({
                 type: "confirm",
@@ -39,79 +45,40 @@ function MainPageForeground() {
               });
             }}
           >
-            REGISTRATION
+            등록하기
           </MonotonicButton>
-        </h2>
-        <h2>
-          <Link to={MANAGEMENT_PATH}>{MANAGEMENT_PATH}</Link>
-        </h2>
-        <ul>
-          <li>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() =>
-                setModal({
-                  type: "confirm",
-                  content: {
-                    title: "MODAL",
-                    body: "테스트용 내용입니다?",
-                  },
-                  onSubmit: {
-                    label: "확인",
-                  },
-                  onCancel: {
-                    label: "취소",
-                  },
-                })
-              }
-            >
-              Show Confirm
-            </Button>
-          </li>
-          <li>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() =>
-                setModal({
-                  type: "fullscreen",
-                  content: {
-                    title: "Fullscreen",
-                    body: "많은 내용을 이 내부에 담을 것입니다.",
-                  },
-                  onSubmit: {
-                    label: "뒤로가기",
-                  },
-                })
-              }
-            >
-              Show Fullscreen Description
-            </Button>
-          </li>
-          <li>
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() =>
-                setModal({
-                  type: "information",
-                  content: {
-                    title: "Info.",
-                    body: "당신에게 새로운 정보를 제공하려고 합니다.",
-                  },
-                  onSubmit: {
-                    label: "확인",
-                  },
-                })
-              }
-            >
-              Show Information
-            </Button>
-          </li>
-        </ul>
-      </div>
+        </ButtonFrame>
+      </RootFrame>
     </ForegroundLayer>
   );
 }
 export default MainPageForeground;
+
+const RootFrame = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 85vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const LogoFrame = styled.div`
+  width: 60vw;
+  margin-bottom: 4rem;
+`;
+const Logo = styled.img`
+  object-fit: cover;
+  width: 100%;
+`;
+const MessageFrame = styled.div`
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+`;
+const ButtonFrame = styled.div`
+  width: 100%;
+  button {
+    height: 3.5rem;
+  }
+`;

@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       <MainPageForeground />
-      <MonotonicBackground />
+      <MonotonicBackground color="#000" />
     </>
   );
 }

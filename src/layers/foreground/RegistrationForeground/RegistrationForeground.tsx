@@ -13,6 +13,8 @@ import { jsonSchema } from "~/app/jsonSchema";
 import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import "./RegistrationForeground.css";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
@@ -71,66 +73,70 @@ function RegistrationForeground({
 
   return (
     <ForegroundLayer>
-      {metaData && (
-        <RootFrame>
-          <GoBackButtonFrame>
-            <IconButton
-              aria-label="go-back"
-              onClick={() => {
-                if (stage > 0) {
-                  setStage((prev) => prev - 1);
-                  setData((prev) =>
-                    Object.entries(prev || {}).reduce(
-                      (accumulator, [key, value]) => {
-                        if (stages.indexOf(key) < stage && value) {
-                          accumulator[key] = value;
-                        }
-                        return accumulator;
-                      },
-                      {} as Record<string, string>
-                    )
-                  );
-                  setError(null);
-                } else {
-                  navigate(HOME_PATH);
-                }
-              }}
-            >
-              <ArrowLeft color={color === "light" ? "#000" : "#fff"} />
-            </IconButton>
-          </GoBackButtonFrame>
-          <SchemaFormFrame>
-            <SchemaForm
-              name={stages[stage]}
-              data={data}
-              onChange={setData}
-              error={error}
-              jsonSchema={metaData}
-            />
-          </SchemaFormFrame>
-          <NextButtonFrame>
-            <MonotonicButton
-              disabled={loading || !(data as any)[stages[stage]]}
-              color={color === "light" ? "inherit" : "primary"}
-              onClick={() => {
-                const result = validate(data);
-                if (result) {
-                  if (checkCallbackHandlers[stages[stage]]) {
-                    setLoading(checkCallbackHandlers[stages[stage]]());
-                  } else {
-                    goNextStage();
-                  }
-                  setError(null);
-                } else {
-                  setError(validate.errors?.[0].message || null);
-                }
-              }}
-            >
-              {loading ? "Loading..." : "다음으로"}
-            </MonotonicButton>
-          </NextButtonFrame>
-        </RootFrame>
-      )}
+      <TransitionGroup>
+        <CSSTransition key={stage} classNames="fade" timeout={350}>
+          {metaData && (
+            <RootFrame>
+              <GoBackButtonFrame>
+                <IconButton
+                  aria-label="go-back"
+                  onClick={() => {
+                    if (stage > 0) {
+                      setStage((prev) => prev - 1);
+                      setData((prev) =>
+                        Object.entries(prev || {}).reduce(
+                          (accumulator, [key, value]) => {
+                            if (stages.indexOf(key) < stage && value) {
+                              accumulator[key] = value;
+                            }
+                            return accumulator;
+                          },
+                          {} as Record<string, string>
+                        )
+                      );
+                      setError(null);
+                    } else {
+                      navigate(HOME_PATH);
+                    }
+                  }}
+                >
+                  <ArrowLeft color={color === "light" ? "#000" : "#fff"} />
+                </IconButton>
+              </GoBackButtonFrame>
+              <SchemaFormFrame>
+                <SchemaForm
+                  name={stages[stage]}
+                  data={data}
+                  onChange={setData}
+                  error={error}
+                  jsonSchema={metaData}
+                />
+              </SchemaFormFrame>
+              <NextButtonFrame>
+                <MonotonicButton
+                  disabled={loading || !(data as any)[stages[stage]]}
+                  color={color === "light" ? "inherit" : "primary"}
+                  onClick={() => {
+                    const result = validate(data);
+                    if (result) {
+                      if (checkCallbackHandlers[stages[stage]]) {
+                        setLoading(checkCallbackHandlers[stages[stage]]());
+                      } else {
+                        goNextStage();
+                      }
+                      setError(null);
+                    } else {
+                      setError(validate.errors?.[0].message || null);
+                    }
+                  }}
+                >
+                  {loading ? "Loading..." : "다음으로"}
+                </MonotonicButton>
+              </NextButtonFrame>
+            </RootFrame>
+          )}
+        </CSSTransition>
+      </TransitionGroup>
     </ForegroundLayer>
   );
 }
