@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import ContentTable from "~/components/atoms/ContentTable";
-import EmphasisText, {
-  EmphasisTextForm,
-} from "~/components/atoms/EmphasisText";
+import EmphasisText from "~/components/atoms/EmphasisText";
 
 interface IConfirmModalInnerProps {
   title: EmphasisTextForm;

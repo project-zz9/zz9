@@ -1,9 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { logos } from "~/assets/icons";
-import EmphasisText, {
-  EmphasisTextForm,
-} from "~/components/atoms/EmphasisText";
+import EmphasisText from "~/components/atoms/EmphasisText";
 import DistanceRadioInput from "~/components/molecules/DistanceRadioInput";
 import StarRadioInput from "~/components/molecules/StarRadioInput";
 import { IFormTypeInputProps } from "../SchemaForm";

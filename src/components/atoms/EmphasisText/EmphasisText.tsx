@@ -1,11 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
 
-export type EmphasisTextForm = {
-  type?: "common" | "emphasis";
-  span: string;
-}[][];
-
 interface IEmphasisTextProps {
   title: EmphasisTextForm;
   size?: string;

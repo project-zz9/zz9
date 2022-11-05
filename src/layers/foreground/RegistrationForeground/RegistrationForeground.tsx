@@ -29,7 +29,7 @@ function RegistrationForeground({
   changeColorHandler,
 }: IRegistrationForegroundProps) {
   const [permission] = useAtom(permissionAtom);
-  const [stage, setStage] = useState<number>(0);
+  const [stage, setStage] = useState<number>(3);
   const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -55,13 +55,13 @@ function RegistrationForeground({
   const validate = useMemo(() => validator.compile(jsonSchema), []);
 
   useEffect(() => {
-    if (!permission[PERSONAL_DATA]) {
-      navigate(HOME_PATH);
-    }
+    // if (!permission[PERSONAL_DATA]) {
+    //   navigate(HOME_PATH);
+    // }
     return () => {
-      stage > 0 && setStage(0);
-      Object.keys(data).length > 0 && setData({});
-      error && setError(null);
+      // stage > 0 && setStage(0);
+      // Object.keys(data).length > 0 && setData({});
+      // error && setError(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
