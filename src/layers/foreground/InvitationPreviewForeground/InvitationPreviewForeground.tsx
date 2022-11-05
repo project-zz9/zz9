@@ -10,6 +10,7 @@ import PhotoCard from "~/components/atoms/PhotoCard";
 import { useNavigate } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { useMemo } from "react";
+import { SEPARATOR } from "~/app/constant";
 
 interface IInvitationPreviewForegroundProps {
   uuid: string | undefined;
@@ -26,7 +27,7 @@ function InvitationPreviewForeground({
   );
 
   const [distance, star] = useMemo(
-    () => (visitor?.relationship ? visitor.relationship.split("::") : []),
+    () => (visitor?.relationship ? visitor.relationship.split(SEPARATOR) : []),
     [visitor]
   );
 
