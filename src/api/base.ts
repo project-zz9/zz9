@@ -28,28 +28,31 @@ export class FirestoreApi {
       try {
         return (await this.collection.doc(id).get()).data() as T;
       } catch (error: any) {
-        return null;
+        throw new Error(error);
       }
     }
     if (query) {
       const [field, operator, value] = query;
       const data: any[] = [];
-      (await this.collection.where(field, operator, value).get()).forEach(
-        (document) => {
-          data.push(document.data());
-        }
-      );
-      return data as T;
+      try {
+        (await this.collection.where(field, operator, value).get()).forEach(
+          (document) => {
+            data.push(document.data());
+          }
+        );
+        return data as T;
+      } catch (error: any) {
+        throw new Error(error);
+      }
     }
     return null;
   }
 
-  async post(key: string, value: any): Promise<boolean> {
+  async post(key: string, value: any): Promise<void> {
     try {
       await this.collection.doc(key).set(value);
-      return true;
     } catch (error: any) {
-      return false;
+      throw new Error(error);
     }
   }
 }
