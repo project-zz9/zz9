@@ -73,7 +73,7 @@ export function useCheckCallbackHandlers(
       relationship: () => {
         setVisitor(data).then((visitor: string | null) => {
           if (visitor) {
-            navigate(INVITATION_PREVIEW_PATH.replace("uuid", visitor));
+            navigate(INVITATION_PREVIEW_PATH.replace(":uuid", visitor));
           } else {
             navigate(HOME_PATH);
             setModal({
