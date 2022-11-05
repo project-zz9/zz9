@@ -1,3 +1,3 @@
-import DemoImage from "./demo.jpg";
+import cards from "./cards";
 
-export { DemoImage };
+export { cards };

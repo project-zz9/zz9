@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
-import { stars } from "~/assets/icons";
+import { cards } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 
 interface IStarRadioInputProps<T> {
@@ -29,8 +29,8 @@ function StarRadioInput<T>({
             return (
               <PhotoCard
                 key={`${index}::${value}`}
-                source={stars[value].normal}
-                shadow={stars[value].checked}
+                source={cards[value].normal}
+                shadow={cards[value].shadow}
                 activate={data === value}
                 onClick={() => {
                   setData(value as T);

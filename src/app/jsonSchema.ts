@@ -111,22 +111,22 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
           title: "원하는 별 모양을 선택해주세요.",
           options: [
             {
-              value: "star1",
+              value: "card1",
             },
             {
-              value: "star2",
+              value: "card2",
             },
             {
-              value: "star3",
+              value: "card3",
             },
             {
-              value: "star4",
+              value: "card4",
             },
             {
-              value: "star5",
+              value: "card5",
             },
             {
-              value: "star6",
+              value: "card6",
             },
           ],
         },
