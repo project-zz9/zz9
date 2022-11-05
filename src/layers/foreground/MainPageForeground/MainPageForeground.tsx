@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Button } from "@mui/material";
 import { useAtom } from "jotai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { logos } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import ApprovePermissionModalInner from "~/components/organizations/ApprovePermissionModalInner";
-import { MANAGEMENT_PATH, REGISTRATION_PATH } from "~/pages";
+import { REGISTRATION_PATH } from "~/pages";
 import { modalControlAtom } from "~/stores/modal";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import ForegroundLayer from "../ForegroundLayer";
