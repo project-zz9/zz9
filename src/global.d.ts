@@ -14,3 +14,5 @@ type EmphasisTextForm = {
   type?: "common" | "emphasis";
   span: string;
 }[][];
+
+type ColorCode = `#${string}`;

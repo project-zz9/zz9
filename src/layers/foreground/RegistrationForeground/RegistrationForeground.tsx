@@ -13,7 +13,6 @@ import { jsonSchema } from "~/app/jsonSchema";
 import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
-import type { ColorCode } from "~/layers/background/MonotonicBackground";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
