@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import styled from "styled-components";
 import TextInputField from "~/components/atoms/TextInputField";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import { phoneNumber } from "~/utils/number";
@@ -41,7 +42,7 @@ function FormTypeTextInput({
 
   return (
     <Fragment>
-      <div>
+      <Title>
         {props?.title && (
           <MultiLineText
             lines={props.title}
@@ -50,7 +51,7 @@ function FormTypeTextInput({
             weight="bold"
           />
         )}
-      </div>
+      </Title>
       <div>
         <TextInputField
           label={label ?? ""}
@@ -74,3 +75,12 @@ function FormTypeTextInput({
 }
 
 export default FormTypeTextInput;
+
+const Title = styled.div`
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  div {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+`;
