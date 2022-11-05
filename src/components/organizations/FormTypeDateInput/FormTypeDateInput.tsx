@@ -11,7 +11,7 @@ import { MAX_VISITOR_ON_ONE_TIME } from "~/app/constant";
 interface IFormTypeDateInputProps<T = Record<string, string>>
   extends IFormTypeInputProps<T> {
   props?: {
-    title: string[];
+    title: EmphasisTextForm[];
     date: {
       title: string;
       options: { label: string; value: string }[];
@@ -60,7 +60,9 @@ function FormTypeDateInput({
 
   return (
     <Fragment>
-      <div>{title && <MultiLineText type="title" lines={title} />}</div>
+      <div>
+        {title && <MultiLineText lines={title} size="1.5rem" weight="bold" />}
+      </div>
       <RadioGroupFrame>
         {dateProps && (
           <RadioGroupInput

@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import styled from "styled-components";
 import TextInputField from "~/components/atoms/TextInputField";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import { phoneNumber } from "~/utils/number";
@@ -8,7 +9,7 @@ interface IFormTypeTextInputProps<T = Record<string, string>>
   extends IFormTypeInputProps<T> {
   maxLength?: number;
   props?: {
-    title: string | string[] | undefined;
+    title: EmphasisTextForm[] | undefined;
   };
   options?: {
     format: "text" | "phoneNumber";
@@ -41,11 +42,16 @@ function FormTypeTextInput({
 
   return (
     <Fragment>
-      <div>
+      <Title>
         {props?.title && (
-          <MultiLineText type="title" lines={props.title} data={data} />
+          <MultiLineText
+            lines={props.title}
+            data={data}
+            size="1.5rem"
+            weight="bold"
+          />
         )}
-      </div>
+      </Title>
       <div>
         <TextInputField
           label={label ?? ""}
@@ -69,3 +75,12 @@ function FormTypeTextInput({
 }
 
 export default FormTypeTextInput;
+
+const Title = styled.div`
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  div {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+`;

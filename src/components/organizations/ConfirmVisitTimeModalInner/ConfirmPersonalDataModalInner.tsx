@@ -22,16 +22,16 @@ function ConfirmVisitTimeModalInner({
       title={[
         [
           {
-            span: "선택하신 날짜와 시간으로",
+            value: "선택하신 날짜와 시간으로",
           },
         ],
         [
           {
             type: "emphasis",
-            span: " 방문을 확정",
+            value: " 방문을 확정",
           },
           {
-            span: "할까요?",
+            value: "할까요?",
           },
         ],
       ]}

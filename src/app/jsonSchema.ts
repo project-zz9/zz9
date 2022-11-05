@@ -11,7 +11,10 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       nullable: true,
       formType: "text-input",
       props: {
-        title: ["방문할 준비를 도와드릴게요.", "이름이 무엇인가요?"],
+        title: [
+          [{ value: "방문할 준비를 도와드릴게요." }],
+          [{ value: "이름이 무엇인가요?" }],
+        ],
       },
     },
     phoneNumber: {
@@ -23,7 +26,10 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       nullable: true,
       formType: "text-input",
       props: {
-        title: ["%name%님의", "전화번호를 입력해주세요."],
+        title: [
+          [{ value: "%name%님의" }],
+          [{ value: "전화번호를 입력해주세요." }],
+        ],
       },
       options: {
         format: "phoneNumber",
@@ -35,7 +41,7 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       nullable: true,
       formType: "date-input",
       props: {
-        title: ["언제 방문하실 예정인가요?"],
+        title: [[{ value: "언제 방문하실 예정인가요?" }]],
         date: {
           title: "방문 일을 선택해주세요 :)",
           options: [
@@ -82,12 +88,15 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       nullable: true,
       formType: "relationship-input",
       props: {
-        title: [[{ span: "지수의 지구 방문이" }], [{ span: "확정되었어요!" }]],
+        title: [
+          [{ value: "지수의 지구 방문이" }],
+          [{ value: "확정되었어요!" }],
+        ],
         subTitle: [
-          [{ span: "이제 지수의 지구를 밝힐" }],
+          [{ value: "이제 지수의 지구를 밝힐" }],
           [
-            { type: "emphasis", span: "소중한 당신의 별" },
-            { span: " 을 만들어 볼게요 ✨" },
+            { type: "emphasis", value: "소중한 당신의 별" },
+            { value: " 을 만들어 볼게요 ✨" },
           ],
         ],
         distance: {
@@ -111,22 +120,22 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
           title: "원하는 별 모양을 선택해주세요.",
           options: [
             {
-              value: "star1",
+              value: "card1",
             },
             {
-              value: "star2",
+              value: "card2",
             },
             {
-              value: "star3",
+              value: "card3",
             },
             {
-              value: "star4",
+              value: "card4",
             },
             {
-              value: "star5",
+              value: "card5",
             },
             {
-              value: "star6",
+              value: "card6",
             },
           ],
         },

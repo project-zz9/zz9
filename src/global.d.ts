@@ -9,3 +9,10 @@ type VisitorData = {
   visitTime?: string;
   relationship?: string;
 };
+
+type EmphasisTextForm = {
+  type?: "common" | "emphasis";
+  value: string;
+}[];
+
+type ColorCode = `#${string}`;

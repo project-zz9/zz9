@@ -1,7 +1,5 @@
 import { useState } from "react";
-import MonotonicBackground, {
-  ColorCode,
-} from "~/layers/background/MonotonicBackground";
+import MonotonicBackground from "~/layers/background/MonotonicBackground";
 import RegistrationForeground from "~/layers/foreground/RegistrationForeground/RegistrationForeground";
 
 function Registration() {
