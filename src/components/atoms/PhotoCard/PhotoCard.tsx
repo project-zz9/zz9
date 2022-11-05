@@ -31,7 +31,7 @@ export default PhotoCard;
 
 const Card = styled.div<{ width?: `${number}vw` }>`
   position: relative;
-  width: ${({ width }) => width && "25vw"};
+  width: ${({ width }) => width || "25vw"};
 `;
 
 const Photo = styled.img<{ activate?: boolean }>`
