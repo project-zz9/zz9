@@ -7,7 +7,7 @@ export const getVisitor = async (
   const { name, phoneNumber } = visitorData;
   if (!name || !phoneNumber) return null;
   const visitor = hashing(`${name}::${phoneNumber}`);
-  return (await visitorApi.get<VisitorData>({ id: visitor })) as VisitorData;
+  return (await visitorApi.get<VisitorData>(visitor)) as VisitorData;
 };
 export const setVisitor = async (
   visitorData: VisitorData
@@ -15,11 +15,15 @@ export const setVisitor = async (
   const { name, phoneNumber, visitTime, relationship } = visitorData;
   if (!name || !phoneNumber || !visitTime || !relationship) return null;
   const visitor = hashing(`${name}::${phoneNumber}`);
-  await Promise.all([
-    visitorApi.post(visitor, visitorData),
-    setTimeTable(visitor, visitTime),
-  ]);
-  return visitor;
+  try {
+    await Promise.all([
+      visitorApi.post(visitor, visitorData),
+      setTimeTable(visitor, visitTime),
+    ]);
+    return visitor;
+  } catch {
+    return null;
+  }
 };
 
 const setTimeTable = async (visitor: string, timestamp: string) => {
@@ -31,7 +35,9 @@ const setTimeTable = async (visitor: string, timestamp: string) => {
 };
 
 export const getTimeTable = async (date: string): Promise<DateTime[]> => {
-  return (
-    (await scheduleApi.get<DateTime[]>({ query: ["date", "==", date] })) ?? []
-  );
+  try {
+    return await scheduleApi.get<DateTime[]>(["date", "==", date]);
+  } catch {
+    return [];
+  }
 };

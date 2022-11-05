@@ -17,21 +17,8 @@ export class FirestoreApi {
     return timestamp.now().seconds;
   }
 
-  async get<T>({
-    id,
-    query,
-  }: {
-    id?: string;
-    query?: [string, WhereFilterOp, string];
-  }): Promise<T | null> {
-    if (id) {
-      try {
-        return (await this.collection.doc(id).get()).data() as T;
-      } catch (error: any) {
-        throw new Error(error);
-      }
-    }
-    if (query) {
+  async get<T>(query: string | [string, WhereFilterOp, string]): Promise<T> {
+    if (isWhereFilter(query)) {
       const [field, operator, value] = query;
       const data: any[] = [];
       try {
@@ -45,7 +32,11 @@ export class FirestoreApi {
         throw new Error(error);
       }
     }
-    return null;
+    try {
+      return (await this.collection.doc(query).get()).data() as T;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 
   async post(key: string, value: any): Promise<void> {
@@ -60,3 +51,9 @@ export class FirestoreApi {
 export const visitorApi = new FirestoreApi(VISITOR_COLLECTION);
 export const scheduleApi = new FirestoreApi(SCHEDULE_COLLECTION);
 export const guestbookApi = new FirestoreApi(GUESTBOOK_COLLECTION);
+
+function isWhereFilter(
+  query: [string, WhereFilterOp, string] | string
+): query is [string, WhereFilterOp, string] {
+  return Array.isArray(query) && typeof query !== "string";
+}
