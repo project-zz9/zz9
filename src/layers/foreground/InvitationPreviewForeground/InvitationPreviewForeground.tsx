@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { useMemo } from "react";
 import { SEPARATOR } from "~/app/constant";
+import { useAtom } from "jotai";
+import { modalControlAtom } from "~/stores/modal";
 
 interface IInvitationPreviewForegroundProps {
   uuid: string | undefined;
@@ -20,6 +22,7 @@ function InvitationPreviewForeground({
   uuid,
 }: IInvitationPreviewForegroundProps) {
   const navigate = useNavigate();
+  const [, setModal] = useAtom(modalControlAtom);
 
   const visitor = useQuery<VisitorData>(
     { collection: "visitor", method: "get" },
@@ -69,11 +72,37 @@ function InvitationPreviewForeground({
           )}
         </Card>
         <ButtonGroupFrame>
-          <MonotonicButton color="secondary" onClick={() => {}}>
+          <MonotonicButton
+            color="secondary"
+            onClick={() => {
+              if (navigator.share) {
+                navigator.share({
+                  title: "지수의 지구",
+                  url: "https://klumy.github.io/RhineLabs/",
+                });
+              } else {
+                setModal({
+                  type: "information",
+                  content: {
+                    title: "공유 실패",
+                    body: "공유가 불가능한 환경입니다.",
+                  },
+                  onSubmit: {
+                    label: "확인",
+                  },
+                });
+              }
+            }}
+          >
             공유하기
           </MonotonicButton>
 
-          <MonotonicButton color="primary" onClick={() => {}}>
+          <MonotonicButton
+            color="primary"
+            onClick={() => {
+              navigate(HOME_PATH);
+            }}
+          >
             별 보러가기
           </MonotonicButton>
         </ButtonGroupFrame>
