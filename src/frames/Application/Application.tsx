@@ -1,17 +1,14 @@
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Modal from "~/layers/modal";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { pages } from "~/pages";
 import { ProtectedRoute } from "~/routers/PrivateRoute";
+import "./Application.css";
 
-function App() {
+function Application() {
+  const location = useLocation();
   return (
-    <>
-      <Router>
+    <TransitionGroup>
+      <CSSTransition key={location.key} classNames="fade" timeout={300}>
         <Routes>
           {pages.map(({ path, Component, auth }) =>
             auth ? (
@@ -34,10 +31,9 @@ function App() {
             }
           />
         </Routes>
-      </Router>
-      <Modal />
-    </>
+      </CSSTransition>
+    </TransitionGroup>
   );
 }
 
-export default App;
+export default Application;
