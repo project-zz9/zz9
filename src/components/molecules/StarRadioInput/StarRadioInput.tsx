@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
-import { cards } from "~/assets/images";
+import { cards, cardShadow } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 
 interface IStarRadioInputProps<T> {
@@ -30,7 +30,8 @@ function StarRadioInput<T>({
               <PhotoCard
                 key={`${index}::${value}`}
                 source={cards[value].normal}
-                shadow={cards[value].shadow}
+                shadow={cardShadow}
+                filter={cards[value].filter}
                 activate={data === value}
                 onClick={() => {
                   setData(value as T);
@@ -55,6 +56,7 @@ const Title = styled.div`
 const OptionGroupFrame = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;

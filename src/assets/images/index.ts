@@ -1,3 +1,3 @@
-import cards from "./cards";
+import cards, { shadow } from "./cards";
 
-export { cards };
+export { cards, shadow as cardShadow };
