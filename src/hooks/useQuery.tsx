@@ -6,13 +6,13 @@ type QueryType = {
   method: "get" | "set";
 };
 
-export function useQuery(type: QueryType, parameter: any) {
+export function useQuery<T>(type: QueryType, parameter: any): T | null {
   const { collection, method } = type;
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<T | null>(null);
   useEffect(() => {
     parameter &&
       resolveQuery(collection, method, parameter).then((result) => {
-        setData(result);
+        setData(result as T);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parameter]);
@@ -31,7 +31,7 @@ const resolveQuery = async (
         return await getVisitor(parameter as Parameters<typeof getVisitor>[0]);
       }
       if (method === "set") {
-        return await setVisitor(parameter as Parameters<typeof getVisitor>[0]);
+        return await setVisitor(parameter as Parameters<typeof setVisitor>[0]);
       }
       break;
     }

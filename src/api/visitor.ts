@@ -2,12 +2,18 @@ import { scheduleApi, visitorApi } from "./base";
 import { hashing } from "~/utils/crypto";
 
 export const getVisitor = async (
-  visitorData: VisitorData
+  key: VisitorData | string
 ): Promise<VisitorData | null> => {
-  const { name, phoneNumber } = visitorData;
-  if (!name || !phoneNumber) return null;
-  const visitor = hashing(`${name}::${phoneNumber}`);
-  return (await visitorApi.get<VisitorData>(visitor)) as VisitorData;
+  const visitor =
+    typeof key === "string"
+      ? key
+      : key.name && key.phoneNumber
+      ? hashing(`${key.name}::${key.phoneNumber}`)
+      : null;
+
+  return visitor
+    ? ((await visitorApi.get<VisitorData>(visitor)) as VisitorData)
+    : null;
 };
 export const setVisitor = async (
   visitorData: VisitorData
