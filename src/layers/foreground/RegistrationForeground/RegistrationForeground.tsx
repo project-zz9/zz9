@@ -28,7 +28,7 @@ function RegistrationForeground({
   changeColorHandler,
 }: IRegistrationForegroundProps) {
   const [permission] = useAtom(permissionAtom);
-  const [stage, setStage] = useState<number>(3);
+  const [stage, setStage] = useState<number>(0);
   const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);

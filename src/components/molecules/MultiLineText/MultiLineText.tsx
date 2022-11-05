@@ -21,11 +21,12 @@ function MultiLineText({
       ? rawLines.map((line) => {
           return line.map((span) => ({
             ...span,
-            span: replacePrefix(span.value, data),
+            value: replacePrefix(span.value, data),
           }));
         })
       : rawLines;
-  }, [rawLines, data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawLines]);
 
   return (
     <Fragment>
