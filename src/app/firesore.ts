@@ -13,8 +13,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const firestore = firebase.firestore();
+const timestamp = firebase.firestore.Timestamp;
 
-export { firestore };
+export { firestore, timestamp };
 
 type DocumentData = firebase.firestore.DocumentData;
-export type { DocumentData };
+type CollectionReference = firebase.firestore.CollectionReference;
+type WhereFilterOp = firebase.firestore.WhereFilterOp;
+export type { DocumentData, CollectionReference, WhereFilterOp };
+
+export const VISITOR_COLLECTION = "visitor";
+export const GUESTBOOK_COLLECTION = "guestbook";
+export const SCHEDULE_COLLECTION = "schedule";
