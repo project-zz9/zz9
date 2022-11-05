@@ -1,6 +1,7 @@
 import { Chip, ChipProps, styled } from "@mui/material";
 import { Fragment } from "react";
 import styledComponents, { css } from "styled-components";
+import { SEPARATOR } from "~/app/constant";
 
 interface IDistanceRadioInputProps<T> {
   title?: string;
@@ -28,7 +29,7 @@ function DistanceRadioInput<T>({
           {options.map(({ value, description }, index) => {
             return (
               <Distance
-                key={`${index}::${value}`}
+                key={`${index}${SEPARATOR}${value}`}
                 index={index}
                 checked={data === value}
               >

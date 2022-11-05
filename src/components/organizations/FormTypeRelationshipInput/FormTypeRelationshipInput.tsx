@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import { SEPARATOR } from "~/app/constant";
 import { logos } from "~/assets/icons";
 import DistanceRadioInput from "~/components/molecules/DistanceRadioInput";
 import MultiLineText from "~/components/molecules/MultiLineText";
@@ -34,7 +35,7 @@ function FormTypeRelationshipInput({
     if (distance && star) {
       onChange((prev) => ({
         ...prev,
-        [name]: `${distance}::${star}`,
+        [name]: `${distance}${SEPARATOR}${star}`,
       }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

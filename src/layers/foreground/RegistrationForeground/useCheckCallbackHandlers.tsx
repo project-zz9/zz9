@@ -71,8 +71,22 @@ export function useCheckCallbackHandlers(
         return false;
       },
       relationship: () => {
-        setVisitor(data).then(() => {
-          navigate(INVITATION_PREVIEW_PATH);
+        setVisitor(data).then((visitor: string | null) => {
+          if (visitor) {
+            navigate(INVITATION_PREVIEW_PATH.replace(":uuid", visitor));
+          } else {
+            navigate(HOME_PATH);
+            setModal({
+              type: "information",
+              content: {
+                title: "등록 오류가 발생하였습니다.",
+                body: "계속 오류가 발생하면, 지수에게 문의해주세요!",
+              },
+              onSubmit: {
+                label: "확인",
+              },
+            });
+          }
         });
         return true;
       },

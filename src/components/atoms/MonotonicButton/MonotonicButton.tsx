@@ -32,15 +32,26 @@ function MonotonicButton({
 export default MonotonicButton;
 
 const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
-  color: props.variant === "outlined" ? "black" : "white",
+  color:
+    props.color === "secondary" || props.variant === "outlined"
+      ? "black"
+      : "white",
   fontSize: "1.05rem",
   backgroundColor:
     props.color === "primary"
       ? "#FF5A0D"
+      : props.color === "secondary"
+      ? "#FFFFFF"
       : props.variant === "outlined"
       ? "rgba(25, 118, 210, 0.04)"
       : "black",
-  border: `2px solid ${props.color === "primary" ? "#FF5A0D" : "black"}`,
+  border: `2px solid ${
+    props.color === "primary"
+      ? "#FF5A0D"
+      : props.color === "secondary"
+      ? "#FFFFFF"
+      : "black"
+  }`,
   fontWeight: "bold",
   padding: "6px 16px",
   borderRadius: "7.5px",
@@ -48,19 +59,35 @@ const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
     backgroundColor:
       props.color === "primary"
         ? "#FF5A0D"
+        : props.color === "secondary"
+        ? "#FFFFFF"
         : props.variant === "outlined"
         ? "rgba(25, 118, 210, 0.04)"
         : "black",
-    border: `2px solid ${props.color === "primary" ? "#FF5A0D" : "black"}`,
+    border: `2px solid ${
+      props.color === "primary"
+        ? "#FF5A0D"
+        : props.color === "secondary"
+        ? "#FFFFFF"
+        : "black"
+    }`,
   },
   "&:focus": {
     backgroundColor:
       props.color === "primary"
         ? "#FF5A0D"
+        : props.color === "secondary"
+        ? "#FFFFFF"
         : props.variant === "outlined"
         ? "rgba(25, 118, 210, 0.04)"
         : "black",
-    border: `2px solid ${props.color === "primary" ? "#FF5A0D" : "black"}`,
+    border: `2px solid ${
+      props.color === "primary"
+        ? "#FF5A0D"
+        : props.color === "secondary"
+        ? "#FFFFFF"
+        : "black"
+    }`,
   },
   "&[disabled]": {
     backgroundColor: props.color === "primary" ? "#D8D8D8" : "#505050",

@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
+import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 
@@ -28,7 +29,7 @@ function StarRadioInput<T>({
           {options.map(({ value }, index) => {
             return (
               <PhotoCard
-                key={`${index}::${value}`}
+                key={`${index}${SEPARATOR}${value}`}
                 source={cards[value].normal}
                 shadow={cardShadow}
                 filter={cards[value].filter}
