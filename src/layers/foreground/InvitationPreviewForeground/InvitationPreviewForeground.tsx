@@ -63,7 +63,7 @@ function InvitationPreviewForeground({
               source={cards[star].picked[distance]}
               shadow={cardShadow}
               width="70vw"
-              filter={cards.card1.filter}
+              filter={cards[star].filter}
               activate
             />
           )}
