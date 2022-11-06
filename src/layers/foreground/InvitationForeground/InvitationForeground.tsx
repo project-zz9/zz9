@@ -1,109 +1,95 @@
-import { IconButton } from "@mui/material";
-import { ArrowLeft } from "react-feather";
+import { Button, IconButton } from "@mui/material";
+import { ArrowLeft, ArrowRight } from "react-feather";
 import styled from "styled-components";
 import EmphasisText from "~/components/atoms/EmphasisText";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import { useQuery } from "~/hooks/useQuery";
 import ForegroundLayer from "../ForegroundLayer";
-import { cards, cardShadow } from "~/assets/images";
+import { cards, cardShadow, logos } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import { useNavigate } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { SEPARATOR } from "~/app/constant";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
+import MultiLineText from "~/components/molecules/MultiLineText";
 
 interface IInvitationForegroundProps {
   uuid: string | undefined;
 }
 
+const visitor = {
+  name: "보조개협곡",
+  phoneNumber: "010-9123-1241",
+  visitTime: "2023-04-28 14:00",
+  relationship: "10cm::card3",
+};
+
+const [distance, star] = visitor.relationship.split(SEPARATOR);
+
+const uuid = "052aaec3edadce4579f648d4f4ee7d840d950b22";
+
 function InvitationForeground({ uuid }: IInvitationForegroundProps) {
   const navigate = useNavigate();
   const [, setModal] = useAtom(modalControlAtom);
 
-  const visitor = useQuery<VisitorData>(
-    { collection: "visitor", method: "get" },
-    uuid
-  );
+  // const visitor = useQuery<VisitorData>(
+  //   { collection: "visitor", method: "get" },
+  //   uuid
+  // );
 
-  const [distance, star] = useMemo(
-    () => (visitor?.relationship ? visitor.relationship.split(SEPARATOR) : []),
-    [visitor]
-  );
+  // const [distance, star] = useMemo(
+  //   () => (visitor?.relationship ? visitor.relationship.split(SEPARATOR) : []),
+  //   [visitor]
+  // );
 
   return (
     <ForegroundLayer>
       <RootFrame>
-        <GoBackButtonFrame>
-          <IconButton
-            aria-label="go-back"
-            onClick={() => {
-              navigate(HOME_PATH);
-            }}
-          >
-            <ArrowLeft color="#fff" />
-          </IconButton>
-        </GoBackButtonFrame>
+        <LogoFrame>
+          <Logo src={logos.Logo2W} alt="logo" />
+        </LogoFrame>
         <Title>
-          <EmphasisText
-            text={[{ value: "전시 예약이 완료되었어요." }]}
+          <MultiLineText
+            lines={[
+              [{ value: visitor.name, type: "emphasis" }, { value: "님," }],
+              [{ value: "지수의 지구에 오신 것을 환영해요." }],
+            ]}
             size="1.45rem"
-            color="#fff"
+            color="#FFF"
             weight="bold"
           />
-          <EmphasisText
-            text={[{ value: "선택하신 별은 지수의 지구를 비출거에요." }]}
-            size="1.1rem"
-            color="#fff"
-          />
         </Title>
+        <SubTitle>
+          <MultiLineText
+            lines={[
+              [{ value: "전시를 보고나면 지수에게 말을 남길 수 있는" }],
+              [{ value: "기회가 열려요." }],
+            ]}
+            size="1.1rem"
+            color="#FFF"
+            weight="bold"
+          />
+        </SubTitle>
         <Card>
           {cards[star]?.picked?.[distance] && (
-            <PhotoCard
-              source={cards[star].picked[distance]}
-              shadow={cardShadow}
-              width="70vw"
-              filter={cards[star].filter}
-              activate
-            />
+            <Fragment>
+              <PhotoCard
+                source={cards[star].picked[distance]}
+                shadow={cardShadow}
+                width="70vw"
+                filter={cards[star].filter}
+                activate
+                onClick={() => {}}
+              />
+              <CardLabel>
+                초대장 보러가기
+                <ArrowRight />
+              </CardLabel>
+            </Fragment>
           )}
         </Card>
-        <ButtonGroupFrame>
-          <MonotonicButton
-            color="secondary"
-            onClick={() => {
-              if (navigator.share) {
-                navigator.share({
-                  title: "지수의 지구",
-                  url: "https://klumy.github.io/RhineLabs/",
-                });
-              } else {
-                setModal({
-                  type: "information",
-                  content: {
-                    title: "공유 실패",
-                    body: "공유가 불가능한 환경입니다.",
-                  },
-                  onSubmit: {
-                    label: "확인",
-                  },
-                });
-              }
-            }}
-          >
-            공유하기
-          </MonotonicButton>
-
-          <MonotonicButton
-            color="primary"
-            onClick={() => {
-              navigate(HOME_PATH);
-            }}
-          >
-            별 보러가기
-          </MonotonicButton>
-        </ButtonGroupFrame>
       </RootFrame>
     </ForegroundLayer>
   );
@@ -113,44 +99,65 @@ export default InvitationForeground;
 
 const RootFrame = styled.div`
   display: flex;
-  width: 85vw;
-  height: 90vh;
+  width: 80vw;
+  height: 85vh;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 10vh;
+  padding-top: 12.5vh;
 `;
 
-const GoBackButtonFrame = styled.div`
+const LogoFrame = styled.div`
   position: fixed;
-  top: 15px;
-  left: 15px;
+  top: 20px;
+  left: 20px;
+  width: 25vw;
+`;
 
-  svg {
-    width: 32px;
-    height: 32px;
-  }
+const Logo = styled.img`
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 `;
 
 const Title = styled.div`
-  text-align: center;
   div {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 0.65rem;
+    margin-top: 0.65rem;
+  }
+`;
+const SubTitle = styled.div`
+  margin-top: 0.75rem;
+  div {
+    margin-top: 0.25rem;
+    margin-top: 0.25rem;
   }
 `;
 
 const Card = styled.div`
+  position: relative;
   align-self: center;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+  margin-top: 3rem;
+  &:first-child {
+    z-index: -1;
+  }
+  &:last-child {
+    z-index: 1;
+  }
 `;
 
-const ButtonGroupFrame = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: flex-end;
-  padding-bottom: min(100px, 20vw);
-  button {
-    margin: 10px;
+const CardLabel = styled.div`
+  color: #fff;
+  font-size: 5.5vw;
+  font-weight: bold;
+  position: absolute;
+  left: 10vw;
+  right: 10vw;
+  bottom: 7.5vw;
+  svg {
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    top: -1vw;
+    right: 0;
   }
 `;

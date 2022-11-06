@@ -8,7 +8,7 @@ function Invitation() {
   return (
     <Fragment>
       <InvitationForeground uuid={uuid} />
-      <MonotonicBackground />
+      <MonotonicBackground color="#000" />
     </Fragment>
   );
 }
