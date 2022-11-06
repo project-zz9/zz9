@@ -1,12 +1,13 @@
 import { IconButton } from "@mui/material";
 import { Fragment, useMemo } from "react";
-import { HelpCircle, X } from "react-feather";
+import { HelpCircle, ToggleRight, X } from "react-feather";
 import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
-import { cards, cardShadow } from "~/assets/images";
+import { cards, cardShadow, logos } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
+import { QRCodeCanvas } from "qrcode.react";
 
 function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
   const { relationship } = visitor;
@@ -26,23 +27,46 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
         </IconButton>
       </HeaderFrame>
       <CardFrame>
-        <Card>
-          {cards[star]?.picked?.[distance] && (
-            <Fragment>
-              <PhotoCard
-                source={cards[star].picked[distance]}
-                shadow={cardShadow}
-                width="90vw"
-                filter={cards[star].filter}
-                activate
-                onClick={() => {
-                  tabNavigate?.("card");
-                }}
-              />
-              <CardOverlay></CardOverlay>
-            </Fragment>
-          )}
-        </Card>
+        {cards[star]?.picked?.[distance] && (
+          <Fragment>
+            <PhotoCard
+              source={cards[star].picked[distance]}
+              shadow={cardShadow}
+              width="90vw"
+              filter={cards[star].filter}
+              activate
+              onClick={() => {
+                tabNavigate?.("card");
+              }}
+            />
+            <CardOverlay>
+              <CardHeaderFrame>
+                <LogoFrame>
+                  <Logo src={logos.Logo2W} alt="logo" />
+                </LogoFrame>
+                <IconFrame>
+                  <IconButton>
+                    <ToggleRight />
+                  </IconButton>
+                </IconFrame>
+              </CardHeaderFrame>
+              <QRCodeFrame>
+                <QRcodeGuid>
+                  <div>QR코드를 지수에게 보여주고</div>
+                  <div>전시에 입장해주세요.</div>
+                </QRcodeGuid>
+                <QRCodeCanvas
+                  value={uuid}
+                  style={{
+                    height: "40vw",
+                    width: "40vw",
+                    outline: "10px solid #FFF",
+                  }}
+                />
+              </QRCodeFrame>
+            </CardOverlay>
+          </Fragment>
+        )}
       </CardFrame>
       <ButtonGroupFrame>
         <MonotonicButton>링크 복사</MonotonicButton>
@@ -63,7 +87,6 @@ const CardRoot = styled.div`
 const HeaderFrame = styled.div`
   color: #fff;
   height: 10vw;
-  background-color: #ff000050;
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: flex;
@@ -86,9 +109,8 @@ const HeaderFrame = styled.div`
     font-weight: bold;
   }
 `;
-const CardFrame = styled.div``;
 
-const Card = styled.div`
+const CardFrame = styled.div`
   position: relative;
   align-self: center;
   margin-top: 2rem;
@@ -101,20 +123,50 @@ const Card = styled.div`
 `;
 
 const CardOverlay = styled.div`
-  color: #fff;
-  font-size: 5.5vw;
-  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: absolute;
+  padding: 5.5vw;
   inset: 0;
-  background-color: #ff000050;
-  // svg {
-  //   position: absolute;
-  //   width: 8vw;
-  //   height: 8vw;
-  //   top: -1vw;
-  //   right: 0;
-  // }
+  color: #fff;
 `;
+
+const CardHeaderFrame = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+const LogoFrame = styled.div`
+  width: 25vw;
+`;
+
+const Logo = styled.img`
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+`;
+
+const IconFrame = styled.div`
+  button {
+    color: #fff;
+  }
+`;
+
+const QRCodeFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5vw;
+`;
+const QRcodeGuid = styled.div`
+  font-size: 5vw;
+  font-weight: 500;
+  text-align: center;
+  margin: 7.5vw;
+`;
+
 const ButtonGroupFrame = styled.div`
   flex-direction: row;
   display: flex;
