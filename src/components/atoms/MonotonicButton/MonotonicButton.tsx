@@ -6,7 +6,7 @@ interface IMonotonicMuttonProps {
   type?: "outlined" | "contained";
   color?: "inherit" | "primary" | "secondary";
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   children: string | ReactNode;
 }
 

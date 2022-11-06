@@ -14,7 +14,7 @@ import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./RegistrationForeground.css";
+import "~/assets/styles/fade-animation.css";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
