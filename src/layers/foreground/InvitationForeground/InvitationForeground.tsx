@@ -22,7 +22,6 @@ const visitor = {
 function InvitationForeground({ uuid }: IInvitationForegroundProps) {
   const navigate = useNavigate();
   const [, setModal] = useAtom(modalControlAtom);
-  const [tab, setTab] = useState<string>("portal");
   // const visitor = useQuery<VisitorData>(
   //   { collection: "visitor", method: "get" },
   //   uuid
@@ -48,9 +47,7 @@ function InvitationForeground({ uuid }: IInvitationForegroundProps) {
   return (
     <ForegroundLayer>
       <RootFrame>
-        {visitor && (
-          <InvitationTabs visitor={visitor} tab={tab} tabNavigate={setTab} />
-        )}
+        {uuid && visitor && <InvitationTabs uuid={uuid} visitor={visitor} />}
       </RootFrame>
     </ForegroundLayer>
   );

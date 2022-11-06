@@ -1,3 +1,4 @@
+import { IconButton } from "@mui/material";
 import { Fragment, useMemo } from "react";
 import { HelpCircle, X } from "react-feather";
 import styled from "styled-components";
@@ -7,7 +8,7 @@ import MonotonicButton from "~/components/atoms/MonotonicButton";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
 
-function InvitationCard({ visitor, tabNavigate }: ITabProps) {
+function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
   const { relationship } = visitor;
   const [distance, star] = useMemo(
     () => (relationship ? relationship.split(SEPARATOR) : []),
@@ -16,9 +17,13 @@ function InvitationCard({ visitor, tabNavigate }: ITabProps) {
   return (
     <CardRoot>
       <HeaderFrame>
-        <X />
+        <IconButton onClick={goBack}>
+          <X />
+        </IconButton>
         <span>초대장</span>
-        <HelpCircle />
+        <IconButton>
+          <HelpCircle />
+        </IconButton>
       </HeaderFrame>
       <CardFrame>
         <Card>
@@ -64,16 +69,21 @@ const HeaderFrame = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  button {
+    svg {
+      color: #fff;
+      height: 1.75rem;
+      width: 1.75rem;
+    }
+    &:last-child {
+      svg {
+        color: #ff8b5d;
+      }
+    }
+  }
   span {
     font-size: 1.3rem;
     font-weight: bold;
-  }
-  svg {
-    height: 1.75rem;
-    width: 1.75rem;
-  }
-  svg:last-child {
-    color: #ff8b5d;
   }
 `;
 const CardFrame = styled.div``;
