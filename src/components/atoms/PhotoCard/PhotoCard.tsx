@@ -40,6 +40,7 @@ const Photo = styled.img<{ activate?: boolean }>`
   transition: opacity 500ms;
   height: 100%;
   width: 100%;
+  pointer-events: none;
 `;
 
 const glow = keyframes`
