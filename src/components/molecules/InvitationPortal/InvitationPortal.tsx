@@ -5,14 +5,10 @@ import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow, logos } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import MultiLineText from "~/components/molecules/MultiLineText";
+import { ITabProps } from "~/components/organizations/InvitationTabs/InvitationTabs";
 
-interface IInvitationPortalProps {
-  visitor: VisitorData | undefined;
-  onClick?: () => void;
-}
-
-function InvitationPortal({ visitor, onClick }: IInvitationPortalProps) {
-  const { name, relationship } = visitor || {};
+function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
+  const { name, relationship } = visitor;
   const [distance, star] = useMemo(
     () => (relationship ? relationship.split(SEPARATOR) : []),
     [relationship]
@@ -53,7 +49,9 @@ function InvitationPortal({ visitor, onClick }: IInvitationPortalProps) {
               width="70vw"
               filter={cards[star].filter}
               activate
-              onClick={onClick}
+              onClick={() => {
+                tabNavigate?.("invitation");
+              }}
             />
             <CardLabel>
               초대장 보러가기
