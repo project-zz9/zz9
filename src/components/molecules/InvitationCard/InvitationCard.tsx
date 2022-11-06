@@ -73,6 +73,7 @@ const CardRoot = styled.div`
   height: 95vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
 
 const HeaderFrame = styled.div`
@@ -104,7 +105,6 @@ const HeaderFrame = styled.div`
 const CardFrame = styled.div`
   position: relative;
   align-self: center;
-  margin-top: 2rem;
   &:first-child {
     z-index: -1;
   }
@@ -122,9 +122,17 @@ const CardOverlay = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
-  padding: 5.5vw;
+  margin: 5.5vw;
   inset: 0;
   color: #fff;
+  border-radius: 10px;
+
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ButtonGroupFrame = styled.div`
