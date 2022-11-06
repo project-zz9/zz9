@@ -1,4 +1,5 @@
 import { FC, useMemo } from "react";
+import InvitationCard from "~/components/molecules/InvitationCard";
 import InvitationPortal from "~/components/molecules/InvitationPortal";
 
 interface IInvitationTabsProps {
@@ -12,7 +13,10 @@ export interface ITabProps {
   tabNavigate?: (tab: string) => void;
 }
 
-const tabs: Record<string, FC<ITabProps>> = { portal: InvitationPortal };
+const tabs: Record<string, FC<ITabProps>> = {
+  portal: InvitationPortal,
+  card: InvitationCard,
+};
 
 function InvitationTabs({ tab, visitor, tabNavigate }: IInvitationTabsProps) {
   const Tab = useMemo(() => tabs[tab] || null, [tab]);

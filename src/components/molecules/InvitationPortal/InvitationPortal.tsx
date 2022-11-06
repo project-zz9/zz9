@@ -5,7 +5,7 @@ import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow, logos } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import MultiLineText from "~/components/molecules/MultiLineText";
-import { ITabProps } from "~/components/organizations/InvitationTabs/InvitationTabs";
+import { ITabProps } from "~/components/organizations/InvitationTabs";
 
 function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
   const { name, relationship } = visitor;
@@ -14,7 +14,7 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
     [relationship]
   );
   return name && relationship ? (
-    <Fragment>
+    <PortalRoot>
       <LogoFrame>
         <Logo src={logos.Logo2W} alt="logo" />
       </LogoFrame>
@@ -50,7 +50,7 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
               filter={cards[star].filter}
               activate
               onClick={() => {
-                tabNavigate?.("invitation");
+                tabNavigate?.("card");
               }}
             />
             <CardLabel>
@@ -60,11 +60,18 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
           </Fragment>
         )}
       </Card>
-    </Fragment>
+    </PortalRoot>
   ) : null;
 }
 
 export default InvitationPortal;
+
+const PortalRoot = styled.div`
+  height: 85vh;
+  padding-top: 12.5vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const LogoFrame = styled.div`
   position: fixed;
