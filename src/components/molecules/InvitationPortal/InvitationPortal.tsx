@@ -68,8 +68,11 @@ export default InvitationPortal;
 
 const PortalRoot = styled.div`
   height: 85vh;
+  padding-left: 5vw;
+  padding-right: 5vw;
   padding-top: 12.5vh;
   display: flex;
+  align-items: center;
   flex-direction: column;
 `;
 

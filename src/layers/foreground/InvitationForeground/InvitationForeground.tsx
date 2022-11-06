@@ -59,5 +59,5 @@ function InvitationForeground({ uuid }: IInvitationForegroundProps) {
 export default InvitationForeground;
 
 const RootFrame = styled.div`
-  width: 80vw;
+  width: 90vw;
 `;
