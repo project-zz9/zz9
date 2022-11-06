@@ -30,7 +30,7 @@ function FormTypeDateInput({
 }: IFormTypeDateInputProps) {
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
-  const timeTable: DateTime[] | null = useQuery(
+  const timeTable: DateTime[] | Nullish = useQuery(
     { collection: "schedule", method: "get" },
     date
   );

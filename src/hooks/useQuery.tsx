@@ -6,9 +6,9 @@ type QueryType = {
   method: "get" | "set";
 };
 
-export function useQuery<T>(type: QueryType, parameter: any): T | null {
+export function useQuery<T>(type: QueryType, parameter: any): T | Nullish {
   const { collection, method } = type;
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T | Nullish>(undefined);
   useEffect(() => {
     parameter &&
       resolveQuery(collection, method, parameter).then((result) => {

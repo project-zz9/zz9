@@ -16,3 +16,5 @@ type EmphasisTextForm = {
 }[];
 
 type ColorCode = `#${string}`;
+
+type Nullish = null | undefined;

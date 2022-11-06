@@ -12,9 +12,11 @@ export const getVisitor = async (
       ? hashing(`${key.name}${SEPARATOR}${key.phoneNumber}`)
       : null;
 
-  return visitor
-    ? ((await visitorApi.get<VisitorData>(visitor)) as VisitorData)
-    : null;
+  return (
+    (visitor &&
+      ((await visitorApi.get<VisitorData>(visitor)) as VisitorData)) ||
+    null
+  );
 };
 export const setVisitor = async (
   visitorData: VisitorData
