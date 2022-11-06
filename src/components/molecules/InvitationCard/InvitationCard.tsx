@@ -3,11 +3,12 @@ import { HelpCircle, X } from "react-feather";
 import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow } from "~/assets/images";
+import MonotonicButton from "~/components/atoms/MonotonicButton";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
 
 function InvitationCard({ visitor, tabNavigate }: ITabProps) {
-  const { name, relationship } = visitor;
+  const { relationship } = visitor;
   const [distance, star] = useMemo(
     () => (relationship ? relationship.split(SEPARATOR) : []),
     [relationship]
@@ -38,7 +39,10 @@ function InvitationCard({ visitor, tabNavigate }: ITabProps) {
           )}
         </Card>
       </CardFrame>
-      <ButtonGroupFrame></ButtonGroupFrame>
+      <ButtonGroupFrame>
+        <MonotonicButton>링크 복사</MonotonicButton>
+        <MonotonicButton color="secondary">뒤집기</MonotonicButton>
+      </ButtonGroupFrame>
     </CardRoot>
   );
 }
@@ -46,7 +50,7 @@ function InvitationCard({ visitor, tabNavigate }: ITabProps) {
 export default InvitationCard;
 
 const CardRoot = styled.div`
-  height: 100vh;
+  height: 95vh;
   display: flex;
   flex-direction: column;
 `;
@@ -54,13 +58,12 @@ const CardRoot = styled.div`
 const HeaderFrame = styled.div`
   color: #fff;
   height: 10vw;
-  // background-color: red;
+  background-color: #ff000050;
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   span {
     font-size: 1.3rem;
     font-weight: bold;
@@ -78,7 +81,7 @@ const CardFrame = styled.div``;
 const Card = styled.div`
   position: relative;
   align-self: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   &:first-child {
     z-index: -1;
   }
@@ -102,4 +105,21 @@ const CardOverlay = styled.div`
   //   right: 0;
   // }
 `;
-const ButtonGroupFrame = styled.div``;
+const ButtonGroupFrame = styled.div`
+  flex-direction: row;
+  display: flex;
+  margin-top: 1rem;
+  button {
+    padding: 10px;
+    margin: 10px;
+  }
+  button:first-child {
+    border: 2px solid #fff;
+    &:focus: {
+      border: 2px solid #fff;
+    }
+    &:hover {
+      border: 2px solid #fff;
+    }
+  }
+`;
