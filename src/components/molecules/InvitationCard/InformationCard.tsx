@@ -1,63 +1,32 @@
 import { IconButton } from "@mui/material";
+import { Fragment } from "react";
 import { ToggleLeft } from "react-feather";
 import styled from "styled-components";
-import { cardShadow, logos } from "~/assets/images";
-import PhotoCard from "~/components/atoms/PhotoCard";
+import { logos } from "~/assets/images";
 
 interface IInformationCardProps {
   visitor: VisitorData;
-  source: string;
-  filter: ColorCode;
   onFlip: () => void;
 }
 
-function InformationCard({
-  visitor,
-  source,
-  filter,
-  onFlip,
-}: IInformationCardProps) {
+function InformationCard({ visitor, onFlip }: IInformationCardProps) {
   return (
-    <Card>
-      <PhotoCard
-        source={source}
-        shadow={cardShadow}
-        width="90vw"
-        filter={filter}
-        activate
-      />
-      <CardOverlay>
-        <CardHeaderFrame>
-          <LogoFrame>
-            <Logo src={logos.Logo2W} alt="logo" />
-          </LogoFrame>
-          <IconFrame>
-            <IconButton onClick={onFlip}>
-              <ToggleLeft />
-            </IconButton>
-          </IconFrame>
-        </CardHeaderFrame>
-        TEST
-      </CardOverlay>
-    </Card>
+    <Fragment>
+      <CardHeaderFrame>
+        <LogoFrame>
+          <Logo src={logos.Logo2W} alt="logo" />
+        </LogoFrame>
+        <IconFrame>
+          <IconButton onClick={onFlip}>
+            <ToggleLeft />
+          </IconButton>
+        </IconFrame>
+      </CardHeaderFrame>
+    </Fragment>
   );
 }
 
 export default InformationCard;
-
-const Card = styled.div`
-  position: relative;
-`;
-
-const CardOverlay = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  padding: 5.5vw;
-  inset: 0;
-  color: #fff;
-`;
 
 const CardHeaderFrame = styled.div`
   display: flex;

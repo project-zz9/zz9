@@ -3,11 +3,14 @@ import { useMemo, useState } from "react";
 import { HelpCircle, X } from "react-feather";
 import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
-import { cards } from "~/assets/images";
+import { cards, cardShadow } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
 import InformationCard from "./InformationCard";
+import PhotoCard from "~/components/atoms/PhotoCard";
 import QRCodeCard from "./QRCodeCard";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import "~/assets/styles/fade-animation.css";
 
 function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
   const { relationship } = visitor;
@@ -15,8 +18,9 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
     () => (relationship ? relationship.split(SEPARATOR) : []),
     [relationship]
   );
-  const [face, flipFace] = useState<boolean>(true);
-
+  const [face, flipFace] = useState<"QRCODE" | "INFORMATION">("QRCODE");
+  const onFlip = () =>
+    flipFace((face) => (face === "QRCODE" ? "INFORMATION" : "QRCODE"));
   return (
     <CardRoot>
       <HeaderFrame>
@@ -29,29 +33,33 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
         </IconButton>
       </HeaderFrame>
       <CardFrame>
-        {cards[star]?.picked?.[distance] &&
-          (face ? (
-            <QRCodeCard
-              uuid={uuid}
+        {cards[star]?.picked?.[distance] && (
+          <Card>
+            <PhotoCard
               source={cards[star].picked[distance]}
+              shadow={cardShadow}
+              width="90vw"
               filter={cards[star].filter}
-              onFlip={() => flipFace((face) => !face)}
+              activate
+              blur={face === "INFORMATION"}
             />
-          ) : (
-            <InformationCard
-              visitor={visitor}
-              source={cards[star].picked[distance]}
-              filter={cards[star].filter}
-              onFlip={() => flipFace((face) => !face)}
-            />
-          ))}
+            <TransitionGroup>
+              <CSSTransition key={face} classNames="fade" timeout={500}>
+                <CardOverlay>
+                  {face === "QRCODE" ? (
+                    <QRCodeCard uuid={uuid} onFlip={onFlip} />
+                  ) : (
+                    <InformationCard visitor={visitor} onFlip={onFlip} />
+                  )}
+                </CardOverlay>
+              </CSSTransition>
+            </TransitionGroup>
+          </Card>
+        )}
       </CardFrame>
       <ButtonGroupFrame>
         <MonotonicButton>링크 복사</MonotonicButton>
-        <MonotonicButton
-          color="secondary"
-          onClick={() => flipFace((face) => !face)}
-        >
+        <MonotonicButton color="secondary" onClick={onFlip}>
           뒤집기
         </MonotonicButton>
       </ButtonGroupFrame>
@@ -103,6 +111,20 @@ const CardFrame = styled.div`
   &:last-child {
     z-index: 1;
   }
+`;
+
+const Card = styled.div`
+  position: relative;
+`;
+
+const CardOverlay = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  padding: 5.5vw;
+  inset: 0;
+  color: #fff;
 `;
 
 const ButtonGroupFrame = styled.div`

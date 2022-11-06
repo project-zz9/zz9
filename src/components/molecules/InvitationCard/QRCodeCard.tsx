@@ -1,73 +1,47 @@
 import { IconButton } from "@mui/material";
 import { QRCodeCanvas } from "qrcode.react";
+import { Fragment } from "react";
 import { ToggleRight } from "react-feather";
 import styled from "styled-components";
-import { cardShadow, logos } from "~/assets/images";
-import PhotoCard from "~/components/atoms/PhotoCard";
+import { logos } from "~/assets/images";
 
 interface IQRCodeCardProps {
   uuid: string;
-  source: string;
-  filter: ColorCode;
   onFlip: () => void;
 }
 
-function QRCodeCard({ uuid, source, filter, onFlip }: IQRCodeCardProps) {
+function QRCodeCard({ uuid, onFlip }: IQRCodeCardProps) {
   return (
-    <Card>
-      <PhotoCard
-        source={source}
-        shadow={cardShadow}
-        width="90vw"
-        filter={filter}
-        activate
-        onClick={() => {}}
-      />
-      <CardOverlay>
-        <CardHeaderFrame>
-          <LogoFrame>
-            <Logo src={logos.Logo2W} alt="logo" />
-          </LogoFrame>
-          <IconFrame>
-            <IconButton onClick={onFlip}>
-              <ToggleRight />
-            </IconButton>
-          </IconFrame>
-        </CardHeaderFrame>
-        <QRCodeFrame>
-          <QRcodeGuid>
-            <div>QR코드를 지수에게 보여주고</div>
-            <div>전시에 입장해주세요.</div>
-          </QRcodeGuid>
-          <QRCodeCanvas
-            value={uuid}
-            style={{
-              height: "40vw",
-              width: "40vw",
-              outline: "10px solid #FFF",
-            }}
-          />
-        </QRCodeFrame>
-      </CardOverlay>
-    </Card>
+    <Fragment>
+      <CardHeaderFrame>
+        <LogoFrame>
+          <Logo src={logos.Logo2W} alt="logo" />
+        </LogoFrame>
+        <IconFrame>
+          <IconButton onClick={onFlip}>
+            <ToggleRight />
+          </IconButton>
+        </IconFrame>
+      </CardHeaderFrame>
+      <QRCodeFrame>
+        <QRcodeGuid>
+          <div>QR코드를 지수에게 보여주고</div>
+          <div>전시에 입장해주세요.</div>
+        </QRcodeGuid>
+        <QRCodeCanvas
+          value={uuid}
+          style={{
+            height: "40vw",
+            width: "40vw",
+            outline: "10px solid #FFF",
+          }}
+        />
+      </QRCodeFrame>
+    </Fragment>
   );
 }
 
 export default QRCodeCard;
-
-const Card = styled.div`
-  position: relative;
-`;
-
-const CardOverlay = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  padding: 5.5vw;
-  inset: 0;
-  color: #fff;
-`;
 
 const CardHeaderFrame = styled.div`
   display: flex;
