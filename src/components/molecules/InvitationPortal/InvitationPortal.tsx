@@ -123,6 +123,7 @@ const CardLabel = styled.div`
   left: 10vw;
   right: 10vw;
   bottom: 7.5vw;
+  pointer-events: none;
   svg {
     position: absolute;
     width: 8vw;
