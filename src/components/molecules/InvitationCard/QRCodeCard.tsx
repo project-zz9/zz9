@@ -1,6 +1,5 @@
 import { IconButton } from "@mui/material";
 import { QRCodeCanvas } from "qrcode.react";
-import { Fragment } from "react";
 import { ToggleRight } from "react-feather";
 import styled from "styled-components";
 import { cardShadow, logos } from "~/assets/images";
@@ -15,7 +14,7 @@ interface IQRCodeCardProps {
 
 function QRCodeCard({ uuid, source, filter, onFlip }: IQRCodeCardProps) {
   return (
-    <Fragment>
+    <Card>
       <PhotoCard
         source={source}
         shadow={cardShadow}
@@ -50,11 +49,15 @@ function QRCodeCard({ uuid, source, filter, onFlip }: IQRCodeCardProps) {
           />
         </QRCodeFrame>
       </CardOverlay>
-    </Fragment>
+    </Card>
   );
 }
 
 export default QRCodeCard;
+
+const Card = styled.div`
+  position: relative;
+`;
 
 const CardOverlay = styled.div`
   display: flex;
@@ -72,6 +75,7 @@ const CardHeaderFrame = styled.div`
   align-items: flex-start;
   justify-content: space-between;
 `;
+
 const LogoFrame = styled.div`
   width: 25vw;
 `;

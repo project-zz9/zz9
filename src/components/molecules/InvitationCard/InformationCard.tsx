@@ -1,5 +1,4 @@
 import { IconButton } from "@mui/material";
-import { Fragment } from "react";
 import { ToggleLeft } from "react-feather";
 import styled from "styled-components";
 import { cardShadow, logos } from "~/assets/images";
@@ -19,14 +18,13 @@ function InformationCard({
   onFlip,
 }: IInformationCardProps) {
   return (
-    <Fragment>
+    <Card>
       <PhotoCard
         source={source}
         shadow={cardShadow}
         width="90vw"
         filter={filter}
         activate
-        blur
       />
       <CardOverlay>
         <CardHeaderFrame>
@@ -39,12 +37,17 @@ function InformationCard({
             </IconButton>
           </IconFrame>
         </CardHeaderFrame>
+        TEST
       </CardOverlay>
-    </Fragment>
+    </Card>
   );
 }
 
 export default InformationCard;
+
+const Card = styled.div`
+  position: relative;
+`;
 
 const CardOverlay = styled.div`
   display: flex;

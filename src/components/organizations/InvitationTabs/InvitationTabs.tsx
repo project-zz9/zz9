@@ -1,9 +1,7 @@
 import { FC, useCallback, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import InvitationCard from "~/components/molecules/InvitationCard";
 import InvitationPortal from "~/components/molecules/InvitationPortal";
-import { HOME_PATH } from "~/pages";
 import "~/assets/styles/fade-animation.css";
 
 interface IInvitationTabsProps {
@@ -24,8 +22,7 @@ const tabs: Record<string, FC<ITabProps>> = {
 };
 
 function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
-  const [tabHistory, setTabHistory] = useState<string[]>(["portal"]);
-  const navigate = useNavigate();
+  const [tabHistory, setTabHistory] = useState<string[]>(["card"]);
 
   const tab = useMemo(() => tabHistory.at(-1), [tabHistory]);
   const TabComponent = useMemo(() => (tab && tabs[tab]) || null, [tab]);
@@ -35,10 +32,10 @@ function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
   }, []);
 
   const goBack = useCallback(() => {
-    tabHistory.length > 0
+    tabHistory.length > 1
       ? setTabHistory((history) => history.slice(0, -1))
-      : navigate(HOME_PATH);
-  }, [navigate, tabHistory]);
+      : setTabHistory(["portal"]);
+  }, [tabHistory]);
 
   return (
     <TransitionGroup>
