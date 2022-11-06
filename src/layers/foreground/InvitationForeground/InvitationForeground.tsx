@@ -1,20 +1,12 @@
-import { Button, IconButton } from "@mui/material";
-import { ArrowLeft, ArrowRight } from "react-feather";
 import styled from "styled-components";
-import EmphasisText from "~/components/atoms/EmphasisText";
-import MonotonicButton from "~/components/atoms/MonotonicButton";
 import { useQuery } from "~/hooks/useQuery";
 import ForegroundLayer from "../ForegroundLayer";
-import { cards, cardShadow, logos } from "~/assets/images";
-import PhotoCard from "~/components/atoms/PhotoCard";
 import { useNavigate } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
-import { Fragment, useMemo } from "react";
-import { SEPARATOR } from "~/app/constant";
+import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
-import MultiLineText from "~/components/molecules/MultiLineText";
-import InvitationPortal from "~/components/organizations/InvitationPortal";
+import InvitationTabs from "~/components/organizations/InvitationTabs";
 
 interface IInvitationForegroundProps {
   uuid: string | undefined;
@@ -27,28 +19,38 @@ const visitor = {
   relationship: "10cm::card3",
 };
 
-const [distance, star] = visitor.relationship.split(SEPARATOR);
-
-const uuid = "052aaec3edadce4579f648d4f4ee7d840d950b22";
-
 function InvitationForeground({ uuid }: IInvitationForegroundProps) {
   const navigate = useNavigate();
   const [, setModal] = useAtom(modalControlAtom);
-
+  const [tab, setTab] = useState<string>("portal");
   // const visitor = useQuery<VisitorData>(
   //   { collection: "visitor", method: "get" },
   //   uuid
   // );
 
-  // const [distance, star] = useMemo(
-  //   () => (visitor?.relationship ? visitor.relationship.split(SEPARATOR) : []),
-  //   [visitor]
-  // );
-
+  // useEffect(() => {
+  //   if (visitor === null) {
+  //     setModal({
+  //       type: "information",
+  //       content: {
+  //         title: "정보 조회 실패",
+  //         body: "사전등록 정보를 찾을 수 없습니다!",
+  //       },
+  //       onSubmit: {
+  //         label: "뒤로가기",
+  //         handler: () => {
+  //           navigate(HOME_PATH);
+  //         },
+  //       },
+  //     });
+  //   }
+  // }, [navigate, setModal, visitor]);
   return (
     <ForegroundLayer>
       <RootFrame>
-        <InvitationPortal visitor={visitor} />
+        {visitor && (
+          <InvitationTabs visitor={visitor} tab={tab} tabNavigate={setTab} />
+        )}
       </RootFrame>
     </ForegroundLayer>
   );
