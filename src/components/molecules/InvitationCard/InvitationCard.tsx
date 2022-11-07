@@ -39,7 +39,7 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
             <PhotoCard
               source={cards[star].picked[distance]}
               shadow={cardShadow}
-              width="90vw"
+              width="85vw"
               filter={cards[star].filter}
               activate
               blur={face === "INFORMATION"}
