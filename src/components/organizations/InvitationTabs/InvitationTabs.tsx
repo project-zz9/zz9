@@ -2,7 +2,8 @@ import { FC, useCallback, useMemo, useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import InvitationCard from "~/components/molecules/InvitationCard";
 import InvitationPortal from "~/components/molecules/InvitationPortal";
-import "~/assets/styles/fade-animation.css";
+import styled from "styled-components";
+import "./fade-animation.css";
 
 interface IInvitationTabsProps {
   uuid: string;
@@ -22,7 +23,7 @@ const tabs: Record<string, FC<ITabProps>> = {
 };
 
 function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
-  const [tabHistory, setTabHistory] = useState<string[]>(["card"]);
+  const [tabHistory, setTabHistory] = useState<string[]>(["portal"]);
 
   const tab = useMemo(
     () => (tabHistory.length > 0 ? tabHistory[tabHistory.length - 1] : ""),
@@ -41,19 +42,26 @@ function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
   }, [tabHistory]);
 
   return (
-    <TransitionGroup>
-      <CSSTransition key={tab} classNames="fade" timeout={250}>
-        {TabComponent && (
-          <TabComponent
-            uuid={uuid}
-            visitor={visitor}
-            tabNavigate={tabNavigate}
-            goBack={goBack}
-          />
-        )}
-      </CSSTransition>
-    </TransitionGroup>
+    <Root>
+      <TransitionGroup>
+        <CSSTransition key={tab} classNames="fade" timeout={350}>
+          {TabComponent && (
+            <TabComponent
+              uuid={uuid}
+              visitor={visitor}
+              tabNavigate={tabNavigate}
+              goBack={goBack}
+            />
+          )}
+        </CSSTransition>
+      </TransitionGroup>
+    </Root>
   );
 }
 
 export default InvitationTabs;
+
+const Root = styled.div`
+  position: absolute;
+  inset: 0 20px 0 20px;
+`;
