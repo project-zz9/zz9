@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import styled from "styled-components";
+import { overflowYScroll } from "~/assets/styles/scroll";
 
 interface IForegroundLayerProps {
   children: ReactNode;
@@ -28,11 +29,6 @@ const Root = styled.div`
 const Content = styled.div`
   padding: 10px;
   pointer-events: all;
-  overflow-y: scroll;
-  overflow-x: visible;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+
+  ${overflowYScroll}
 `;
