@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import MonotonicBackground from "~/layers/background/MonotonicBackground";
-import RegistrationForeground from "~/layers/foreground/RegistrationForeground/RegistrationForeground";
+import RegistrationForeground from "~/layers/foreground/RegistrationForeground";
 
 function Registration() {
   const [color, setColor] = useState<ColorCode | undefined>();

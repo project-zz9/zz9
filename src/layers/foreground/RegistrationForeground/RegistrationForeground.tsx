@@ -146,17 +146,15 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height: 92.5vh;
+    height: 90vh;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 7.5vh;
 `;
 
 const GoBackButtonFrame = styledComponent.div`
-    position:fixed;
-    top:15px;
-    left:15px;
-    
+    margin-top:20px;
+    margin-left:-20px;
+    margin-bottom:1rem;
     svg {
       width:32px;
       height:32px;
