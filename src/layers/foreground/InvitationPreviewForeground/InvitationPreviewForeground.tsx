@@ -119,14 +119,12 @@ const RootFrame = styled.div`
   height: 90vh;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 10vh;
 `;
 
 const GoBackButtonFrame = styled.div`
-  position: fixed;
-  top: 15px;
-  left: 15px;
-
+  margin-top: 15px;
+  margin-left: -15px;
+  margin-bottom: 1rem;
   svg {
     width: 32px;
     height: 32px;
@@ -151,7 +149,7 @@ const ButtonGroupFrame = styled.div`
   display: flex;
   flex: 1;
   align-items: flex-end;
-  padding-bottom: min(100px, 20vw);
+  padding-bottom: calc(5vh + 1rem);
   button {
     margin: 10px;
   }
