@@ -24,7 +24,10 @@ const tabs: Record<string, FC<ITabProps>> = {
 function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
   const [tabHistory, setTabHistory] = useState<string[]>(["card"]);
 
-  const tab = useMemo(() => tabHistory.at(-1), [tabHistory]);
+  const tab = useMemo(
+    () => (tabHistory.length > 0 ? tabHistory[tabHistory.length - 1] : ""),
+    [tabHistory]
+  );
   const TabComponent = useMemo(() => (tab && tabs[tab]) || null, [tab]);
 
   const tabNavigate = useCallback((tab: string) => {

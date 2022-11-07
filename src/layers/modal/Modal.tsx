@@ -14,7 +14,7 @@ function Modal() {
   }, [modalData]);
 
   useEffect(() => {
-    history.length > 0 && setCurrentModal(history.at(-1) || null);
+    history.length > 0 && setCurrentModal(history[history.length - 1] || null);
   }, [history]);
 
   const { type, content, Element, onSubmit, onCancel } = currentModal || {};
