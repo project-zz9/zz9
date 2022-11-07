@@ -59,7 +59,6 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
         )}
       </CardFrame>
       <ButtonGroupFrame>
-        <MonotonicButton>링크 복사</MonotonicButton>
         <MonotonicButton color="secondary" onClick={onFlip}>
           뒤집기
         </MonotonicButton>
@@ -134,8 +133,7 @@ const CardOverlay = styled.div`
 const ButtonGroupFrame = styled.div`
   flex-direction: row;
   display: flex;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  margin: 0 2rem 1rem 2rem;
   button {
     padding: 10px;
     margin: 10px;
