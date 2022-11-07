@@ -44,7 +44,7 @@ function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
   return (
     <Root>
       <TransitionGroup>
-        <CSSTransition key={tab} classNames="fade" timeout={350}>
+        <CSSTransition key={tab} classNames="fade-absolute" timeout={350}>
           {TabComponent && (
             <TabComponent
               uuid={uuid}
