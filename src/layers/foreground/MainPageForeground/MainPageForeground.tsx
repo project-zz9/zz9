@@ -8,11 +8,13 @@ import { REGISTRATION_PATH } from "~/pages";
 import { modalControlAtom } from "~/stores/modal";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import ForegroundLayer from "../ForegroundLayer";
+import { useModalBlocker } from "~/hooks/useModalBlocker";
 
 function MainPageForeground() {
   const history = useHistory();
   const [, setPermission] = useAtom(permissionAtom);
   const [, setModal] = useAtom(modalControlAtom);
+  useModalBlocker();
   return (
     <ForegroundLayer>
       <RootFrame>

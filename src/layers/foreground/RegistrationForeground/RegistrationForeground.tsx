@@ -14,7 +14,7 @@ import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-// import { useModalBlocker } from "~/hooks/useModalBlocker";
+import { useModalBlocker } from "~/hooks/useModalBlocker";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
@@ -71,22 +71,22 @@ function RegistrationForeground({
     changeColorHandler(color === "light" ? "#fff" : "#000");
   }, [changeColorHandler, color]);
 
-  // useModalBlocker(() => {
-  //   if (stage > 0) {
-  //     setStage((prev) => prev - 1);
-  //     setData((prev) =>
-  //       Object.entries(prev || {}).reduce((accumulator, [key, value]) => {
-  //         if (stages.indexOf(key) < stage && value) {
-  //           accumulator[key] = value;
-  //         }
-  //         return accumulator;
-  //       }, {} as Record<string, string>)
-  //     );
-  //     setError(null);
-  //     return false;
-  //   }
-  //   return true;
-  // });
+  useModalBlocker(() => {
+    if (stage > 0) {
+      setStage((prev) => prev - 1);
+      setData((prev) =>
+        Object.entries(prev || {}).reduce((accumulator, [key, value]) => {
+          if (stages.indexOf(key) < stage && value) {
+            accumulator[key] = value;
+          }
+          return accumulator;
+        }, {} as Record<string, string>)
+      );
+      setError(null);
+      return false;
+    }
+    return true;
+  });
 
   return (
     <ForegroundLayer>
