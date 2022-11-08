@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useQuery } from "~/hooks/useQuery";
 import ForegroundLayer from "../ForegroundLayer";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { useEffect } from "react";
 import { useAtom } from "jotai";
@@ -16,7 +16,7 @@ interface IInvitationForegroundProps {
 }
 
 function InvitationForeground({ uuid }: IInvitationForegroundProps) {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [, setModal] = useAtom(modalControlAtom);
   const visitor = useQuery<VisitorData>(
     { collection: "visitor", method: "get" },
@@ -38,12 +38,12 @@ function InvitationForeground({ uuid }: IInvitationForegroundProps) {
         onSubmit: {
           label: "확인",
           handler: () => {
-            navigate(HOME_PATH);
+            history.push(HOME_PATH);
           },
         },
       });
     }
-  }, [navigate, setModal, visitor]);
+  }, [history, setModal, visitor]);
 
   useEffect(() => {
     if (visitor === null) {
@@ -56,12 +56,12 @@ function InvitationForeground({ uuid }: IInvitationForegroundProps) {
         onSubmit: {
           label: "뒤로가기",
           handler: () => {
-            navigate(HOME_PATH);
+            history.push(HOME_PATH);
           },
         },
       });
     }
-  }, [navigate, setModal, visitor]);
+  }, [history, setModal, visitor]);
   return (
     <ForegroundLayer>
       <RootFrame>

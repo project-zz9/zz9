@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Route, useLocation, Switch, Redirect } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { pages } from "~/pages";
 import { ProtectedRoute } from "~/routers/PrivateRoute";
@@ -8,28 +8,25 @@ function Application() {
   return (
     <TransitionGroup>
       <CSSTransition key={location.key} classNames="fade" timeout={350}>
-        <Routes>
+        <Switch>
           {pages.map(({ path, Component, auth }) =>
             auth ? (
-              <Route
-                key={path}
-                path={path}
-                element={<ProtectedRoute element={<Component />} />}
-              />
+              <ProtectedRoute key={path} path={path}>
+                <Component />
+              </ProtectedRoute>
             ) : (
-              <Route key={path} path={path} element={<Component />} />
+              <Route key={path} path={path}>
+                <Component />
+              </Route>
             )
           )}
-          <Route path="/" element={<Navigate replace to="/home" />} />
-          <Route
-            path="*"
-            element={
-              <div>
-                <h1>404</h1>
-              </div>
-            }
-          />
-        </Routes>
+          <Redirect from="/" to="/home" />
+          <Route path="*">
+            <div>
+              <h1>404</h1>
+            </div>
+          </Route>
+        </Switch>
       </CSSTransition>
     </TransitionGroup>
   );

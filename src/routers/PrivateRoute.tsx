@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { ReactElement } from "react";
-import { Navigate, RouteProps } from "react-router-dom";
+import { Redirect, RouteProps } from "react-router-dom";
 import { SIGNIN_PATH } from "~/pages";
 import { authAtom } from "~/stores/auth";
 
@@ -10,14 +10,10 @@ type ProtectedRouteProp = {
 
 function ProtectedRoute({
   redirectPath = SIGNIN_PATH,
-  element,
+  children,
 }: RouteProps & ProtectedRouteProp): ReactElement | null {
   const [user] = useAtom(authAtom);
-  return user ? (
-    (element as ReactElement)
-  ) : (
-    <Navigate to={redirectPath} replace />
-  );
+  return user ? (children as ReactElement) : <Redirect to={redirectPath} />;
 }
 
 export { ProtectedRoute };

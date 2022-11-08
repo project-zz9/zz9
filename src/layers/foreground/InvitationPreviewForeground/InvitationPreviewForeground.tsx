@@ -7,7 +7,7 @@ import { useQuery } from "~/hooks/useQuery";
 import ForegroundLayer from "../ForegroundLayer";
 import { cards, cardShadow } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { useMemo } from "react";
 import { SEPARATOR } from "~/app/constant";
@@ -21,7 +21,7 @@ interface IInvitationPreviewForegroundProps {
 function InvitationPreviewForeground({
   uuid,
 }: IInvitationPreviewForegroundProps) {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [, setModal] = useAtom(modalControlAtom);
 
   const visitor = useQuery<VisitorData>(
@@ -41,7 +41,7 @@ function InvitationPreviewForeground({
           <IconButton
             aria-label="go-back"
             onClick={() => {
-              navigate(HOME_PATH);
+              history.push(HOME_PATH);
             }}
           >
             <ArrowLeft color="#fff" />
@@ -100,7 +100,7 @@ function InvitationPreviewForeground({
           <MonotonicButton
             color="primary"
             onClick={() => {
-              navigate(HOME_PATH);
+              history.push(HOME_PATH);
             }}
           >
             별 보러가기

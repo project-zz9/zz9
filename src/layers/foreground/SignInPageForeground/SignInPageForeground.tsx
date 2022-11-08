@@ -1,13 +1,13 @@
 import { Button } from "@mui/material";
 import { useAtom } from "jotai";
 import { authAtom } from "~/stores/auth";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ForegroundLayer from "../ForegroundLayer";
 import { MANAGEMENT_PATH } from "~/pages";
 
 function SignInPageForeground() {
   const [, setUser] = useAtom(authAtom);
-  const navigate = useNavigate();
+  const history = useHistory();
   return (
     <ForegroundLayer>
       <div>
@@ -17,7 +17,7 @@ function SignInPageForeground() {
             variant="contained"
             onClick={() => {
               setUser("user");
-              navigate(MANAGEMENT_PATH);
+              history.push(MANAGEMENT_PATH);
             }}
           >
             Sign In
