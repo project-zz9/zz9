@@ -7,7 +7,7 @@ export function useModalBlocker(blocker?: () => boolean): void {
   const [, remoteModalAction] = useAtom(remoteModalActionAtom);
   useBlocker(() => {
     if (modalVisibility) {
-      remoteModalAction((tick) => tick + 1);
+      remoteModalAction(`${Math.random()}`);
       return false;
     }
     return !blocker || blocker();
