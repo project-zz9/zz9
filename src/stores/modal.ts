@@ -24,6 +24,7 @@ type EventHandler = {
 
 export const modalAtom = atom<ModalParameter | null>(null);
 export const modalVisibilityAtom = atom<boolean>(false);
+export const remoteModalActionAtom = atom<number>(0);
 
 export const modalControlAtom = atom(null, (_, set, value: ModalParameter) => {
   set(modalVisibilityAtom, true);
