@@ -1,0 +1,20 @@
+{
+  "short_name": "ZZ9",
+  "name": "ZZ9 Project",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/png",
+      "sizes": "100x100"
+    },
+    {
+      "src": "logo300.png",
+      "type": "image/png",
+      "sizes": "300x300"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
