@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
 import InvitationTabs from "~/components/organizations/InvitationTabs";
+import { FirestoreApi } from "~/api/base";
+import dayjs from "dayjs";
+import { WEEK } from "~/app/constant";
 
 interface IInvitationForegroundProps {
   uuid: string | undefined;
@@ -19,6 +22,28 @@ function InvitationForeground({ uuid }: IInvitationForegroundProps) {
     { collection: "visitor", method: "get" },
     uuid
   );
+
+  useEffect(() => {
+    if (!visitor) return;
+
+    const visitTime = dayjs(visitor.visitTime).unix();
+    const today = FirestoreApi.serverTime();
+    if (visitTime - today > WEEK) {
+      setModal({
+        type: "information",
+        content: {
+          title: "개봉되지 않은 초대장",
+          body: "전시회 시작 7일 전부터 초대장을 볼 수 있습니다!",
+        },
+        onSubmit: {
+          label: "확인",
+          handler: () => {
+            navigate(HOME_PATH);
+          },
+        },
+      });
+    }
+  }, [navigate, setModal, visitor]);
 
   useEffect(() => {
     if (visitor === null) {
