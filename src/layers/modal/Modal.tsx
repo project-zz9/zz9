@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAtom } from "jotai";
 import CustomModal from "~/components/organizations/CustomModal";
-import { modalAtom, ModalParameter, visibleAtom } from "~/stores/modal";
+import { modalAtom, ModalParameter, modalVisibilityAtom } from "~/stores/modal";
 
 function Modal() {
   const [modalData] = useAtom(modalAtom);
-  const [visible, setVisible] = useAtom(visibleAtom);
+  const [visible, setVisible] = useAtom(modalVisibilityAtom);
   const [currentModal, setCurrentModal] = useState<ModalParameter | null>(null);
   const [history, setHistory] = useState<ModalParameter[]>([]);
 

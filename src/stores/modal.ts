@@ -23,9 +23,9 @@ type EventHandler = {
 };
 
 export const modalAtom = atom<ModalParameter | null>(null);
-export const visibleAtom = atom<boolean>(false);
+export const modalVisibilityAtom = atom<boolean>(false);
 
 export const modalControlAtom = atom(null, (_, set, value: ModalParameter) => {
-  set(visibleAtom, true);
+  set(modalVisibilityAtom, true);
   set(modalAtom, value);
 });
