@@ -53,7 +53,7 @@ function InformationCard({ visitor, onFlip }: IInformationCardProps) {
             color="secondary"
             onClick={() => {
               window.location.href =
-                "https://map.naver.com/v5/search/%EA%B7%B8%EB%A6%B0%ED%8C%A9%ED%86%A0%EB%A6%AC?c=14148876.9034780,4489349.1064442,16.1,0,0,0,dh";
+                "https://map.naver.com/v5/entry/place/11621559?c=14138789.5812838,4506075.6035395,16.39,0,0,0,dh";
             }}
           >
             지도 바로가기
