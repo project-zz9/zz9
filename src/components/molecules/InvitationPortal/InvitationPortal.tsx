@@ -3,6 +3,7 @@ import { ArrowRight } from "react-feather";
 import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow, logos } from "~/assets/images";
+import { overflowYScroll } from "~/assets/styles/scroll";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
@@ -67,20 +68,21 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
 export default InvitationPortal;
 
 const PortalRoot = styled.div`
-  height: 85vh;
+  height: 90vh;
   padding-left: 5vw;
   padding-right: 5vw;
-  padding-top: 12.5vh;
   display: flex;
   align-items: center;
   flex-direction: column;
+  ${overflowYScroll}
 `;
 
 const LogoFrame = styled.div`
-  position: fixed;
-  top: 20px;
-  left: 20px;
+  margin-top: 20px;
+  margin-left: -20px;
+  margin-bottom: 2rem;
   width: 25vw;
+  align-self: flex-start;
 `;
 
 const Logo = styled.img`
@@ -107,6 +109,7 @@ const Card = styled.div`
   position: relative;
   align-self: center;
   margin-top: 3rem;
+  margin-bottom: 1rem;
   &:first-child {
     z-index: -1;
   }

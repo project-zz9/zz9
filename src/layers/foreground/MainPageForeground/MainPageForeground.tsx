@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useAtom } from "jotai";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { logos } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import ApprovePermissionModalInner from "~/components/organizations/ApprovePermissionModalInner";
@@ -8,11 +8,13 @@ import { REGISTRATION_PATH } from "~/pages";
 import { modalControlAtom } from "~/stores/modal";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import ForegroundLayer from "../ForegroundLayer";
+import { useModalBlocker } from "~/hooks/useModalBlocker";
 
 function MainPageForeground() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [, setPermission] = useAtom(permissionAtom);
   const [, setModal] = useAtom(modalControlAtom);
+  useModalBlocker();
   return (
     <ForegroundLayer>
       <RootFrame>
@@ -36,7 +38,7 @@ function MainPageForeground() {
                       ...permission,
                       [PERSONAL_DATA]: true,
                     }));
-                    navigate(REGISTRATION_PATH);
+                    history.push(REGISTRATION_PATH);
                   },
                 },
                 onCancel: {

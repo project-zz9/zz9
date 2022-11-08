@@ -61,7 +61,7 @@ interface ICustomModalProps {
   hash: string;
   Element:
     | FC<{
-        activate?: (active: boolean | ((prev: boolean) => boolean)) => void;
+        activate: (active: boolean | ((prev: boolean) => boolean)) => void;
       }>
     | undefined;
   content:
@@ -95,7 +95,8 @@ function CustomModal({
 }: ICustomModalProps) {
   const [activate, setActivate] = useState<boolean>(true);
   useEffect(() => {
-    setActivate(true);
+    !activate && setActivate(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hash]);
   return (
     <Dialog

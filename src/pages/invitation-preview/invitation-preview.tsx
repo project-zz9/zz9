@@ -4,7 +4,7 @@ import MonotonicBackground from "~/layers/background/MonotonicBackground";
 import InvitationPreviewForeground from "~/layers/foreground/InvitationPreviewForeground";
 
 function InvitationPreview() {
-  const { uuid } = useParams();
+  const { uuid } = useParams<{ uuid: string }>();
   return (
     <Fragment>
       <InvitationPreviewForeground uuid={uuid} />

@@ -4,14 +4,13 @@ import ConfirmPersonalDataModalInner from "~/components/organizations/ConfirmPer
 import { modalControlAtom } from "~/stores/modal";
 import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitTimeModalInner";
 
-import type { NavigateFunction } from "react-router-dom";
-import { HOME_PATH, INVITATION_PREVIEW_PATH } from "~/pages";
+import { INVITATION_PREVIEW_PATH } from "~/pages";
 import { getVisitor, setVisitor } from "~/api/visitor";
 
 export function useCheckCallbackHandlers(
   data: VisitorData,
   goNextStage: () => void,
-  navigate: NavigateFunction
+  history: any
 ) {
   const [, setModal] = useAtom(modalControlAtom);
   const checkCallbackHandlers: Record<string, () => boolean> = useMemo(
@@ -29,7 +28,7 @@ export function useCheckCallbackHandlers(
             handler: async () => {
               const visitor = await getVisitor(data);
               if (visitor) {
-                navigate(HOME_PATH);
+                history.goBack();
                 setModal({
                   type: "information",
                   content: {
@@ -73,9 +72,9 @@ export function useCheckCallbackHandlers(
       relationship: () => {
         setVisitor(data).then((visitor: string | null) => {
           if (visitor) {
-            navigate(INVITATION_PREVIEW_PATH.replace(":uuid", visitor));
+            history.replace(INVITATION_PREVIEW_PATH.replace(":uuid", visitor));
           } else {
-            navigate(HOME_PATH);
+            history.goBack();
             setModal({
               type: "information",
               content: {
@@ -91,7 +90,7 @@ export function useCheckCallbackHandlers(
         return true;
       },
     }),
-    [data, navigate, goNextStage, setModal]
+    [setModal, data, history, goNextStage]
   );
   return checkCallbackHandlers;
 }

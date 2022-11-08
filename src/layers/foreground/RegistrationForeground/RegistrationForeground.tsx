@@ -6,7 +6,7 @@ import { ArrowLeft } from "react-feather";
 import styledComponent from "styled-components";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import SchemaForm from "~/components/organizations/SchemaForm";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { validator } from "~/utils/validator";
 import { jsonSchema } from "~/app/jsonSchema";
@@ -14,7 +14,7 @@ import { useCheckCallbackHandlers } from "./useCheckCallbackHandlers";
 import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "~/assets/styles/fade-animation.css";
+import { useModalBlocker } from "~/hooks/useModalBlocker";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
@@ -34,7 +34,7 @@ function RegistrationForeground({
   const [data, setData] = useState<VisitorData>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const goNextStage = useCallback(() => {
     if (stages.length > stage + 1) {
@@ -46,7 +46,7 @@ function RegistrationForeground({
   const checkCallbackHandlers = useCheckCallbackHandlers(
     data,
     goNextStage,
-    navigate
+    history
   );
   const metaData = useMemo(
     () => jsonSchema.properties[stages[stage]] ?? {},
@@ -57,7 +57,7 @@ function RegistrationForeground({
 
   useEffect(() => {
     if (!permission[PERSONAL_DATA]) {
-      navigate(HOME_PATH);
+      history.push(HOME_PATH);
     }
     return () => {
       stage > 0 && setStage(0);
@@ -70,6 +70,23 @@ function RegistrationForeground({
   useEffect(() => {
     changeColorHandler(color === "light" ? "#fff" : "#000");
   }, [changeColorHandler, color]);
+
+  useModalBlocker(() => {
+    if (stage > 0) {
+      setStage((prev) => prev - 1);
+      setData((prev) =>
+        Object.entries(prev || {}).reduce((accumulator, [key, value]) => {
+          if (stages.indexOf(key) < stage && value) {
+            accumulator[key] = value;
+          }
+          return accumulator;
+        }, {} as Record<string, string>)
+      );
+      setError(null);
+      return false;
+    }
+    return true;
+  });
 
   return (
     <ForegroundLayer>
@@ -96,7 +113,7 @@ function RegistrationForeground({
                       );
                       setError(null);
                     } else {
-                      navigate(HOME_PATH);
+                      history.goBack();
                     }
                   }}
                 >
@@ -146,17 +163,15 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height: 92.5vh;
+    height: 90vh;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 7.5vh;
 `;
 
 const GoBackButtonFrame = styledComponent.div`
-    position:fixed;
-    top:15px;
-    left:15px;
-    
+    margin-top:20px;
+    margin-left:-20px;
+    margin-bottom:1rem;
     svg {
       width:32px;
       height:32px;

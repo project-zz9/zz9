@@ -10,7 +10,7 @@ import InformationCard from "./InformationCard";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import QRCodeCard from "./QRCodeCard";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "~/assets/styles/fade-animation.css";
+import { overflowYScroll } from "~/assets/styles/scroll";
 
 function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
   const { relationship } = visitor;
@@ -38,7 +38,7 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
             <PhotoCard
               source={cards[star].picked[distance]}
               shadow={cardShadow}
-              width="90vw"
+              width="85vw"
               filter={cards[star].filter}
               activate
               blur={face === "INFORMATION"}
@@ -58,7 +58,6 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
         )}
       </CardFrame>
       <ButtonGroupFrame>
-        <MonotonicButton>링크 복사</MonotonicButton>
         <MonotonicButton color="secondary" onClick={onFlip}>
           뒤집기
         </MonotonicButton>
@@ -70,10 +69,11 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
 export default InvitationCard;
 
 const CardRoot = styled.div`
-  height: 95vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  ${overflowYScroll}
 `;
 
 const HeaderFrame = styled.div`
@@ -126,19 +126,13 @@ const CardOverlay = styled.div`
   inset: 0;
   color: #fff;
   border-radius: 10px;
-
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  ${overflowYScroll}
 `;
 
 const ButtonGroupFrame = styled.div`
   flex-direction: row;
   display: flex;
-  margin-top: 1rem;
+  margin: 0 2rem 1rem 2rem;
   button {
     padding: 10px;
     margin: 10px;

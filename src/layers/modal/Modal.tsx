@@ -1,21 +1,32 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAtom } from "jotai";
 import CustomModal from "~/components/organizations/CustomModal";
-import { modalAtom, ModalParameter, visibleAtom } from "~/stores/modal";
+import {
+  modalAtom,
+  ModalParameter,
+  modalVisibilityAtom,
+  remoteModalActionAtom,
+} from "~/stores/modal";
 
 function Modal() {
   const [modalData] = useAtom(modalAtom);
-  const [visible, setVisible] = useAtom(visibleAtom);
+  const [visibility, setVisibility] = useAtom(modalVisibilityAtom);
+  const [remote] = useAtom(remoteModalActionAtom);
   const [currentModal, setCurrentModal] = useState<ModalParameter | null>(null);
   const [history, setHistory] = useState<ModalParameter[]>([]);
-
   useEffect(() => {
     modalData && setHistory((history) => [...history, modalData]);
   }, [modalData]);
 
   useEffect(() => {
-    history.length > 0 && setCurrentModal(history.at(-1) || null);
+    history.length > 0 && setCurrentModal(history[history.length - 1] || null);
   }, [history]);
+
+  useEffect(() => {
+    setHistory((history) => history.slice(0, -1));
+    history.length === 1 && setVisibility(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [remote]);
 
   const { type, content, Element, onSubmit, onCancel } = currentModal || {};
 
@@ -26,22 +37,22 @@ function Modal() {
           typeof onCancel.handler === "function" &&
           onCancel.handler();
         setHistory((history) => history.slice(0, -1));
-        if (history.length === 1) setVisible(false);
+        history.length === 1 && setVisibility(false);
       },
       onSubmitHandler() {
         onSubmit?.handler &&
           typeof onSubmit.handler === "function" &&
           onSubmit.handler();
         setHistory((history) => history.slice(0, -1));
-        history.length === 1 && setVisible(false);
+        history.length === 1 && setVisibility(false);
       },
     }),
-    [history, onCancel, onSubmit, setVisible]
+    [history, onCancel, onSubmit, setVisibility]
   );
 
   return (
     <CustomModal
-      visible={visible}
+      visible={visibility}
       type={type}
       hash={JSON.stringify(currentModal || {})}
       Element={Element}

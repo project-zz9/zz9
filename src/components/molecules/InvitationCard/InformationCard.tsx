@@ -3,6 +3,7 @@ import { Fragment, useMemo } from "react";
 import { ToggleLeft } from "react-feather";
 import styled from "styled-components";
 import { logos } from "~/assets/images";
+import MonotonicButton from "~/components/atoms/MonotonicButton";
 
 interface IInformationCardProps {
   visitor: VisitorData;
@@ -47,8 +48,17 @@ function InformationCard({ visitor, onFlip }: IInformationCardProps) {
           전시장소
         </Typography>
         <Value>서울특별시 **구 **로 37 1층</Value>
-
-        <MapFrame />
+        <MapFrame>
+          <MonotonicButton
+            color="secondary"
+            onClick={() => {
+              window.location.href =
+                "https://map.naver.com/v5/entry/place/11621559?c=14138789.5812838,4506075.6035395,16.39,0,0,0,dh";
+            }}
+          >
+            지도 바로가기
+          </MonotonicButton>
+        </MapFrame>
       </InformationFrame>
     </Fragment>
   );
@@ -96,8 +106,9 @@ const Value = styled.p`
 `;
 
 const MapFrame = styled.div`
-  margin-top: 2vh;
-  height: 15vh;
-  background-color: red;
-  border-radius: 10px;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
