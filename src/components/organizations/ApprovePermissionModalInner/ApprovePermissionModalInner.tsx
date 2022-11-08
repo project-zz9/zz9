@@ -7,17 +7,17 @@ import { CheckSquare, Square } from "react-feather";
 import styled from "styled-components";
 
 interface IApprovePermissionModalInnerProps {
-  activate?: (active: boolean | ((prev: boolean) => boolean)) => void;
+  activate: (active: boolean | ((prev: boolean) => boolean)) => void;
 }
 
 function ApprovePermissionModalInner({
   activate,
 }: IApprovePermissionModalInnerProps) {
   const [checked, setChecked] = useState<boolean>(false);
-  const [, setModal] = useAtom(modalAtom);
+  const [modal, setModal] = useAtom(modalAtom);
   useEffect(() => {
-    activate?.(checked);
-  }, [activate, checked]);
+    activate(checked);
+  }, [modal, activate, checked]);
 
   return (
     <ModalInnerFrame>
