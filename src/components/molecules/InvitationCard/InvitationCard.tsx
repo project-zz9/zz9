@@ -10,7 +10,6 @@ import InformationCard from "./InformationCard";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import QRCodeCard from "./QRCodeCard";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "~/assets/styles/fade-animation.css";
 import { overflowYScroll } from "~/assets/styles/scroll";
 
 function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {

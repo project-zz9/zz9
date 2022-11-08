@@ -3,7 +3,6 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import InvitationCard from "~/components/molecules/InvitationCard";
 import InvitationPortal from "~/components/molecules/InvitationPortal";
 import styled from "styled-components";
-import "./fade-animation.css";
 
 interface IInvitationTabsProps {
   uuid: string;

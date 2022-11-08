@@ -2,7 +2,6 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { pages } from "~/pages";
 import { ProtectedRoute } from "~/routers/PrivateRoute";
-import "~/assets/styles/fade-animation.css";
 
 function Application() {
   const location = useLocation();
