@@ -7,9 +7,9 @@ export function useBlocker(
 ): void {
   const history = useHistory();
   useEffect(() => {
-    const unblock = history.block(() => {
-      if (!when) return true;
-      return !blocker || blocker();
+    const unblock = history.block((_, action) => {
+      if (!when || action === "PUSH" || action === "REPLACE") return true;
+      return (!blocker || blocker()) as any;
     });
     return () => {
       unblock();

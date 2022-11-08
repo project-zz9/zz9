@@ -72,7 +72,7 @@ export function useCheckCallbackHandlers(
       relationship: () => {
         setVisitor(data).then((visitor: string | null) => {
           if (visitor) {
-            history.push(INVITATION_PREVIEW_PATH.replace(":uuid", visitor));
+            history.replace(INVITATION_PREVIEW_PATH.replace(":uuid", visitor));
           } else {
             history.goBack();
             setModal({
