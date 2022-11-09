@@ -99,7 +99,7 @@ function ApprovePermissionModalInner({
 export default ApprovePermissionModalInner;
 
 const ModalInnerFrame = styled.div`
-  margin: 20px 20px 0 20px;
+  margin: 3.5vw 3.5vw 0 3.5vw;
 `;
 
 const TitleFrame = styled.div`
