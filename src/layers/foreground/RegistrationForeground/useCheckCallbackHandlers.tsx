@@ -4,7 +4,7 @@ import ConfirmPersonalDataModalInner from "~/components/organizations/ConfirmPer
 import { modalControlAtom } from "~/stores/modal";
 import ConfirmVisitTimeModalInner from "~/components/organizations/ConfirmVisitTimeModalInner";
 
-import { INVITATION_PREVIEW_PATH } from "~/pages";
+import { HOME_PATH, INVITATION_PREVIEW_PATH } from "~/pages";
 import { getVisitor, setVisitor } from "~/api/visitor";
 
 export function useCheckCallbackHandlers(
@@ -28,7 +28,7 @@ export function useCheckCallbackHandlers(
             handler: async () => {
               const visitor = await getVisitor(data);
               if (visitor) {
-                history.goBack();
+                history.replace(HOME_PATH);
                 setModal({
                   type: "information",
                   content: {
@@ -74,7 +74,7 @@ export function useCheckCallbackHandlers(
           if (visitor) {
             history.replace(INVITATION_PREVIEW_PATH.replace(":uuid", visitor));
           } else {
-            history.goBack();
+            history.replace(HOME_PATH);
             setModal({
               type: "information",
               content: {
