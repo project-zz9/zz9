@@ -10,7 +10,7 @@ import PhotoCard from "~/components/atoms/PhotoCard";
 import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { useMemo } from "react";
-import { SEPARATOR } from "~/app/constant";
+import { HOME, ROOT_PAGE, SEPARATOR } from "~/app/constant";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
 
@@ -75,7 +75,7 @@ function InvitationPreviewForeground({
           <MonotonicButton
             color="secondary"
             onClick={() => {
-              navigator.clipboard.writeText(process.env.PUBLIC_URL).then(
+              navigator.clipboard.writeText(ROOT_PAGE + HOME).then(
                 () => {
                   setModal({
                     type: "information",

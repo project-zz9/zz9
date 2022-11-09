@@ -6,3 +6,5 @@ export const DAY = 24 * HOUR;
 export const WEEK = 7 * DAY;
 
 export const SEPARATOR = "::";
+export const ROOT_PAGE = "https://project-zz9.github.io/zz9/#/zz9";
+export const HOME = "/home";
