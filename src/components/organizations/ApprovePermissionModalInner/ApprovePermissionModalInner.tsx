@@ -99,7 +99,10 @@ function ApprovePermissionModalInner({
 export default ApprovePermissionModalInner;
 
 const ModalInnerFrame = styled.div`
-  margin: 3.5vw 3.5vw 0 3.5vw;
+  @media (max-width: 360px) {
+    margin: 3.5vw 3.5vw 0 3.5vw;
+  }
+  margin: 20px 20px 0 20px;
 `;
 
 const TitleFrame = styled.div`
@@ -131,7 +134,7 @@ const TableFrame = styled.div`
       background-color: black;
       th {
         color: white;
-        min-width: 5rem;
+        min-width: 4rem;
         font-size: 0.7rem;
       }
     }

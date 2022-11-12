@@ -13,5 +13,8 @@ function ApprovePermissionModalDetailInner() {
 export default ApprovePermissionModalDetailInner;
 
 const MarkdownViewerFrame = styled.div`
+  @media (max-width: 360px) {
+    margin: 3.5vw 3.5vw 0 3.5vw;
+  }
   margin: 25px;
 `;
