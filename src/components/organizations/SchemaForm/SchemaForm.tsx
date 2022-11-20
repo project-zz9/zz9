@@ -5,14 +5,14 @@ export interface IFormTypeInputProps<T = Record<string, string>> {
   type: string;
   name: string;
   data: T;
-  onChange: (data: T | ((prev: T) => T)) => void;
+  onChange: SetState<T>;
   label?: string;
   error: string | null;
 }
 interface ISchemaFormProps<T> {
   name: string;
   data: T;
-  onChange: (value: T | ((prev: T) => T)) => void;
+  onChange: SetState<T>;
   error: string | null;
   jsonSchema: {
     formType: string;

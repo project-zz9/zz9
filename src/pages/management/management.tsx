@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import MonotonicBackground from "~/layers/background/MonotonicBackground";
-import DemoForeground from "~/layers/foreground/DemoForeground";
+import ManagementForeground from "~/layers/foreground/ManagementForeground";
 
 function Management() {
   return (
     <Fragment>
-      <DemoForeground title="Management" color="yellow" />
+      <ManagementForeground />
       <MonotonicBackground />
     </Fragment>
   );

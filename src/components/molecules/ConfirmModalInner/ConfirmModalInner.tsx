@@ -1,20 +1,25 @@
 import styled from "styled-components";
-import ContentTable from "~/components/atoms/ContentTable";
+import ContentTable, { TableContent } from "~/components/atoms/ContentTable";
 import MultiLineText from "../MultiLineText";
 
 interface IConfirmModalInnerProps {
   title: EmphasisTextForm[];
-  contents: {
-    label: string;
-    value: string;
-  }[];
+  titleSize?: `${number}rem`;
+  contents: TableContent[];
 }
 
-function ConfirmModalInner({ title, contents }: IConfirmModalInnerProps) {
+function ConfirmModalInner({
+  title,
+  titleSize,
+  contents,
+}: IConfirmModalInnerProps) {
   return (
     <ConfirmModalRoot>
       <TitleFrame>
-        <MultiLineText lines={title} />
+        <MultiLineText
+          lines={title}
+          {...(titleSize ? { size: titleSize } : {})}
+        />
       </TitleFrame>
       <ContentsFrame>
         <ContentTable contents={contents} />

@@ -10,6 +10,8 @@ type VisitorData = {
   relationship?: string;
 };
 
+type Visitor = VisitorData & { visited?: boolean };
+
 type EmphasisTextForm = {
   type?: "common" | "emphasis";
   value: string;
@@ -18,3 +20,5 @@ type EmphasisTextForm = {
 type ColorCode = `#${string}`;
 
 type Nullish = null | undefined;
+
+type SetState<T> = (data: T | ((prev: T) => T)) => void;

@@ -8,7 +8,7 @@ interface IRadioGroupInputProps {
   Icon?: FC<IconProps>;
   title: string;
   value: string;
-  setValue: (value: string | ((prev: string) => string)) => void;
+  setValue: SetState<string>;
   options: {
     label?: string;
     value: string;

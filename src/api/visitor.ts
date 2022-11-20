@@ -1,4 +1,4 @@
-import { scheduleApi, visitorApi } from "./base";
+import { FirestoreApi, scheduleApi, visitorApi } from "./base";
 import { getKey, hashing } from "~/utils/crypto";
 
 export const getVisitor = async (
@@ -29,6 +29,17 @@ export const setVisitor = async (
       setTimeTable(visitor, visitTime),
     ]);
     return visitor;
+  } catch {
+    return null;
+  }
+};
+
+export const updateVisitorVisited = async (
+  key: string
+): Promise<string | null> => {
+  try {
+    await visitorApi.put(key, { visited: FirestoreApi.serverTime() });
+    return key;
   } catch {
     return null;
   }

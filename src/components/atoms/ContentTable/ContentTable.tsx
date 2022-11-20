@@ -8,11 +8,12 @@ import {
 } from "@mui/material";
 import { getKey } from "~/utils/crypto";
 
+export type TableContent = {
+  label: string;
+  value: string;
+};
 interface IContentTableProps {
-  contents: {
-    label: string;
-    value: string;
-  }[];
+  contents: TableContent[];
 }
 
 function ContentTable({ contents }: IContentTableProps) {
