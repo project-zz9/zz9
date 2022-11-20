@@ -91,7 +91,7 @@ function RegistrationForeground({
   return (
     <ForegroundLayer>
       <TransitionGroup>
-        <CSSTransition key={stage} classNames="fade" timeout={350}>
+        <CSSTransition key={stage} classNames="fade" timeout={500}>
           {metaData && (
             <RootFrame>
               <GoBackButtonFrame>
@@ -185,8 +185,5 @@ const SchemaFormFrame = styledComponent.div`
 `;
 
 const NextButtonFrame = styledComponent.div`
-    display: flex;
-    flex: 1;
-    align-items: flex-end;
-    padding-bottom: min(50px, 10vw);
+    margin-top: min(30rem, 10vw);
 `;

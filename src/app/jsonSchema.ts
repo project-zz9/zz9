@@ -46,16 +46,16 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
           title: "방문 일을 선택해주세요 :)",
           options: [
             {
-              label: "2023년 4월 28일",
-              value: "2023-04-28",
+              label: "2022년 11월 15일",
+              value: "2022-11-15",
             },
             {
-              label: "2023년 4월 29일",
-              value: "2023-04-29",
+              label: "2022년 11월 16일",
+              value: "2022-11-16",
             },
             {
-              label: "2023년 4월 30일",
-              value: "2023-04-30",
+              label: "2022년 11월 17일",
+              value: "2022-11-17",
             },
           ],
         },

@@ -42,8 +42,8 @@ const StyledTextField = styled(InputBase)({
     position: "relative",
     backgroundColor: "transparent",
     border: "1px solid #0E0E0E",
-    fontSize: 16,
-    padding: "10px 12px",
+    fontSize: "1.15rem",
+    padding: "0.8rem 0.9rem",
     transitionProperty: "border-color, background-color, box-shadow",
     transitionDuration: "300ms, 300ms, 300ms",
     transitionTimingFunction:
@@ -65,7 +65,7 @@ const StyledTextField = styled(InputBase)({
 
 const ErrorMessage = styledComponent.div`
     position: absolute;
-    margin-left: 15px;
+    margin-left: 0.75rem;
     font-size: 0.9rem;
     color: red;
 `;

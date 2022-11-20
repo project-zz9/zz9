@@ -10,7 +10,7 @@ import PhotoCard from "~/components/atoms/PhotoCard";
 import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
 import { useMemo } from "react";
-import { SEPARATOR } from "~/app/constant";
+import { HOME, ROOT_PAGE, SEPARATOR } from "~/app/constant";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
 
@@ -75,23 +75,49 @@ function InvitationPreviewForeground({
           <MonotonicButton
             color="secondary"
             onClick={() => {
-              if (navigator.share) {
-                navigator.share({
-                  title: "지수의 지구",
-                  url: "https://klumy.github.io/RhineLabs/",
-                });
-              } else {
-                setModal({
-                  type: "information",
-                  content: {
-                    title: "공유 실패",
-                    body: "공유가 불가능한 환경입니다.",
-                  },
-                  onSubmit: {
-                    label: "확인",
-                  },
-                });
-              }
+              navigator.clipboard.writeText(ROOT_PAGE + HOME).then(
+                () => {
+                  setModal({
+                    type: "information",
+                    content: {
+                      title: "복사 성공",
+                      body: "클립보드에 복사하였습니다! 공유하고 싶은 곳에 붙여 넣으세요.",
+                    },
+                    onSubmit: {
+                      label: "확인",
+                    },
+                  });
+                },
+                () => {
+                  setModal({
+                    type: "information",
+                    content: {
+                      title: "링크 복사 실패!",
+                      body: "클립보드 복사에 실패하였습니다.",
+                    },
+                    onSubmit: {
+                      label: "확인",
+                    },
+                  });
+                }
+              );
+              // if (navigator.share) {
+              //   navigator.share({
+              //     title: "지수의 지구",
+              //     url: "https://klumy.github.io/RhineLabs/",
+              //   });
+              // } else {
+              //   setModal({
+              //     type: "information",
+              //     content: {
+              //       title: "공유 실패",
+              //       body: "공유가 불가능한 환경입니다.",
+              //     },
+              //     onSubmit: {
+              //       label: "확인",
+              //     },
+              //   });
+              // }
             }}
           >
             공유하기

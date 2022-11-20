@@ -53,7 +53,7 @@ const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
       : "black"
   }`,
   fontWeight: "bold",
-  padding: "6px 16px",
+  padding: "0.5rem 1.1rem",
   borderRadius: "7.5px",
   "&:hover": {
     backgroundColor:
