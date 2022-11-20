@@ -84,7 +84,7 @@ function ApprovePermissionModalInner({
               type: "fullscreen",
               Element: () => <ApprovePermissionModalDetailInner />,
               onSubmit: {
-                label: "계속하기",
+                label: "닫기",
               },
             });
           }}
