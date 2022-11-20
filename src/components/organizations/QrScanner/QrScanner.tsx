@@ -1,13 +1,14 @@
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import styled from "styled-components";
 import { updateVisitorVisited } from "~/api/visitor";
 import ContentTable, { TableContent } from "~/components/atoms/ContentTable";
-import QrScannerInput from "~/components/atoms/QrScannerInput";
 import ViewFinder from "~/components/atoms/ViewFinder";
 import { useQuery } from "~/hooks/useQuery";
 import { modalControlAtom, modalVisibilityAtom } from "~/stores/modal";
 import ConfirmVisitorModalInner from "../ConfirmVisitorModalInner";
+
+const QrScannerInput = lazy(() => import("~/components/atoms/QrScannerInput"));
 
 function QrScanner() {
   const [data, setData] = useState<string>("");
@@ -51,7 +52,9 @@ function QrScanner() {
 
   return (
     <RootFrame>
-      <QrScannerInput setData={setData} ViewFinder={ViewFinder} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <QrScannerInput setData={setData} ViewFinder={ViewFinder} />
+      </Suspense>
       <TableFrame>
         <ContentTable contents={history} />
       </TableFrame>
