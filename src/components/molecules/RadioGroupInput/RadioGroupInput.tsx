@@ -62,12 +62,13 @@ function RadioGroupInput({
 export default RadioGroupInput;
 
 const TitleFrame = styled.div`
+  display: flex;
   margin: 10px;
 `;
 const Title = styled.div`
   display: inline;
-  vertical-align: text-bottom;
   font-size: 1.1rem;
+  margin-top: 3px;
   margin-left: 7px;
   font-weight: 600;
 `;
