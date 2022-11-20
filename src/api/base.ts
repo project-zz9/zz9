@@ -46,6 +46,14 @@ export class FirestoreApi {
       throw new Error(error);
     }
   }
+
+  async put(key: string, value: any): Promise<void> {
+    try {
+      await this.collection.doc(key).set(value, { merge: true });
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
 }
 
 export const visitorApi = new FirestoreApi(VISITOR_COLLECTION);
