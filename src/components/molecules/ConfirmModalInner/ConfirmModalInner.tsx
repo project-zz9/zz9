@@ -1,14 +1,11 @@
 import styled from "styled-components";
-import ContentTable from "~/components/atoms/ContentTable";
+import ContentTable, { TableContent } from "~/components/atoms/ContentTable";
 import MultiLineText from "../MultiLineText";
 
 interface IConfirmModalInnerProps {
   title: EmphasisTextForm[];
   titleSize?: `${number}rem`;
-  contents: {
-    label: string;
-    value: string;
-  }[];
+  contents: TableContent[];
 }
 
 function ConfirmModalInner({
