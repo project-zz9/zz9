@@ -32,7 +32,8 @@ function Modal() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [remote]);
 
-  const { type, content, Element, onSubmit, onCancel } = currentModal || {};
+  const { type, content, Element, onCancel, onSubmit, clean } =
+    currentModal || {};
 
   const { onCancelHandler, onSubmitHandler } = useMemo(
     () => ({
@@ -40,16 +41,18 @@ function Modal() {
         onCancel?.handler &&
           typeof onCancel.handler === "function" &&
           onCancel.handler();
+        clean && typeof clean === "function" && clean();
         closeModal();
       },
       onSubmitHandler() {
         onSubmit?.handler &&
           typeof onSubmit.handler === "function" &&
           onSubmit.handler();
+        clean && typeof clean === "function" && clean();
         closeModal();
       },
     }),
-    [closeModal, onCancel, onSubmit]
+    [closeModal, onCancel, onSubmit, clean]
   );
 
   return (

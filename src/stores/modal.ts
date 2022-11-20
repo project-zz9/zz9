@@ -9,6 +9,7 @@ export type ModalParameter = {
   }>;
   onSubmit?: EventHandler;
   onCancel?: EventHandler;
+  clean?: Function;
 };
 
 type Content = {
