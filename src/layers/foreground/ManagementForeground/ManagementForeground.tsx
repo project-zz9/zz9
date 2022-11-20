@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import QrScanner from "~/components/molecules/QrScanner";
+import QrScanner from "~/components/organizations/QrScanner";
 import { MANAGEMENT_PATH } from "~/pages";
 import { getKey } from "~/utils/crypto";
 import ForegroundLayer from "../ForegroundLayer";

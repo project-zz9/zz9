@@ -5,7 +5,7 @@ export type ModalParameter = {
   type: "information" | "confirm" | "fullscreen";
   content?: Content;
   Element?: FC<{
-    activate: (active: boolean | ((prev: boolean) => boolean)) => void;
+    activate: SetState<boolean>;
   }>;
   onSubmit?: EventHandler;
   onCancel?: EventHandler;

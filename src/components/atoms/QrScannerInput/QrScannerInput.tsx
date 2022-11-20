@@ -3,13 +3,14 @@ import { FC, useCallback, useState } from "react";
 import { ToggleLeft, ToggleRight } from "react-feather";
 import { QrReader } from "react-qr-reader";
 import styled from "styled-components";
+
 const enum CameraMode {
   USER = "user",
   ENVIRONMENT = "environment",
 }
 
 interface IQrScannerInputs {
-  setData: (value: string | ((value: string) => string)) => void;
+  setData: SetState<string>;
   ViewFinder?: FC<any>;
 }
 

@@ -62,7 +62,7 @@ interface ICustomModalProps {
   hash: string;
   Element:
     | FC<{
-        activate: (active: boolean | ((prev: boolean) => boolean)) => void;
+        activate: SetState<boolean>;
       }>
     | undefined;
   content:

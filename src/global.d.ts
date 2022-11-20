@@ -18,3 +18,5 @@ type EmphasisTextForm = {
 type ColorCode = `#${string}`;
 
 type Nullish = null | undefined;
+
+type SetState<T> = (data: T | ((prev: T) => T)) => void;

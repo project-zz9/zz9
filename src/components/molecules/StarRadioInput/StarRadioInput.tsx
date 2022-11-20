@@ -12,7 +12,7 @@ interface IStarRadioInputProps<T> {
       }[]
     | undefined;
   data: T;
-  setData: (data: T | ((prev: T) => T)) => void;
+  setData: SetState<T>;
 }
 
 function StarRadioInput<T>({

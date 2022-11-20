@@ -7,7 +7,7 @@ import { CheckSquare, Square } from "react-feather";
 import styled from "styled-components";
 
 interface IApprovePermissionModalInnerProps {
-  activate: (active: boolean | ((prev: boolean) => boolean)) => void;
+  activate: SetState<boolean>;
 }
 
 function ApprovePermissionModalInner({
