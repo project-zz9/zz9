@@ -8,7 +8,7 @@ export const getVisitor = async (
     typeof key === "string"
       ? key
       : key.phoneNumber
-      ? hashing(getKey(key.phoneNumber))
+      ? hashing(getKey(key.phoneNumber, process.env.REACT_APP_SALT))
       : null;
 
   return (
@@ -17,12 +17,13 @@ export const getVisitor = async (
     null
   );
 };
+
 export const setVisitor = async (
   visitorData: VisitorData
 ): Promise<string | null> => {
   const { name, phoneNumber, visitTime, relationship } = visitorData;
   if (!name || !phoneNumber || !visitTime || !relationship) return null;
-  const visitor = hashing(getKey(phoneNumber));
+  const visitor = hashing(getKey(phoneNumber, process.env.REACT_APP_SALT));
   try {
     await Promise.all([
       visitorApi.post(visitor, visitorData),
