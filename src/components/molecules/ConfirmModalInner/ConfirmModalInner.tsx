@@ -4,17 +4,25 @@ import MultiLineText from "../MultiLineText";
 
 interface IConfirmModalInnerProps {
   title: EmphasisTextForm[];
+  titleSize?: `${number}rem`;
   contents: {
     label: string;
     value: string;
   }[];
 }
 
-function ConfirmModalInner({ title, contents }: IConfirmModalInnerProps) {
+function ConfirmModalInner({
+  title,
+  titleSize,
+  contents,
+}: IConfirmModalInnerProps) {
   return (
     <ConfirmModalRoot>
       <TitleFrame>
-        <MultiLineText lines={title} />
+        <MultiLineText
+          lines={title}
+          {...(titleSize ? { size: titleSize } : {})}
+        />
       </TitleFrame>
       <ContentsFrame>
         <ContentTable contents={contents} />
