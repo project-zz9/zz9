@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getTimeTable, getVisitor, setVisitor } from "~/api/visitor";
+import { getTimeTable, getVisitor } from "~/api/visitor";
 
 type QueryType = {
   collection: "visitor" | "schedule" | "guestbook";
-  method: "get" | "set";
+  method: "get";
 };
 
 export function useQuery<T>(type: QueryType, parameter: any): T | Nullish {
@@ -30,9 +30,6 @@ const resolveQuery = async (
       if (method === "get") {
         return await getVisitor(parameter as Parameters<typeof getVisitor>[0]);
       }
-      if (method === "set") {
-        return await setVisitor(parameter as Parameters<typeof setVisitor>[0]);
-      }
       break;
     }
     case "schedule": {
@@ -45,8 +42,6 @@ const resolveQuery = async (
     }
     case "guestbook": {
       if (method === "get") {
-      }
-      if (method === "set") {
       }
       break;
     }
