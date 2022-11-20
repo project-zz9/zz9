@@ -13,6 +13,20 @@
   transition: opacity 350ms ease-out;
 }
 
+.fade-tab-enter {
+  opacity: 0;
+}
+.fade-tab-enter.fade-tab-enter-active {
+  opacity: 1;
+  transition: opacity 350ms ease-out;
+}
+.fade-tab-exit {
+  opacity: 0;
+}
+.fade-tab-exit.fade-tab-exit-active {
+  opacity: 0;
+}
+
 .fade-absolute-enter {
   opacity: 0;
 }
