@@ -44,7 +44,9 @@ function FormTypeDateInput({
 
     return (timeProps?.options || []).map((time) => ({
       ...time,
-      disabled: (schedule.get(time.value) || 0) >= MAX_VISITOR_ON_ONE_TIME,
+      disabled: timeTable
+        ? (schedule.get(time.value) || 0) >= MAX_VISITOR_ON_ONE_TIME
+        : true,
     }));
   }, [timeProps, timeTable]);
 
@@ -69,7 +71,10 @@ function FormTypeDateInput({
             title={dateProps.title}
             Icon={Calendar}
             value={date}
-            setValue={setDate}
+            setValue={(date) => {
+              setDate(date);
+              time && setTime("");
+            }}
             options={dateProps.options}
           />
         )}
