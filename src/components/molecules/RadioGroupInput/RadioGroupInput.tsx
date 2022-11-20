@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import styled from "styled-components";
 import { IconProps } from "react-feather";
-import { SEPARATOR } from "~/app/constant";
+import { getKey } from "~/utils/crypto";
 
 interface IRadioGroupInputProps {
   Icon?: FC<IconProps>;
@@ -36,7 +36,7 @@ function RadioGroupInput({
         <RadioGroup value={value} onChange={handleChange}>
           {options.map(({ label, value, disabled }, index) => (
             <FormControlLabel
-              key={`${index}${SEPARATOR}${label}${SEPARATOR}${value}`}
+              key={getKey(index, label, value)}
               value={value}
               control={
                 <Radio

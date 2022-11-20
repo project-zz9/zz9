@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import { SEPARATOR } from "~/app/constant";
 import { logos } from "~/assets/images";
 import DistanceRadioInput from "~/components/molecules/DistanceRadioInput";
 import MultiLineText from "~/components/molecules/MultiLineText";
 import StarRadioInput from "~/components/molecules/StarRadioInput";
+import { getKey } from "~/utils/crypto";
 import { IFormTypeInputProps } from "../SchemaForm";
 
 interface IFormTypeRelationshipInputProps<T = Record<string, string>>
@@ -35,7 +35,7 @@ function FormTypeRelationshipInput({
     if (distance && star) {
       onChange((prev) => ({
         ...prev,
-        [name]: `${distance}${SEPARATOR}${star}`,
+        [name]: getKey(distance, star),
       }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
