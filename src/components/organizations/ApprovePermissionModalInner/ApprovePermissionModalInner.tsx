@@ -37,7 +37,7 @@ function ApprovePermissionModalInner({
         개인정보 수집 / 이용 동의하기
       </ConfirmFrame>
       <InformationFrame>
-        개인 정보 수집, 이용 동의서 (전시 사전 등록 신청)
+        개인정보 수집, 이용 동의서 (전시 사전 등록 신청)
       </InformationFrame>
       <ContentFrame>
         <div>
@@ -47,7 +47,7 @@ function ApprovePermissionModalInner({
         <div>
           귀하는 아래와 같이 개인정보를 수집, 이용하는데 동의를 거부할 권리가
           있습니다. 필수 수집 항목에 대한 동의를 거절하는 경우 전시회 사전
-          등록이 제한 될 수 있습니다.
+          등록이 제한될 수 있습니다.
         </div>
       </ContentFrame>
       <TableFrame>
