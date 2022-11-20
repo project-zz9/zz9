@@ -65,6 +65,7 @@ const StyledTextField = styled(InputBase)({
 
 const ErrorMessage = styledComponent.div`
     position: absolute;
+    margin-top: 0.25rem;
     margin-left: 0.75rem;
     font-size: 0.9rem;
     color: red;

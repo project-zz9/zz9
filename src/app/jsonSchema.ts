@@ -9,6 +9,7 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       minLength: 1,
       maxLength: 10,
       nullable: true,
+      errorMessage: "이름은 10글자 이내로 해주세요.",
       formType: "text-input",
       props: {
         title: [
@@ -24,6 +25,7 @@ export const jsonSchema: JSONSchemaType<VisitorData> = {
       minLength: 13,
       pattern: "010[-][0-9]{4}[-][0-9]{4}",
       nullable: true,
+      errorMessage: "'010-XXXX-XXXX' 형식으로 입력해주세요",
       formType: "text-input",
       props: {
         title: [
