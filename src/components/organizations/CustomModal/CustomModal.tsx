@@ -11,6 +11,7 @@ import type { TransitionProps } from "@mui/material/transitions";
 import type { ModalParameter } from "~/stores/modal";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import styled from "styled-components";
+import { getKey } from "~/utils/crypto";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -113,7 +114,11 @@ function CustomModal({
               <DialogTitle id="alert-dialog-title">{content.title}</DialogTitle>
             )}
             <DialogContent dividers={type === "fullscreen"}>
-              <DialogContentText>{content?.body}</DialogContentText>
+              {content?.body?.split("\n").map((line, index) => (
+                <DialogContentText key={getKey(index, line)}>
+                  {line}
+                </DialogContentText>
+              ))}
             </DialogContent>
           </>
         )}

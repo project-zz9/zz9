@@ -20,7 +20,7 @@ function ConfirmPersonalDataModalInner({
         [
           {
             type: "emphasis",
-            value: "꼼꼼히",
+            value: "다시 한번",
           },
           {
             value: " 확인해주세요 🙏",

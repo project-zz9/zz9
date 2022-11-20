@@ -6,7 +6,7 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import { SEPARATOR } from "~/app/constant";
+import { getKey } from "~/utils/crypto";
 
 interface IContentTableProps {
   contents: {
@@ -21,7 +21,7 @@ function ContentTable({ contents }: IContentTableProps) {
       <Table>
         <TableBody>
           {contents.map(({ label, value }, index) => (
-            <TableRow key={`${index}${SEPARATOR}${label}${SEPARATOR}${value}`}>
+            <TableRow key={getKey(index, label, value)}>
               <LabelCell align="left">{label}</LabelCell>
               <VirtualCell />
               <ValueCell align="left">{value}</ValueCell>

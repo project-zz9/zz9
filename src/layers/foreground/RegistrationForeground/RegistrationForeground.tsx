@@ -143,7 +143,7 @@ function RegistrationForeground({
                       }
                       setError(null);
                     } else {
-                      setError(validate.errors?.[0].message || null);
+                      setError(metaData?.errorMessage || null);
                     }
                   }}
                 >

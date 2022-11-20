@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SEPARATOR } from "~/app/constant";
+import { getKey } from "~/utils/crypto";
 
 interface IEmphasisTextProps {
   text: EmphasisTextForm;
@@ -20,18 +20,11 @@ function EmphasisText({
     <Line size={size}>
       {text.map(({ type, value }, i) =>
         type === "emphasis" ? (
-          <Emphasis
-            key={`${i}${SEPARATOR}${type}${SEPARATOR}${value}`}
-            color={emphasisColor}
-          >
+          <Emphasis key={getKey(i, type, value)} color={emphasisColor}>
             {value}
           </Emphasis>
         ) : (
-          <Common
-            key={`${i}${SEPARATOR}${type}${SEPARATOR}${value}`}
-            color={color}
-            weight={weight}
-          >
+          <Common key={getKey(i, type, value)} color={color} weight={weight}>
             {value}
           </Common>
         )

@@ -1,6 +1,5 @@
 import { scheduleApi, visitorApi } from "./base";
-import { hashing } from "~/utils/crypto";
-import { SEPARATOR } from "~/app/constant";
+import { getKey, hashing } from "~/utils/crypto";
 
 export const getVisitor = async (
   key: VisitorData | string
@@ -8,8 +7,8 @@ export const getVisitor = async (
   const visitor =
     typeof key === "string"
       ? key
-      : key.name && key.phoneNumber
-      ? hashing(`${key.name}${SEPARATOR}${key.phoneNumber}`)
+      : key.phoneNumber
+      ? hashing(getKey(key.phoneNumber))
       : null;
 
   return (
@@ -23,7 +22,7 @@ export const setVisitor = async (
 ): Promise<string | null> => {
   const { name, phoneNumber, visitTime, relationship } = visitorData;
   if (!name || !phoneNumber || !visitTime || !relationship) return null;
-  const visitor = hashing(`${name}${SEPARATOR}${phoneNumber}`);
+  const visitor = hashing(getKey(phoneNumber));
   try {
     await Promise.all([
       visitorApi.post(visitor, visitorData),

@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from "react";
-import { SEPARATOR } from "~/app/constant";
 import EmphasisText from "~/components/atoms/EmphasisText";
+import { getKey } from "~/utils/crypto";
 
 interface IMultiLineText {
   lines: EmphasisTextForm[];
@@ -33,7 +33,7 @@ function MultiLineText({
     <Fragment>
       {lines.map((line: EmphasisTextForm, index: number) => (
         <EmphasisText
-          key={`${index}${SEPARATOR}${line}`}
+          key={getKey(index, ...line.map(({ value }) => value))}
           text={line}
           size={size}
           color={color}

@@ -21,7 +21,7 @@ function MainPageForeground() {
         <LogoFrame>
           <Logo src={logos.Logo1} alt="" />
         </LogoFrame>
-        <MessageFrame>지수의 지구에 오신걸 환영합니다.</MessageFrame>
+        <MessageFrame>지수의 지구에 오신 걸 환영합니다.</MessageFrame>
         <ButtonFrame>
           <MonotonicButton
             color="secondary"

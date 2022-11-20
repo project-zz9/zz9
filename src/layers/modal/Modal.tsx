@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAtom } from "jotai";
 import CustomModal from "~/components/organizations/CustomModal";
 import {
@@ -22,9 +22,13 @@ function Modal() {
     history.length > 0 && setCurrentModal(history[history.length - 1] || null);
   }, [history]);
 
-  useEffect(() => {
+  const closeModal = useCallback(() => {
     setHistory((history) => history.slice(0, -1));
     history.length === 1 && setVisibility(false);
+  }, [history, setVisibility]);
+
+  useEffect(() => {
+    closeModal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [remote]);
 
@@ -36,18 +40,16 @@ function Modal() {
         onCancel?.handler &&
           typeof onCancel.handler === "function" &&
           onCancel.handler();
-        setHistory((history) => history.slice(0, -1));
-        history.length === 1 && setVisibility(false);
+        closeModal();
       },
       onSubmitHandler() {
         onSubmit?.handler &&
           typeof onSubmit.handler === "function" &&
           onSubmit.handler();
-        setHistory((history) => history.slice(0, -1));
-        history.length === 1 && setVisibility(false);
+        closeModal();
       },
     }),
-    [history, onCancel, onSubmit, setVisibility]
+    [closeModal, onCancel, onSubmit]
   );
 
   return (

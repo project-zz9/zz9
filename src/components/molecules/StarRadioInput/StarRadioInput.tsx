@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import styled from "styled-components";
-import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
+import { getKey } from "~/utils/crypto";
 
 interface IStarRadioInputProps<T> {
   title?: string;
@@ -29,7 +29,7 @@ function StarRadioInput<T>({
           {options.map(({ value }, index) => {
             return (
               <PhotoCard
-                key={`${index}${SEPARATOR}${value}`}
+                key={getKey(index, value)}
                 source={cards[value].normal}
                 shadow={cardShadow}
                 filter={cards[value].filter}
@@ -59,5 +59,4 @@ const OptionGroupFrame = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
   margin-top: 1rem;
-  margin-bottom: 1rem;
 `;

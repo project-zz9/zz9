@@ -81,7 +81,7 @@ function InvitationPreviewForeground({
                     type: "information",
                     content: {
                       title: "복사 성공",
-                      body: "클립보드에 복사하였습니다! 공유하고 싶은 곳에 붙여 넣으세요.",
+                      body: "지수의 지구 사전 등록 페이지 링크가 복사되었습니다!\n여기저기 소문 GO GO! ",
                     },
                     onSubmit: {
                       label: "확인",
@@ -101,26 +101,9 @@ function InvitationPreviewForeground({
                   });
                 }
               );
-              // if (navigator.share) {
-              //   navigator.share({
-              //     title: "지수의 지구",
-              //     url: "https://klumy.github.io/RhineLabs/",
-              //   });
-              // } else {
-              //   setModal({
-              //     type: "information",
-              //     content: {
-              //       title: "공유 실패",
-              //       body: "공유가 불가능한 환경입니다.",
-              //     },
-              //     onSubmit: {
-              //       label: "확인",
-              //     },
-              //   });
-              // }
             }}
           >
-            공유하기
+            전시 소문내기
           </MonotonicButton>
 
           <MonotonicButton
