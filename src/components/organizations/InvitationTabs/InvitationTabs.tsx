@@ -7,13 +7,15 @@ import styled from "styled-components";
 interface IInvitationTabsProps {
   uuid: string;
   visitor: VisitorData;
+  refetch: () => void;
 }
 
 export interface ITabProps {
   uuid: string;
   visitor: VisitorData;
-  tabNavigate?: (tab: string) => void;
-  goBack?: () => void;
+  tabNavigate: (tab: string) => void;
+  goBack: () => void;
+  refetch: () => void;
 }
 
 const tabs: Record<string, FC<ITabProps>> = {
@@ -21,7 +23,7 @@ const tabs: Record<string, FC<ITabProps>> = {
   card: InvitationCard,
 };
 
-function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
+function InvitationTabs({ uuid, visitor, refetch }: IInvitationTabsProps) {
   const [tabHistory, setTabHistory] = useState<string[]>(["portal"]);
 
   const tab = useMemo(
@@ -50,6 +52,7 @@ function InvitationTabs({ uuid, visitor }: IInvitationTabsProps) {
               visitor={visitor}
               tabNavigate={tabNavigate}
               goBack={goBack}
+              refetch={refetch}
             />
           )}
         </CSSTransition>

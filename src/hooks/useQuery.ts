@@ -6,7 +6,11 @@ type QueryType = {
   method: "get";
 };
 
-export function useQuery<T>(type: QueryType, parameter: any): T | Nullish {
+export function useQuery<T>(
+  type: QueryType,
+  parameter: any,
+  tick?: number
+): T | Nullish {
   const { collection, method } = type;
   const [data, setData] = useState<T | Nullish>(undefined);
   useEffect(() => {
@@ -15,7 +19,7 @@ export function useQuery<T>(type: QueryType, parameter: any): T | Nullish {
         setData(result as T);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [parameter]);
+  }, [parameter, tick]);
 
   return data;
 }

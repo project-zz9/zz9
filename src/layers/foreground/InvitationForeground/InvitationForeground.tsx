@@ -3,7 +3,7 @@ import { useQuery } from "~/hooks/useQuery";
 import ForegroundLayer from "../ForegroundLayer";
 import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
 import InvitationTabs from "~/components/organizations/InvitationTabs";
@@ -18,9 +18,13 @@ interface IInvitationForegroundProps {
 function InvitationForeground({ uuid }: IInvitationForegroundProps) {
   const history = useHistory();
   const [, setModal] = useAtom(modalControlAtom);
-  const visitor = useQuery<VisitorData>(
+  const [tick, setTick] = useState(0);
+  const refetch = useCallback(() => setTick(Math.random()), []);
+
+  const visitor = useQuery<Visitor>(
     { collection: "visitor", method: "get" },
-    uuid
+    uuid,
+    tick
   );
 
   useEffect(() => {
@@ -62,10 +66,13 @@ function InvitationForeground({ uuid }: IInvitationForegroundProps) {
       });
     }
   }, [history, setModal, visitor]);
+
   return (
     <ForegroundLayer>
       <RootFrame>
-        {uuid && visitor && <InvitationTabs uuid={uuid} visitor={visitor} />}
+        {uuid && visitor && (
+          <InvitationTabs uuid={uuid} visitor={visitor} refetch={refetch} />
+        )}
       </RootFrame>
     </ForegroundLayer>
   );
