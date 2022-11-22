@@ -40,7 +40,7 @@ function BeforeVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
               width="70vw"
               filter={cards[star].filter}
               activate
-              onClick={onClickHandler}
+              onClick={onClickHandler.card}
             />
             <CardLabel>
               초대장 보러가기

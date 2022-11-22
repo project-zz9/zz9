@@ -30,7 +30,7 @@ function AfterVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
               width="50vw"
               filter={cards[star].filter}
               activate
-              onClick={onClickHandler}
+              onClick={onClickHandler.card}
             />
             <CardLabel>
               초대장
@@ -40,7 +40,7 @@ function AfterVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
         )}
       </Card>
       <GuestBookFrame>
-        <GoGuestBook />
+        <GoGuestBook goGuestbookHandler={onClickHandler.button} />
       </GuestBookFrame>
     </Fragment>
   );

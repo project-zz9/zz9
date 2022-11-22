@@ -5,7 +5,11 @@ import EmphasisText from "~/components/atoms/EmphasisText";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import MultiLineText from "../MultiLineText";
 
-function GoGuestBook() {
+interface IGoGuestBookProps {
+  goGuestbookHandler: () => void;
+}
+
+function GoGuestBook({ goGuestbookHandler }: IGoGuestBookProps) {
   return (
     <Fragment>
       <Title>
@@ -39,7 +43,11 @@ function GoGuestBook() {
           <img src={Guestbook} alt="go guestbook" />
         </ImageFrame>
       </PositionAnchor>
-      <MonotonicButton type="contained" color="secondary">
+      <MonotonicButton
+        type="contained"
+        color="secondary"
+        onClick={goGuestbookHandler}
+      >
         별 띄우러가기
       </MonotonicButton>
     </Fragment>

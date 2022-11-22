@@ -1,9 +1,11 @@
 import { useMemo } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
 import { logos } from "~/assets/images";
 import { overflowYScroll } from "~/assets/styles/scroll";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
+import { GUESTBOOK_PATH } from "~/pages";
 import AfterVisit from "./AfterVisit";
 import BeforeVisit from "./BeforeVisit";
 
@@ -11,11 +13,12 @@ export interface IVisitViewProp {
   name: string;
   star: string;
   distance: string;
-  onClickHandler: () => void;
+  onClickHandler: { card: () => void; button: () => void };
 }
 
-function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
+function InvitationPortal({ uuid, visitor, tabNavigate }: ITabProps) {
   const { name, relationship, visited } = visitor;
+  const history = useHistory();
   const [distance, star] = useMemo(
     () => (relationship ? relationship.split(SEPARATOR) : []),
     [relationship]
@@ -24,6 +27,15 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
   const VisitView = useMemo(
     () => (visited ? AfterVisit : BeforeVisit),
     [visited]
+  );
+
+  const onClickHandler = useMemo(
+    () => ({
+      card: () => tabNavigate?.("card"),
+      button: () =>
+        visited && history.push(GUESTBOOK_PATH.replace(":uuid", uuid)),
+    }),
+    [history, tabNavigate, uuid, visited]
   );
 
   return name && relationship ? (
@@ -35,7 +47,7 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
         name={name}
         star={star}
         distance={distance}
-        onClickHandler={() => tabNavigate?.("card")}
+        onClickHandler={onClickHandler}
       />
     </PortalRoot>
   ) : null;
