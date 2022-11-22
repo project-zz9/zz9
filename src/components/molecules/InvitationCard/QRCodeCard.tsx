@@ -18,7 +18,12 @@ function QRCodeCard({ uuid, onFlip }: IQRCodeCardProps) {
           <Logo src={logos.Logo2W} alt="logo" />
         </LogoFrame>
         <IconFrame>
-          <IconButton onClick={onFlip}>
+          <IconButton
+            onClick={(e) => {
+              onFlip();
+              e.stopPropagation();
+            }}
+          >
             <ToggleRight />
           </IconButton>
         </IconFrame>
@@ -61,7 +66,12 @@ const Logo = styled.img`
 `;
 
 const IconFrame = styled.div`
+  position: relative;
   button {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    padding: 1.5rem;
     color: #fff;
   }
 `;
