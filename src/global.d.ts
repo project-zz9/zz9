@@ -12,6 +12,11 @@ type VisitorData = {
 
 type Visitor = VisitorData & { visited?: number };
 
+type GuestbookData = {
+  displayName?: string;
+  message?: string;
+};
+
 type EmphasisTextForm = {
   type?: "common" | "emphasis";
   value: string;
