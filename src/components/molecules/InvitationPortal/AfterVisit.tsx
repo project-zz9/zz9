@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { cards, cardShadow } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import MultiLineText from "../MultiLineText";
+import GoGuestBook from "./GoGuestBook";
 import type { IVisitViewProp } from "./InvitationPortal";
 
 function AfterVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
@@ -38,6 +39,9 @@ function AfterVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
           </Fragment>
         )}
       </Card>
+      <GuestBookFrame>
+        <GoGuestBook />
+      </GuestBookFrame>
     </Fragment>
   );
 }
@@ -47,16 +51,13 @@ export default AfterVisit;
 const Title = styled.div`
   div {
     margin-top: 0.65rem;
-    margin-top: 0.65rem;
   }
 `;
 
 const Card = styled.div`
   position: relative;
   align-self: center;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  // transform: rotate(270deg);
+  transform: rotate(270deg);
   &:first-child {
     z-index: -1;
   }
@@ -70,15 +71,17 @@ const CardLabel = styled.div`
   font-size: 5.5vw;
   font-weight: bold;
   position: absolute;
-  left: 10vw;
-  right: 10vw;
-  bottom: 7.5vw;
+  bottom: 17.5vw;
   pointer-events: none;
+  transform: rotate(90deg);
   svg {
     position: absolute;
     width: 8vw;
     height: 8vw;
     top: -1vw;
-    right: 0;
   }
+`;
+
+const GuestBookFrame = styled.div`
+  width: 75vw;
 `;
