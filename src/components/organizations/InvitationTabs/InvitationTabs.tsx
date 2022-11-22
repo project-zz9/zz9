@@ -6,13 +6,13 @@ import styled from "styled-components";
 
 interface IInvitationTabsProps {
   uuid: string;
-  visitor: VisitorData;
+  visitor: Visitor;
   refetch: () => void;
 }
 
 export interface ITabProps {
   uuid: string;
-  visitor: VisitorData;
+  visitor: Visitor;
   tabNavigate: (tab: string) => void;
   goBack: () => void;
   refetch: () => void;

@@ -6,7 +6,7 @@ import { logos } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 
 interface IInformationCardProps {
-  visitor: VisitorData;
+  visitor: Visitor;
   onFlip: () => void;
 }
 

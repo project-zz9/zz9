@@ -7,6 +7,7 @@ import { logos } from "~/assets/images";
 
 interface IQRCodeCardProps {
   uuid: string;
+  isVisited: boolean;
   onFlip: () => void;
 }
 

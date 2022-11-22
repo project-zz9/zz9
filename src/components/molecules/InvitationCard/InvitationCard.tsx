@@ -16,7 +16,7 @@ import { useAtom } from "jotai";
 import { QRCodeCanvas } from "qrcode.react";
 
 function InvitationCard({ uuid, visitor, goBack, refetch }: ITabProps) {
-  const { relationship } = visitor;
+  const { relationship, visited } = visitor;
   const [distance, star] = useMemo(
     () => (relationship ? relationship.split(SEPARATOR) : []),
     [relationship]
@@ -78,7 +78,11 @@ function InvitationCard({ uuid, visitor, goBack, refetch }: ITabProps) {
               <CSSTransition key={face} classNames="fade" timeout={500}>
                 <CardOverlay>
                   {face === "QRCODE" ? (
-                    <QRCodeCard uuid={uuid} onFlip={onFlip} />
+                    <QRCodeCard
+                      uuid={uuid}
+                      isVisited={Boolean(visited)}
+                      onFlip={onFlip}
+                    />
                   ) : (
                     <InformationCard visitor={visitor} onFlip={onFlip} />
                   )}
