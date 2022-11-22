@@ -10,7 +10,7 @@ type VisitorData = {
   relationship?: string;
 };
 
-type Visitor = VisitorData & { visited?: boolean };
+type Visitor = VisitorData & { visited?: number };
 
 type EmphasisTextForm = {
   type?: "common" | "emphasis";
