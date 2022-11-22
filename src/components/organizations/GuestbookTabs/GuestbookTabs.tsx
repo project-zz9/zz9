@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styled from "styled-components";
 import EmphasisText from "~/components/atoms/EmphasisText";
+import MonotonicButton from "~/components/atoms/MonotonicButton";
 import GuestbookPaper from "~/components/molecules/GuestbookTabs/GuestbookPaper";
 import SendGuestbook from "~/components/molecules/GuestbookTabs/SendGuestbook";
 import { INVITATION_PATH } from "~/pages";
@@ -71,31 +72,34 @@ function GuestbookTabs({
   return (
     <Root>
       <TopButtonFrame>
-        <GoBackButtonFrame>
-          <IconButton aria-label="go-back" onClick={goBack}>
-            <ArrowLeft color="#fff" />
-          </IconButton>
-        </GoBackButtonFrame>
+        <IconButton aria-label="go-back" onClick={goBack}>
+          <ArrowLeft color="#fff" />
+        </IconButton>
         {hasNext && (
-          <GoNextButtonFrame>
-            <Button aria-label="go-next" onClick={goNext}>
-              <EmphasisText text={[{ value: "다음", type: "emphasis" }]} />
-            </Button>
-          </GoNextButtonFrame>
+          <Button aria-label="go-next" onClick={goNext}>
+            <EmphasisText text={[{ value: "다음", type: "emphasis" }]} />
+          </Button>
         )}
       </TopButtonFrame>
-      <TabFrame>
-        <TransitionGroup>
-          <CSSTransition key={tab} classNames="fade-tab" timeout={500}>
+
+      <TransitionGroup>
+        <CSSTransition key={tab} classNames="fade-tab" timeout={500}>
+          <TabFrame>
             <TabComponent
               uuid={uuid}
               visitor={visitor}
               setData={setGuestbookData}
             />
-          </CSSTransition>
-        </TransitionGroup>
-      </TabFrame>
-      <BottomButtonFrame></BottomButtonFrame>
+            <BottomButton>
+              {!hasNext && (
+                <MonotonicButton color="secondary" onClick={sendGuestbook}>
+                  별 띄우기 💫
+                </MonotonicButton>
+              )}
+            </BottomButton>
+          </TabFrame>
+        </CSSTransition>
+      </TransitionGroup>
     </Root>
   );
 }
@@ -116,10 +120,10 @@ const TopButtonFrame = styled.div`
   align-items: center;
   margin-top: 1rem;
 `;
-const GoBackButtonFrame = styled.div``;
-const GoNextButtonFrame = styled.div``;
 const TabFrame = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
 `;
-const BottomButtonFrame = styled.div``;
+const BottomButton = styled.div`
+  margin-top: 7.5vh;
+`;
