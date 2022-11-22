@@ -1,4 +1,4 @@
 import cards, { shadow } from "./cards";
-import logos from "./logo";
+import logos, { Guestbook } from "./logo";
 
-export { logos, cards, shadow as cardShadow };
+export { logos, cards, shadow as cardShadow, Guestbook };
