@@ -58,13 +58,11 @@ export default BeforeVisit;
 const Title = styled.div`
   div {
     margin-top: 0.65rem;
-    margin-top: 0.65rem;
   }
 `;
 const SubTitle = styled.div`
   margin-top: 0.75rem;
   div {
-    margin-top: 0.25rem;
     margin-top: 0.25rem;
   }
 `;
