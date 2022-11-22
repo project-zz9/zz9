@@ -8,7 +8,7 @@ function Guestbook() {
   return (
     <Fragment>
       <GuestbookForeground uuid={uuid} />
-      <MonotonicBackground color="#fff" />
+      <MonotonicBackground color="#000" />
     </Fragment>
   );
 }

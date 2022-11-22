@@ -3,18 +3,19 @@ import { useQuery } from "~/hooks/useQuery";
 import ForegroundLayer from "../ForegroundLayer";
 import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
+import GuestbookTabs from "~/components/organizations/GuestbookTabs";
 
 interface IGuestbookForegroundProps {
   uuid: string | undefined;
 }
 
 function GuestbookForeground({ uuid }: IGuestbookForegroundProps) {
+  const [data, setData] = useState<GuestbookData>({});
   const history = useHistory();
   const [, setModal] = useAtom(modalControlAtom);
-
   const visitor = useQuery<Visitor>(
     { collection: "visitor", method: "get" },
     uuid
@@ -40,7 +41,18 @@ function GuestbookForeground({ uuid }: IGuestbookForegroundProps) {
 
   return (
     <ForegroundLayer>
-      <RootFrame></RootFrame>
+      <RootFrame>
+        {uuid && visitor && (
+          <GuestbookTabs
+            uuid={uuid}
+            visitor={visitor}
+            setGuestbookData={setData}
+            sendGuestbook={() => {
+              console.log(data);
+            }}
+          />
+        )}
+      </RootFrame>
     </ForegroundLayer>
   );
 }
