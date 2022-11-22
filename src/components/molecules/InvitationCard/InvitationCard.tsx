@@ -27,30 +27,33 @@ function InvitationCard({ uuid, visitor, goBack, refetch }: ITabProps) {
   const onFlip = () =>
     flipFace((face) => (face === "QRCODE" ? "INFORMATION" : "QRCODE"));
   const onPressCard = useCallback(() => {
-    if (face === "QRCODE") {
-      setModal({
-        type: "information",
-        Element: () => (
-          <QrModalFrame>
-            <QRCodeCanvas
-              value={uuid}
-              style={{
-                height: "80vw",
-                width: "80vw",
-                outline: "10px solid #FFF",
-              }}
-            />
-          </QrModalFrame>
-        ),
-        onCancel: {
-          handler: () => {
-            refetch();
+    if (visited) {
+      goBack();
+    } else {
+      face === "QRCODE" &&
+        setModal({
+          type: "information",
+          Element: () => (
+            <QrModalFrame>
+              <QRCodeCanvas
+                value={uuid}
+                style={{
+                  height: "80vw",
+                  width: "80vw",
+                  outline: "10px solid #FFF",
+                }}
+              />
+            </QrModalFrame>
+          ),
+          onCancel: {
+            handler: () => {
+              refetch();
+            },
+            hide: true,
           },
-          hide: true,
-        },
-      });
+        });
     }
-  }, [face, refetch, setModal, uuid]);
+  }, [visited, face, goBack, setModal, uuid, refetch]);
 
   return (
     <CardRoot>

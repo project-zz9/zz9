@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { ToggleRight } from "react-feather";
 import styled from "styled-components";
 import { logos } from "~/assets/images";
+import MultiLineText from "../MultiLineText";
 
 interface IQRCodeCardProps {
   uuid: string;
@@ -11,7 +12,7 @@ interface IQRCodeCardProps {
   onFlip: () => void;
 }
 
-function QRCodeCard({ uuid, onFlip }: IQRCodeCardProps) {
+function QRCodeCard({ uuid, isVisited, onFlip }: IQRCodeCardProps) {
   return (
     <Fragment>
       <CardHeaderFrame>
@@ -30,18 +31,36 @@ function QRCodeCard({ uuid, onFlip }: IQRCodeCardProps) {
         </IconFrame>
       </CardHeaderFrame>
       <QRCodeFrame>
-        <QRcodeGuid>
-          <div>QR코드를 지수에게 보여주고</div>
-          <div>전시에 입장해주세요.</div>
-        </QRcodeGuid>
-        <QRCodeCanvas
-          value={uuid}
-          style={{
-            height: "40vw",
-            width: "40vw",
-            outline: "10px solid #FFF",
-          }}
-        />
+        {isVisited ? (
+          <MultiLineText
+            lines={[[{ value: "지수의 지구에 입장을 완료했어요!" }]]}
+            size="5vw"
+            color="#FFF"
+            weight="bold"
+          />
+        ) : (
+          <Fragment>
+            <QRcodeGuid>
+              <MultiLineText
+                lines={[
+                  [{ value: "QR코드를 지수에게 보여주고" }],
+                  [{ value: "전시에 입장해주세요." }],
+                ]}
+                size="5vw"
+                color="#FFF"
+                weight={500}
+              />
+            </QRcodeGuid>
+            <QRCodeCanvas
+              value={uuid}
+              style={{
+                height: "40vw",
+                width: "40vw",
+                outline: "10px solid #FFF",
+              }}
+            />
+          </Fragment>
+        )}
       </QRCodeFrame>
     </Fragment>
   );
@@ -84,8 +103,6 @@ const QRCodeFrame = styled.div`
   margin-bottom: 5vw;
 `;
 const QRcodeGuid = styled.div`
-  font-size: 5vw;
-  font-weight: 500;
   text-align: center;
   margin: 7.5vw;
 `;
