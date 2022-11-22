@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import InvitationCard from "~/components/molecules/InvitationCard";
-import InvitationPortal from "~/components/molecules/InvitationPortal";
+import InvitationCard from "~/components/organizations/InvitationCard";
+import InvitationPortal from "~/components/organizations/InvitationPortal";
 import styled from "styled-components";
 
 interface IInvitationTabsProps {
@@ -13,18 +13,22 @@ interface IInvitationTabsProps {
 export interface ITabProps {
   uuid: string;
   visitor: Visitor;
-  tabNavigate: (tab: string) => void;
+  tabNavigate: (tab: Tabs) => void;
   goBack: () => void;
   refetch: () => void;
 }
 
+export const enum Tabs {
+  PORTAL = "portal",
+  CARD = "card",
+}
 const tabs: Record<string, FC<ITabProps>> = {
   portal: InvitationPortal,
   card: InvitationCard,
 };
 
 function InvitationTabs({ uuid, visitor, refetch }: IInvitationTabsProps) {
-  const [tabHistory, setTabHistory] = useState<string[]>(["portal"]);
+  const [tabHistory, setTabHistory] = useState<Tabs[]>([Tabs.PORTAL]);
 
   const tab = useMemo(
     () => (tabHistory.length > 0 ? tabHistory[tabHistory.length - 1] : ""),
@@ -32,14 +36,14 @@ function InvitationTabs({ uuid, visitor, refetch }: IInvitationTabsProps) {
   );
   const TabComponent = useMemo(() => (tab && tabs[tab]) || null, [tab]);
 
-  const tabNavigate = useCallback((tab: string) => {
+  const tabNavigate = useCallback((tab: Tabs) => {
     setTabHistory((history) => [...history, tab]);
   }, []);
 
   const goBack = useCallback(() => {
     tabHistory.length > 1
       ? setTabHistory((history) => history.slice(0, -1))
-      : setTabHistory(["portal"]);
+      : setTabHistory([Tabs.PORTAL]);
   }, [tabHistory]);
 
   return (

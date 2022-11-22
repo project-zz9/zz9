@@ -6,14 +6,14 @@ import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
-import InformationCard from "./InformationCard";
 import PhotoCard from "~/components/atoms/PhotoCard";
-import QRCodeCard from "./QRCodeCard";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { overflowYScroll } from "~/assets/styles/scroll";
 import { modalControlAtom } from "~/stores/modal";
 import { useAtom } from "jotai";
 import { QRCodeCanvas } from "qrcode.react";
+import QRCodeCard from "~/components/molecules/InvitationTabs/QRCodeCard";
+import InformationCard from "~/components/molecules/InvitationTabs/InformationCard";
 
 function InvitationCard({ uuid, visitor, goBack, refetch }: ITabProps) {
   const { relationship, visited } = visitor;

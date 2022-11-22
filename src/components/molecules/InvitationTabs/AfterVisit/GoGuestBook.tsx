@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Guestbook } from "~/assets/images";
 import EmphasisText from "~/components/atoms/EmphasisText";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
-import MultiLineText from "../MultiLineText";
+import MultiLineText from "~/components/molecules/MultiLineText";
 
 interface IGoGuestBookProps {
   goGuestbookHandler: () => void;

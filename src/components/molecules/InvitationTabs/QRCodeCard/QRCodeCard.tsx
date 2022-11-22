@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { ToggleRight } from "react-feather";
 import styled from "styled-components";
 import { logos } from "~/assets/images";
-import MultiLineText from "../MultiLineText";
+import MultiLineText from "~/components/molecules/MultiLineText";
 
 interface IQRCodeCardProps {
   uuid: string;

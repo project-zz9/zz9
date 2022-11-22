@@ -3,61 +3,75 @@ import { ArrowRight } from "react-feather";
 import styled from "styled-components";
 import { cards, cardShadow } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
-import MultiLineText from "../MultiLineText";
-import GoGuestBook from "./GoGuestBook";
-import type { IVisitViewProp } from "./InvitationPortal";
+import MultiLineText from "~/components/molecules/MultiLineText";
+import type { IVisitViewProp } from "~/components/organizations/InvitationPortal/InvitationPortal";
 
-function AfterVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
+function BeforeVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
   return (
     <Fragment>
       <Title>
         <MultiLineText
           lines={[
             [{ value: name, type: "emphasis" }, { value: "님," }],
-            [{ value: "지수의 지구에 와주셔서 감사해요." }],
+            [{ value: "지수의 지구에 오신 것을 환영해요." }],
           ]}
           size="1.45rem"
           color="#FFF"
           weight="bold"
         />
       </Title>
+      <SubTitle>
+        <MultiLineText
+          lines={[
+            [{ value: "전시를 보고나면 지수에게 말을 남길 수 있는" }],
+            [{ value: "기회가 열려요." }],
+          ]}
+          size="1.1rem"
+          color="#FFF"
+          weight="bold"
+        />
+      </SubTitle>
       <Card>
         {cards[star]?.picked?.[distance] && (
           <Fragment>
             <PhotoCard
               source={cards[star].picked[distance]}
               shadow={cardShadow}
-              width="50vw"
+              width="70vw"
               filter={cards[star].filter}
               activate
               onClick={onClickHandler.card}
             />
             <CardLabel>
-              초대장
+              초대장 보러가기
               <ArrowRight />
             </CardLabel>
           </Fragment>
         )}
       </Card>
-      <GuestBookFrame>
-        <GoGuestBook goGuestbookHandler={onClickHandler.button} />
-      </GuestBookFrame>
     </Fragment>
   );
 }
 
-export default AfterVisit;
+export default BeforeVisit;
 
 const Title = styled.div`
   div {
     margin-top: 0.65rem;
   }
 `;
+const SubTitle = styled.div`
+  margin-top: 0.75rem;
+  div {
+    margin-top: 0.25rem;
+  }
+`;
 
 const Card = styled.div`
   position: relative;
   align-self: center;
-  transform: rotate(270deg);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
   &:first-child {
     z-index: -1;
   }
@@ -71,17 +85,15 @@ const CardLabel = styled.div`
   font-size: 5.5vw;
   font-weight: bold;
   position: absolute;
-  bottom: 17.5vw;
+  left: 10vw;
+  right: 10vw;
+  bottom: 7.5vw;
   pointer-events: none;
-  transform: rotate(90deg);
   svg {
     position: absolute;
     width: 8vw;
     height: 8vw;
     top: -1vw;
+    right: 0;
   }
-`;
-
-const GuestBookFrame = styled.div`
-  width: 75vw;
 `;

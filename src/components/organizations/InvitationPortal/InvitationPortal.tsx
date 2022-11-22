@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
 import { logos } from "~/assets/images";
 import { overflowYScroll } from "~/assets/styles/scroll";
-import { ITabProps } from "~/components/organizations/InvitationTabs";
+import AfterVisit from "~/components/molecules/InvitationTabs/AfterVisit";
+import BeforeVisit from "~/components/molecules/InvitationTabs/BeforeVisit";
+import { ITabProps, Tabs } from "~/components/organizations/InvitationTabs";
 import { GUESTBOOK_PATH } from "~/pages";
-import AfterVisit from "./AfterVisit";
-import BeforeVisit from "./BeforeVisit";
 
 export interface IVisitViewProp {
   name: string;
@@ -31,7 +31,7 @@ function InvitationPortal({ uuid, visitor, tabNavigate }: ITabProps) {
 
   const onClickHandler = useMemo(
     () => ({
-      card: () => tabNavigate?.("card"),
+      card: () => tabNavigate?.(Tabs.CARD),
       button: () =>
         visited && history.push(GUESTBOOK_PATH.replace(":uuid", uuid)),
     }),
