@@ -17,6 +17,8 @@ type GuestbookData = {
   message?: string;
 };
 
+type Guestbook = GuestbookData & { timestamp: number };
+
 type EmphasisTextForm = {
   type?: "common" | "emphasis";
   value: string;
