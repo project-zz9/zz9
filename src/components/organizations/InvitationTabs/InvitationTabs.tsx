@@ -31,10 +31,11 @@ function InvitationTabs({ uuid, visitor, refetch }: IInvitationTabsProps) {
   const [tabHistory, setTabHistory] = useState<Tabs[]>([Tabs.PORTAL]);
 
   const tab = useMemo(
-    () => (tabHistory.length > 0 ? tabHistory[tabHistory.length - 1] : ""),
+    () =>
+      tabHistory.length > 0 ? tabHistory[tabHistory.length - 1] : Tabs.PORTAL,
     [tabHistory]
   );
-  const TabComponent = useMemo(() => (tab && tabs[tab]) || null, [tab]);
+  const TabComponent = useMemo(() => tabs[tab], [tab]);
 
   const tabNavigate = useCallback((tab: Tabs) => {
     setTabHistory((history) => [...history, tab]);
@@ -50,15 +51,13 @@ function InvitationTabs({ uuid, visitor, refetch }: IInvitationTabsProps) {
     <Root>
       <TransitionGroup>
         <CSSTransition key={tab} classNames="fade-absolute" timeout={500}>
-          {TabComponent && (
-            <TabComponent
-              uuid={uuid}
-              visitor={visitor}
-              tabNavigate={tabNavigate}
-              goBack={goBack}
-              refetch={refetch}
-            />
-          )}
+          <TabComponent
+            uuid={uuid}
+            visitor={visitor}
+            tabNavigate={tabNavigate}
+            goBack={goBack}
+            refetch={refetch}
+          />
         </CSSTransition>
       </TransitionGroup>
     </Root>
