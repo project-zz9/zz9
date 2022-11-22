@@ -3,9 +3,9 @@ import { getKey } from "~/utils/crypto";
 
 interface IEmphasisTextProps {
   text: EmphasisTextForm;
-  size?: `${number}rem`;
+  size?: `${number}rem` | `${number}vw`;
   weight?: number | "bold";
-  color?: string;
+  color?: string | "emphasis";
   emphasisColor?: string;
 }
 
@@ -41,7 +41,7 @@ const Line = styled.div<{ size?: string }>`
 
 const Common = styled.span<{ weight?: number | "bold" }>`
   font-weight: ${({ weight }) => weight ?? 500};
-  color: ${({ color }) => color || "#000"};
+  color: ${({ color }) => (color === "emphasis" ? "#ff5a0d" : color || "#000")};
 `;
 
 const Emphasis = styled.span`

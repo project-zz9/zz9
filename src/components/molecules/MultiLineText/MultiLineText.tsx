@@ -4,10 +4,11 @@ import { getKey } from "~/utils/crypto";
 
 interface IMultiLineText {
   lines: EmphasisTextForm[];
-  size?: `${number}rem`;
-  color?: ColorCode;
+  size?: `${number}rem` | `${number}vw`;
+  color?: ColorCode | "emphasis";
   weight?: number | "bold";
   data?: Record<string, string>;
+  margin?: "";
 }
 
 function MultiLineText({

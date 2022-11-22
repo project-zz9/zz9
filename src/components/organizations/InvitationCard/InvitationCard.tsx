@@ -1,26 +1,60 @@
 import { IconButton } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { HelpCircle, X } from "react-feather";
 import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
 import { cards, cardShadow } from "~/assets/images";
 import MonotonicButton from "~/components/atoms/MonotonicButton";
 import { ITabProps } from "~/components/organizations/InvitationTabs";
-import InformationCard from "./InformationCard";
 import PhotoCard from "~/components/atoms/PhotoCard";
-import QRCodeCard from "./QRCodeCard";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { overflowYScroll } from "~/assets/styles/scroll";
+import { modalControlAtom } from "~/stores/modal";
+import { useAtom } from "jotai";
+import { QRCodeCanvas } from "qrcode.react";
+import QRCodeCard from "~/components/molecules/InvitationTabs/QRCodeCard";
+import InformationCard from "~/components/molecules/InvitationTabs/InformationCard";
 
-function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
-  const { relationship } = visitor;
+function InvitationCard({ uuid, visitor, goBack, refetch }: ITabProps) {
+  const { relationship, visited } = visitor;
   const [distance, star] = useMemo(
     () => (relationship ? relationship.split(SEPARATOR) : []),
     [relationship]
   );
+  const [, setModal] = useAtom(modalControlAtom);
   const [face, flipFace] = useState<"QRCODE" | "INFORMATION">("QRCODE");
+
   const onFlip = () =>
     flipFace((face) => (face === "QRCODE" ? "INFORMATION" : "QRCODE"));
+  const onPressCard = useCallback(() => {
+    if (visited) {
+      goBack();
+    } else {
+      face === "QRCODE" &&
+        setModal({
+          type: "information",
+          Element: () => (
+            <QrModalFrame>
+              <QRCodeCanvas
+                value={uuid}
+                style={{
+                  height: "80vw",
+                  width: "80vw",
+                  outline: "10px solid #FFF",
+                }}
+              />
+            </QrModalFrame>
+          ),
+          onCancel: {
+            handler: () => {
+              refetch();
+            },
+            hide: true,
+          },
+        });
+    }
+  }, [visited, face, goBack, setModal, uuid, refetch]);
+
   return (
     <CardRoot>
       <HeaderFrame>
@@ -34,7 +68,7 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
       </HeaderFrame>
       <CardFrame>
         {cards[star]?.picked?.[distance] && (
-          <Card>
+          <Card onClick={onPressCard}>
             <PhotoCard
               source={cards[star].picked[distance]}
               shadow={cardShadow}
@@ -47,7 +81,11 @@ function InvitationCard({ uuid, visitor, tabNavigate, goBack }: ITabProps) {
               <CSSTransition key={face} classNames="fade" timeout={500}>
                 <CardOverlay>
                   {face === "QRCODE" ? (
-                    <QRCodeCard uuid={uuid} onFlip={onFlip} />
+                    <QRCodeCard
+                      uuid={uuid}
+                      isVisited={Boolean(visited)}
+                      onFlip={onFlip}
+                    />
                   ) : (
                     <InformationCard visitor={visitor} onFlip={onFlip} />
                   )}
@@ -146,4 +184,12 @@ const ButtonGroupFrame = styled.div`
       border: 2px solid #fff;
     }
   }
+`;
+
+const QrModalFrame = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 86vw;
+  height: 86vw;
 `;

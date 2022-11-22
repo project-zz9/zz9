@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import Button, { ButtonProps } from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
 import { ReactNode } from "react";
 
 interface IMonotonicMuttonProps {

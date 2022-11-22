@@ -5,7 +5,7 @@ import Application from "./Application";
 function Root() {
   return (
     <>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <Application />
       </Router>
       <Modal />

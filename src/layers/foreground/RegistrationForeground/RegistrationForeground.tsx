@@ -91,7 +91,7 @@ function RegistrationForeground({
   return (
     <ForegroundLayer>
       <TransitionGroup>
-        <CSSTransition key={stage} classNames="fade" timeout={500}>
+        <CSSTransition key={stage} classNames="fade-tab" timeout={500}>
           {metaData && (
             <RootFrame>
               <GoBackButtonFrame>

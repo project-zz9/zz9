@@ -31,7 +31,7 @@ function FormTypeDateInput({
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const timeTable: DateTime[] | Nullish = useQuery(
-    { collection: "schedule", method: "get" },
+    { collection: "schedule" },
     date
   );
   const { title, date: dateProps, time: timeProps } = props || {};

@@ -1,24 +1,14 @@
-import { Fragment, useMemo } from "react";
+import { Fragment } from "react";
 import { ArrowRight } from "react-feather";
 import styled from "styled-components";
-import { SEPARATOR } from "~/app/constant";
-import { cards, cardShadow, logos } from "~/assets/images";
-import { overflowYScroll } from "~/assets/styles/scroll";
+import { cards, cardShadow } from "~/assets/images";
 import PhotoCard from "~/components/atoms/PhotoCard";
 import MultiLineText from "~/components/molecules/MultiLineText";
-import { ITabProps } from "~/components/organizations/InvitationTabs";
+import type { IVisitViewProp } from "~/components/organizations/InvitationPortal/InvitationPortal";
 
-function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
-  const { name, relationship } = visitor;
-  const [distance, star] = useMemo(
-    () => (relationship ? relationship.split(SEPARATOR) : []),
-    [relationship]
-  );
-  return name && relationship ? (
-    <PortalRoot>
-      <LogoFrame>
-        <Logo src={logos.Logo2W} alt="logo" />
-      </LogoFrame>
+function BeforeVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
+  return (
+    <Fragment>
       <Title>
         <MultiLineText
           lines={[
@@ -50,9 +40,7 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
               width="70vw"
               filter={cards[star].filter}
               activate
-              onClick={() => {
-                tabNavigate?.("card");
-              }}
+              onClick={onClickHandler.card}
             />
             <CardLabel>
               초대장 보러가기
@@ -61,46 +49,20 @@ function InvitationPortal({ visitor, tabNavigate }: ITabProps) {
           </Fragment>
         )}
       </Card>
-    </PortalRoot>
-  ) : null;
+    </Fragment>
+  );
 }
 
-export default InvitationPortal;
-
-const PortalRoot = styled.div`
-  height: 90vh;
-  padding-left: 5vw;
-  padding-right: 5vw;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  ${overflowYScroll}
-`;
-
-const LogoFrame = styled.div`
-  margin-top: 20px;
-  margin-left: -20px;
-  margin-bottom: 2rem;
-  width: 25vw;
-  align-self: flex-start;
-`;
-
-const Logo = styled.img`
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-`;
+export default BeforeVisit;
 
 const Title = styled.div`
   div {
-    margin-top: 0.65rem;
     margin-top: 0.65rem;
   }
 `;
 const SubTitle = styled.div`
   margin-top: 0.75rem;
   div {
-    margin-top: 0.25rem;
     margin-top: 0.25rem;
   }
 `;

@@ -15,7 +15,7 @@ interface IQrScannerInputs {
 }
 
 function QrScannerInput({ setData, ViewFinder }: IQrScannerInputs) {
-  const [mode, setMode] = useState(CameraMode.USER);
+  const [mode, setMode] = useState(CameraMode.ENVIRONMENT);
   const toggleMode = useCallback(() => {
     setMode((prev) =>
       prev === CameraMode.USER ? CameraMode.ENVIRONMENT : CameraMode.USER
