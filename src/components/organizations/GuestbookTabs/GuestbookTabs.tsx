@@ -84,15 +84,17 @@ function GuestbookTabs({
           </GoNextButtonFrame>
         )}
       </TopButtonFrame>
-      <TransitionGroup>
-        <CSSTransition key={tab} classNames="fade-tab" timeout={500}>
-          <TabComponent
-            uuid={uuid}
-            visitor={visitor}
-            setData={setGuestbookData}
-          />
-        </CSSTransition>
-      </TransitionGroup>
+      <TabFrame>
+        <TransitionGroup>
+          <CSSTransition key={tab} classNames="fade-tab" timeout={500}>
+            <TabComponent
+              uuid={uuid}
+              visitor={visitor}
+              setData={setGuestbookData}
+            />
+          </CSSTransition>
+        </TransitionGroup>
+      </TabFrame>
       <BottomButtonFrame></BottomButtonFrame>
     </Root>
   );
@@ -102,8 +104,11 @@ export default GuestbookTabs;
 
 const Root = styled.div`
   position: absolute;
-  inset: 0 20px 0 20px;
+  inset: 0 5vw 0 5vw;
   color: red;
+  & > div {
+    position: relative;
+  }
 `;
 const TopButtonFrame = styled.div`
   display: flex;
@@ -113,4 +118,8 @@ const TopButtonFrame = styled.div`
 `;
 const GoBackButtonFrame = styled.div``;
 const GoNextButtonFrame = styled.div``;
+const TabFrame = styled.div`
+  margin-left: 1rem;
+  margin-right: 1rem;
+`;
 const BottomButtonFrame = styled.div``;
