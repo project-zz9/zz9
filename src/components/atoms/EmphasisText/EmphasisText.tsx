@@ -3,7 +3,7 @@ import { getKey } from "~/utils/crypto";
 
 interface IEmphasisTextProps {
   text: EmphasisTextForm;
-  size?: `${number}rem`;
+  size?: `${number}rem` | `${number}vw`;
   weight?: number | "bold";
   color?: string;
   emphasisColor?: string;
