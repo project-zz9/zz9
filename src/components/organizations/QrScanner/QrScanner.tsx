@@ -16,10 +16,7 @@ function QrScanner() {
   const [, setModal] = useAtom(modalControlAtom);
   const [modalVisibility] = useAtom(modalVisibilityAtom);
 
-  const visitor = useQuery<VisitorData>(
-    { collection: "visitor", method: "get" },
-    data
-  );
+  const visitor = useQuery<VisitorData>({ collection: "visitor" }, data);
 
   useEffect(() => {
     if (!visitor || modalVisibility) return;

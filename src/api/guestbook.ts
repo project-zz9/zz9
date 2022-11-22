@@ -1,6 +1,6 @@
 import { FirestoreApi, guestbookApi } from "./base";
 
-export const getVisitor = async (key: string): Promise<Guestbook | null> => {
+export const getGuestbook = async (key: string): Promise<Guestbook | null> => {
   if (!key) return null;
   return ((await guestbookApi.get<Guestbook>(key)) as Guestbook) || null;
 };

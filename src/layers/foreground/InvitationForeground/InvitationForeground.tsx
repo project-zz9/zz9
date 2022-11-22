@@ -21,11 +21,7 @@ function InvitationForeground({ uuid }: IInvitationForegroundProps) {
   const [tick, setTick] = useState(0);
   const refetch = useCallback(() => setTick(Math.random()), []);
 
-  const visitor = useQuery<Visitor>(
-    { collection: "visitor", method: "get" },
-    uuid,
-    tick
-  );
+  const visitor = useQuery<Visitor>({ collection: "visitor" }, uuid, tick);
 
   useEffect(() => {
     if (!visitor) return;

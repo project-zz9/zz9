@@ -17,21 +17,17 @@ function GuestbookForeground({ uuid }: IGuestbookForegroundProps) {
   const [data, setData] = useState<GuestbookData>({});
   const history = useHistory();
   const [, setModal] = useAtom(modalControlAtom);
-  const visitor = useQuery<Visitor>(
-    { collection: "visitor", method: "get" },
-    uuid
-  );
+  const visitor = useQuery<Visitor>({ collection: "visitor" }, uuid);
 
   const guestbook = useQuery<Guestbook>(
     {
       collection: "guestbook",
-      method: "get",
     },
     uuid
   );
 
   useEffect(() => {
-    if (guestbook !== null) {
+    if (guestbook) {
       setModal({
         type: "information",
         content: {

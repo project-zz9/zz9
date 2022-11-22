@@ -24,10 +24,7 @@ function InvitationPreviewForeground({
   const history = useHistory();
   const [, setModal] = useAtom(modalControlAtom);
 
-  const visitor = useQuery<VisitorData>(
-    { collection: "visitor", method: "get" },
-    uuid
-  );
+  const visitor = useQuery<VisitorData>({ collection: "visitor" }, uuid);
 
   const [distance, star] = useMemo(
     () => (visitor?.relationship ? visitor.relationship.split(SEPARATOR) : []),
