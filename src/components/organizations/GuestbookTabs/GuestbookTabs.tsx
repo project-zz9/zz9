@@ -1,6 +1,8 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styled from "styled-components";
+import GuestbookPaper from "~/components/molecules/GuestbookTabs/GuestbookPaper";
+import SendGuestbook from "~/components/molecules/GuestbookTabs/SendGuestbook";
 
 interface IGuestbookTabsProps {
   uuid: string;
@@ -19,7 +21,10 @@ export const enum Tabs {
   SEND = "send",
 }
 
-const tabs: Record<string, FC<ITabProps>> = {};
+const tabs: Record<string, FC<ITabProps>> = {
+  paper: GuestbookPaper,
+  send: SendGuestbook,
+};
 
 function GuestbookTabs({ uuid, visitor }: IGuestbookTabsProps) {
   const [tabHistory, setTabHistory] = useState<Tabs[]>([Tabs.PAPER]);
