@@ -21,9 +21,11 @@
   transition: opacity 350ms ease-out;
 }
 .fade-tab-exit {
+  position: absolute;
   opacity: 0;
 }
 .fade-tab-exit.fade-tab-exit-active {
+  position: absolute;
   opacity: 0;
 }
 
