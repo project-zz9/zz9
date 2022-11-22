@@ -21,7 +21,7 @@ function GuestbookForeground({ uuid }: IGuestbookForegroundProps) {
   );
 
   useEffect(() => {
-    if (!visitor?.visited) {
+    if (visitor && !visitor?.visited) {
       setModal({
         type: "information",
         content: {
