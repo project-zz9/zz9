@@ -1,9 +1,6 @@
 import { styled, TextField, TextFieldProps } from "@mui/material";
 
 interface IMonotonicTextInputProps {
-  rows?: number;
-  minRows?: number;
-  maxRows?: number;
   label?: string;
   onChange: (value: string) => void;
 }
