@@ -56,7 +56,7 @@ function InvitationPortal({ uuid, visitor, tabNavigate }: ITabProps) {
 export default InvitationPortal;
 
 const PortalRoot = styled.div`
-  height: 90vh;
+  height: 85vh;
   padding-left: 5vw;
   padding-right: 5vw;
   display: flex;
@@ -66,8 +66,8 @@ const PortalRoot = styled.div`
 `;
 
 const LogoFrame = styled.div`
-  margin-top: 20px;
-  margin-left: -20px;
+  margin-top: 1rem;
+  margin-left: -1rem;
   margin-bottom: 2rem;
   width: 25vw;
   align-self: flex-start;
