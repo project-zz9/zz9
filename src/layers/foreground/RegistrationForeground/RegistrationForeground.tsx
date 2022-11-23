@@ -57,7 +57,7 @@ function RegistrationForeground({
 
   useEffect(() => {
     if (!permission[PERSONAL_DATA]) {
-      history.push(HOME_PATH);
+      history.replace(HOME_PATH);
     }
     return () => {
       stage > 0 && setStage(0);
@@ -163,14 +163,14 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height: 90vh;
+    height:85vh;
     flex-direction: column;
     justify-content: flex-start;
 `;
 
 const GoBackButtonFrame = styledComponent.div`
-    margin-top:20px;
-    margin-left:-20px;
+    margin-top:1rem;
+    margin-left:-1rem;
     margin-bottom:1rem;
     svg {
       width:32px;
@@ -185,5 +185,5 @@ const SchemaFormFrame = styledComponent.div`
 `;
 
 const NextButtonFrame = styledComponent.div`
-    margin-top: min(30rem, 10vw);
+    margin-top: min(3rem, 5vw);
 `;
