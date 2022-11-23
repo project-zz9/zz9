@@ -9,28 +9,31 @@ import type { IVisitViewProp } from "~/components/organizations/InvitationPortal
 function BeforeVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
   return (
     <Fragment>
-      <Title>
-        <MultiLineText
-          lines={[
-            [{ value: name, type: "emphasis" }, { value: "님," }],
-            [{ value: "지수의 지구에 오신 것을 환영해요." }],
-          ]}
-          size="1.45rem"
-          color="#FFF"
-          weight="bold"
-        />
-      </Title>
-      <SubTitle>
-        <MultiLineText
-          lines={[
-            [{ value: "전시를 보고나면 지수에게 말을 남길 수 있는" }],
-            [{ value: "기회가 열려요." }],
-          ]}
-          size="1.1rem"
-          color="#FFF"
-          weight="bold"
-        />
-      </SubTitle>
+      <MessageFrame>
+        <Title>
+          <MultiLineText
+            lines={[
+              [{ value: name, type: "emphasis" }, { value: "님," }],
+              [{ value: "지수의 지구에 오신 것을 환영해요." }],
+            ]}
+            size="1.45rem"
+            color="#FFF"
+            weight="bold"
+          />
+        </Title>
+        <SubTitle>
+          <MultiLineText
+            lines={[
+              [{ value: "전시를 보고나면 지수에게 말을 남길 수 있는" }],
+              [{ value: "기회가 열려요." }],
+            ]}
+            size="1rem"
+            color="#FFF"
+            weight="bold"
+          />
+        </SubTitle>
+      </MessageFrame>
+
       <Card>
         {cards[star]?.picked?.[distance] && (
           <Fragment>
@@ -54,6 +57,10 @@ function BeforeVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
 }
 
 export default BeforeVisit;
+
+const MessageFrame = styled.div`
+  text-aline: left;
+`;
 
 const Title = styled.div`
   div {

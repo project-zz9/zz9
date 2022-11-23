@@ -71,7 +71,7 @@ function FormTypeRelationshipInput({
 export default FormTypeRelationshipInput;
 
 const TitleFrame = styled.div`
-  margin: 1rem;
+  margin: 0.5rem;
 `;
 
 const DistanceRadioInputFrame = styled.div`

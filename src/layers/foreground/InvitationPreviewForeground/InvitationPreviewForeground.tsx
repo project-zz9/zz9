@@ -158,5 +158,6 @@ const ButtonGroupFrame = styled.div`
   padding-bottom: calc(5vh + 1rem);
   button {
     margin: 10px;
+    font-size: 4vw;
   }
 `;

@@ -77,21 +77,23 @@ function InvitationCard({ uuid, visitor, goBack, refetch }: ITabProps) {
               activate
               blur={face === "INFORMATION"}
             />
-            <TransitionGroup>
-              <CSSTransition key={face} classNames="fade" timeout={500}>
-                <CardOverlay>
-                  {face === "QRCODE" ? (
-                    <QRCodeCard
-                      uuid={uuid}
-                      isVisited={Boolean(visited)}
-                      onFlip={onFlip}
-                    />
-                  ) : (
-                    <InformationCard visitor={visitor} onFlip={onFlip} />
-                  )}
-                </CardOverlay>
-              </CSSTransition>
-            </TransitionGroup>
+            <CardOverlayFrame>
+              <TransitionGroup>
+                <CSSTransition key={face} classNames="fade" timeout={500}>
+                  <CardOverlay>
+                    {face === "QRCODE" ? (
+                      <QRCodeCard
+                        uuid={uuid}
+                        isVisited={Boolean(visited)}
+                        onFlip={onFlip}
+                      />
+                    ) : (
+                      <InformationCard visitor={visitor} onFlip={onFlip} />
+                    )}
+                  </CardOverlay>
+                </CSSTransition>
+              </TransitionGroup>
+            </CardOverlayFrame>
           </Card>
         )}
       </CardFrame>
@@ -110,7 +112,7 @@ const CardRoot = styled.div`
   height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   ${overflowYScroll}
 `;
 
@@ -143,6 +145,8 @@ const HeaderFrame = styled.div`
 const CardFrame = styled.div`
   position: relative;
   align-self: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
   &:first-child {
     z-index: -1;
   }
@@ -155,16 +159,23 @@ const Card = styled.div`
   position: relative;
 `;
 
+const CardOverlayFrame = styled.div`
+  position: absolute;
+  inset: 0;
+  margin: 5.5vw;
+  padding: 5.5vw;
+  ${overflowYScroll}
+`;
+
 const CardOverlay = styled.div`
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: absolute;
-  margin: 5.5vw;
-  inset: 0;
+
   color: #fff;
   border-radius: 10px;
-  ${overflowYScroll}
 `;
 
 const ButtonGroupFrame = styled.div`

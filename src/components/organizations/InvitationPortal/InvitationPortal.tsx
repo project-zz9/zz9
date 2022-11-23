@@ -66,8 +66,8 @@ const PortalRoot = styled.div`
 `;
 
 const LogoFrame = styled.div`
-  margin-top: 20px;
-  margin-left: -20px;
+  margin-top: 1rem;
+  margin-left: -1rem;
   margin-bottom: 2rem;
   width: 25vw;
   align-self: flex-start;
