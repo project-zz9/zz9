@@ -110,7 +110,7 @@ const CardRoot = styled.div`
   height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   ${overflowYScroll}
 `;
 
@@ -143,6 +143,8 @@ const HeaderFrame = styled.div`
 const CardFrame = styled.div`
   position: relative;
   align-self: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
   &:first-child {
     z-index: -1;
   }
