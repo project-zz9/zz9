@@ -19,6 +19,8 @@ type GuestbookData = {
 
 type Guestbook = GuestbookData & { timestamp: number };
 
+type Role = "admin" | "manager";
+
 type EmphasisTextForm = {
   type?: "common" | "emphasis";
   value: string;

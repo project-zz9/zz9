@@ -6,6 +6,7 @@ import {
   SCHEDULE_COLLECTION,
   VISITOR_COLLECTION,
   WhereFilterOp,
+  AUTH_COLLECTION,
 } from "~/app/firesore";
 
 export class FirestoreApi {
@@ -59,6 +60,7 @@ export class FirestoreApi {
 export const visitorApi = new FirestoreApi(VISITOR_COLLECTION);
 export const scheduleApi = new FirestoreApi(SCHEDULE_COLLECTION);
 export const guestbookApi = new FirestoreApi(GUESTBOOK_COLLECTION);
+export const authApi = new FirestoreApi(AUTH_COLLECTION);
 
 function isWhereFilter(
   query: [string, WhereFilterOp, string] | string
