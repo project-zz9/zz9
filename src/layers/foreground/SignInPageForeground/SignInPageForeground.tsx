@@ -5,48 +5,89 @@ import { useHistory } from "react-router-dom";
 import ForegroundLayer from "../ForegroundLayer";
 import { MANAGEMENT_PATH } from "~/pages";
 import { useState } from "react";
+import { checkAuthorize } from "~/api/auth";
+import { modalControlAtom } from "~/stores/modal";
+import styled from "styled-components";
 
 const label = "관리자 id를 입력하세요";
 
 function SignInPageForeground() {
   const [, setUser] = useAtom(authAtom);
-  const [admin, setAdmin] = useState<string>("");
+  const [, setModal] = useAtom(modalControlAtom);
+  const [id, setId] = useState<string>("");
   const history = useHistory();
   return (
     <ForegroundLayer>
-      <div>
-        <div>
+      <RootFrame>
+        <InputFrame>
           <TextField
             id="standard-basic"
-            label="Admin"
+            size="medium"
+            label="ID"
             variant="standard"
             placeholder={label}
             fullWidth
             onChange={({ target }) => {
-              setAdmin(target.value);
+              setId(target.value);
             }}
-            value={admin}
+            value={id}
           />
-        </div>
-        <div>
+        </InputFrame>
+        <ButtonFrame>
           <Button
             variant="contained"
+            disabled={!id}
             onClick={() => {
-              setUser("user");
-              history.push(MANAGEMENT_PATH);
+              id &&
+                checkAuthorize(id).then((role) => {
+                  if (role) {
+                    setUser(role);
+                    history.push(MANAGEMENT_PATH);
+                  } else {
+                    setModal({
+                      type: "information",
+                      content: {
+                        title: "잘못된 ID",
+                        body: "입력하신 ID가 존재하지 않거나 역할이 부여되지 않았습니다.",
+                      },
+                      onSubmit: {
+                        label: "확인",
+                      },
+                      clean: () => {
+                        setId("");
+                      },
+                    });
+                  }
+                });
             }}
           >
-            Sign In
+            인증
           </Button>
-        </div>
-        <div>
-          <Button variant="contained" onClick={() => setUser(null)}>
-            Sign Out
-          </Button>
-        </div>
-      </div>
+        </ButtonFrame>
+      </RootFrame>
     </ForegroundLayer>
   );
 }
 
 export default SignInPageForeground;
+
+const RootFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 50vh;
+  div {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+`;
+const InputFrame = styled.div`
+  width: 50vw;
+`;
+const ButtonFrame = styled.div`
+  button {
+    width: 15vw;
+  }
+`;
