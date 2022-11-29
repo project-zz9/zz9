@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useAtom } from "jotai";
-import { authAtom } from "~/stores/auth";
+import { roleAtom } from "~/stores/role";
 import { useHistory } from "react-router-dom";
 import ForegroundLayer from "../ForegroundLayer";
 import { MANAGEMENT_PATH } from "~/pages";
@@ -12,7 +12,7 @@ import styled from "styled-components";
 const label = "관리자 id를 입력하세요";
 
 function SignInPageForeground() {
-  const [, setUser] = useAtom(authAtom);
+  const [, setRole] = useAtom(roleAtom);
   const [, setModal] = useAtom(modalControlAtom);
   const [id, setId] = useState<string>(
     "bkzErenoCKaMBjoTsya2iKPyd2bsAsmerH3DTcJy7odcrfhqjsnoixz6nLTcL7RQ"
@@ -44,7 +44,7 @@ function SignInPageForeground() {
               id &&
                 checkAuthorize(id).then((role) => {
                   if (role) {
-                    setUser(role);
+                    setRole(role);
                     history.push(MANAGEMENT_PATH);
                   } else {
                     setModal({
