@@ -11,11 +11,7 @@ export const getVisitor = async (
       ? hashing(getKey(key.phoneNumber, process.env.REACT_APP_SALT))
       : null;
 
-  return (
-    (visitor &&
-      ((await visitorApi.get<VisitorData>(visitor)) as VisitorData)) ||
-    null
-  );
+  return (visitor && (await visitorApi.get<VisitorData>(visitor))) || null;
 };
 
 export const setVisitor = async (
