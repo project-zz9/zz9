@@ -8,6 +8,7 @@ import { useState } from "react";
 import { checkAuthorize } from "~/api/auth";
 import { modalControlAtom } from "~/stores/modal";
 import styled from "styled-components";
+import { logos } from "~/assets/images";
 
 const label = "관리자 id를 입력하세요";
 
@@ -22,10 +23,16 @@ function SignInPageForeground() {
     <ForegroundLayer>
       <RootFrame>
         <InputFrame>
+          <TitleFrame>
+            <Logo>
+              <img src={logos.Logo2B} alt="logo" />
+            </Logo>
+            <Title>관리자 페이지</Title>
+          </TitleFrame>
           <TextField
             id="standard-basic"
             size="medium"
-            label="ID"
+            label="Admin Password"
             variant="standard"
             placeholder={label}
             type="password"
@@ -80,11 +87,28 @@ const RootFrame = styled.div`
   justify-content: center;
   align-items: center;
   width: 50vw;
-  height: 50vh;
+  height: 65vh;
   div {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
+`;
+const TitleFrame = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
+const Logo = styled.div`
+  width: 30vw;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+`;
+const Title = styled.div`
+  font-size: 1.75rem;
+  font-weight: 500;
 `;
 const InputFrame = styled.div`
   width: 50vw;
