@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getGuestbook } from "~/api/guestbook";
-import { getTimeTable, getVisitor } from "~/api/visitor";
+import { getGuestbook, getGuestbooks } from "~/api/guestbook";
+import { getTimeTable, getVisitor, getVisitors } from "~/api/visitor";
 
 type QueryType = {
   collection: "visitor" | "schedule" | "guestbook";
@@ -30,7 +30,11 @@ const resolveQuery = async (
 ) => {
   switch (collection) {
     case "visitor": {
-      return await getVisitor(parameter as Parameters<typeof getVisitor>[0]);
+      if (parameter === "all") {
+        return await getVisitors();
+      } else {
+        return await getVisitor(parameter as Parameters<typeof getVisitor>[0]);
+      }
     }
     case "schedule": {
       return await getTimeTable(
@@ -38,6 +42,9 @@ const resolveQuery = async (
       );
     }
     case "guestbook": {
+      if (parameter === "all") {
+        return await getGuestbooks();
+      }
       return await getGuestbook(
         parameter as Parameters<typeof getGuestbook>[0]
       );

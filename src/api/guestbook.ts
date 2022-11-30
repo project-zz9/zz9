@@ -5,6 +5,10 @@ export const getGuestbook = async (key: string): Promise<Guestbook | null> => {
   return (await guestbookApi.get<Guestbook>(key)) || null;
 };
 
+export const getGuestbooks = async (): Promise<Guestbook[]> => {
+  return (await guestbookApi.get<Guestbook[]>()) || [];
+};
+
 export const setGuestbook = async (
   key: string,
   guestbookData: GuestbookData

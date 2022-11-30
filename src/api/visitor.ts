@@ -14,6 +14,10 @@ export const getVisitor = async (
   return (visitor && (await visitorApi.get<VisitorData>(visitor))) || null;
 };
 
+export const getVisitors = async (): Promise<VisitorData[]> => {
+  return (await visitorApi.get<VisitorData[]>()) || [];
+};
+
 export const setVisitor = async (
   visitorData: VisitorData
 ): Promise<string | null> => {
