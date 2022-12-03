@@ -1,5 +1,12 @@
 import { Tab, Tabs } from "@mui/material";
-import { FC, Fragment, SyntheticEvent, useMemo, useState } from "react";
+import {
+  FC,
+  Fragment,
+  SyntheticEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import type { ManagementTabs } from "~/layers/foreground/ManagementForeground";
@@ -28,12 +35,15 @@ const managementTools: Record<TOOLS, { label: string; Component: FC<{}> }> = {
 function AdminTabs({ role }: ManagementTabs) {
   const location = useLocation();
   const history = useHistory();
-
-  const handleChange = (_: SyntheticEvent, tab: TOOLS) => {
+  useEffect(() => {
+    history.replace(`${MANAGEMENT_PATH}/${role}${tab}`);
+    setTab(tab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const handleChange = (_: SyntheticEvent | null, tab: TOOLS) => {
     history.push(`${MANAGEMENT_PATH}/${role}${tab}`);
     setTab(tab);
   };
-
   const tools = useMemo(
     () =>
       Object.entries(managementTools).map(
