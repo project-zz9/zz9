@@ -4,6 +4,7 @@ export interface TableHeaderCell<T> {
   label: string;
   disablePadding: boolean;
   dataType?: "date" | "number" | "string" | "multi-line";
+  width?: number;
 }
 
 export function makeHeaderFromRows<T extends Object>(

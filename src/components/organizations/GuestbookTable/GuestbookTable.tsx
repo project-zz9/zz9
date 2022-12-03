@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import DataTable from "~/components/molecules/DataTable";
-import { TableHeaderCell } from "~/components/molecules/DataTable/EnhancedTableHead";
 import { useQuery } from "~/hooks/useQuery";
 
 // interface Data {
@@ -95,19 +94,18 @@ function GuestbookTable() {
           preDefinedHeader={[
             {
               id: "displayName",
-              numeric: false,
               disablePadding: false,
               label: "작성자",
+              width: 200,
             },
             {
               id: "timestamp",
-              numeric: false,
               disablePadding: false,
               label: "등록시간",
+              width: 200,
             },
             {
               id: "message",
-              numeric: false,
               disablePadding: false,
               label: "방명록",
             },

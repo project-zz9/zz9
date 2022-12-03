@@ -142,18 +142,11 @@ export default function EnhancedTable<T extends TableData>({
                           }}
                         />
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row[header[0].id]}
-                      </TableCell>
-                      {header.slice(1).map(({ id }, index) => (
+                      {header.map(({ id, width }, index) => (
                         <TableCell
                           key={getKey(id.toString(), index)}
                           align="left"
+                          width={width}
                         >
                           {row[id]}
                         </TableCell>

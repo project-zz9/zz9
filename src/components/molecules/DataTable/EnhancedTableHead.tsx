@@ -52,6 +52,7 @@ function EnhancedTableHead<T>({
           <TableCell
             key={cell.id.toString()}
             align={cell.dataType === "number" ? "right" : "left"}
+            width={cell.width}
             padding={cell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === cell.id ? order : false}
           >
