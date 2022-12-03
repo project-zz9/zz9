@@ -1,11 +1,13 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DataTable from "~/components/molecules/DataTable";
 import { useQuery } from "~/hooks/useQuery";
 import { removeGuestbook } from "~/api/guestbook";
 import { useAtom } from "jotai";
 import { modalControlAtom } from "~/stores/modal";
+import { INTERVAL_TIME } from "~/app/constant";
 
 function GuestbookTable() {
+  const [, setModal] = useAtom(modalControlAtom);
   const [tick, setTick] = useState<number>(0);
   const refresh = useCallback(() => setTick(Math.random()), []);
   const guestbooks = useQuery<Guestbook[]>(
@@ -13,7 +15,16 @@ function GuestbookTable() {
     "all",
     tick
   );
-  const [, setModal] = useAtom(modalControlAtom);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      refresh();
+    }, INTERVAL_TIME);
+    return () => {
+      clearInterval(intervalId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onDeleteHandler = (keys: string[], callback?: () => void) => {
     setModal({
       type: "confirm",
