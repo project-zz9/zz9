@@ -1,108 +1,25 @@
-// import {
-//   Paper,
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableContainer,
-//   TableHead,
-//   TableRow,
-// } from "@mui/material";
-// import { useMemo } from "react";
-// import { getKey } from "~/utils/crypto";
-
-// interface IDataTableProps {
-//   data: Record<string, any>[];
-//   columns?: Column[];
-//   refresh: () => void;
-//   sort?: `${string}_ASC` | `${string}_DESC`;
-// }
-
-// type Column = { label: string; key: string; width?: number; type?: "date" };
-
-// function DataTable({
-//   data,
-//   columns: preDefinedColumn,
-//   refresh,
-//   sort,
-// }: IDataTableProps) {
-//   const rows = useMemo(() => {
-//     if (!sort) {
-//       return data;
-//     }
-//     const [field, order] = sort.split("_");
-//     return data.sort((prev, next) =>
-//       order === "ASC" ? prev[field] - next[field] : next[field] - prev[field]
-//     );
-//   }, [data, sort]);
-
-//   const columns: Column[] = useMemo(
-//     () =>
-//       preDefinedColumn ||
-//       [
-//         ...data.reduce((accumulator: Set<string>, item) => {
-//           Object.keys(item).forEach((key) => {
-//             accumulator.add(key);
-//           });
-//           return accumulator;
-//         }, new Set<string>()),
-//       ].map((key) => ({ label: key, key })),
-//     [data, preDefinedColumn]
-//   );
-
-//   return (
-//     <TableContainer component={Paper}>
-//       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//         <TableHead>
-//           <TableRow>
-//             {columns.map(({ label, key, width }) => (
-//               <TableCell key={key} width={width}>
-//                 {label}
-//               </TableCell>
-//             ))}
-//           </TableRow>
-//         </TableHead>
-//         <TableBody>
-//           {rows.map((row, index) => (
-//             <TableRow
-//               key={getKey(row[columns[0].key], index)}
-//               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-//             >
-//               {columns.map(({ key, width }, i) => (
-//                 <TableCell
-//                   key={getKey(key, i)}
-//                   component="th"
-//                   scope="row"
-//                   width={width}
-//                 >
-//                   {row[key]}
-//                 </TableCell>
-//               ))}
-//             </TableRow>
-//           ))}
-//         </TableBody>
-//       </Table>
-//     </TableContainer>
-//   );
-// }
-
-// export default DataTable;
-
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
-import { Checkbox, Paper } from "@mui/material";
-import EnhancedTableHead, { TableHeaderCell } from "./EnhancedTableHead";
-import { getComparator, Order, stableSort } from "./utilities";
+import {
+  Box,
+  Checkbox,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
+import EnhancedTableHead from "./EnhancedTableHead";
+import {
+  getComparator,
+  makeHeaderFromRows,
+  Order,
+  stableSort,
+  TableHeaderCell,
+} from "./utilities";
 import { getKey } from "~/utils/crypto";
+import { MouseEvent, ChangeEvent, useMemo, useState } from "react";
 
 interface TableData {
   id: string;
@@ -111,7 +28,7 @@ interface TableData {
 
 interface IEnhancedTableProps<T> {
   rows: T[];
-  preDefinedHeader: readonly TableHeaderCell<T>[];
+  preDefinedHeader?: readonly TableHeaderCell<T>[];
   defaultOrderBy: keyof T;
   defaultOrder: Order;
   refresh?: () => void;
@@ -124,23 +41,23 @@ export default function EnhancedTable<T extends TableData>({
   defaultOrder,
   refresh,
 }: IEnhancedTableProps<T>) {
-  const [order, setOrder] = React.useState<Order>(defaultOrder);
-  const [orderBy, setOrderBy] = React.useState<keyof T>(defaultOrderBy);
-  const [selected, setSelected] = React.useState<T["id"][]>([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [order, setOrder] = useState<Order>(defaultOrder);
+  const [orderBy, setOrderBy] = useState<keyof T>(defaultOrderBy);
+  const [selected, setSelected] = useState<T["id"][]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof T
-  ) => {
+  const header = useMemo(
+    () => preDefinedHeader || makeHeaderFromRows(rows),
+    [preDefinedHeader, rows]
+  );
+  const handleRequestSort = (event: MouseEvent<unknown>, property: keyof T) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       setSelected(rows.map((row) => row.id));
       return;
@@ -148,7 +65,7 @@ export default function EnhancedTable<T extends TableData>({
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: T["id"]) => {
+  const handleClick = (event: MouseEvent<unknown>, id: T["id"]) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: T["id"][] = [];
 
@@ -179,10 +96,6 @@ export default function EnhancedTable<T extends TableData>({
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (id: string) => selected.includes(id);
 
   const emptyRows =
@@ -193,13 +106,9 @@ export default function EnhancedTable<T extends TableData>({
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
-              tableHeader={preDefinedHeader}
+              tableHeader={header}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -239,9 +148,9 @@ export default function EnhancedTable<T extends TableData>({
                         scope="row"
                         padding="none"
                       >
-                        {row[preDefinedHeader[0].id]}
+                        {row[header[0].id]}
                       </TableCell>
-                      {preDefinedHeader.slice(1).map(({ id }, index) => (
+                      {header.slice(1).map(({ id }, index) => (
                         <TableCell
                           key={getKey(id.toString(), index)}
                           align="left"
@@ -255,7 +164,7 @@ export default function EnhancedTable<T extends TableData>({
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -274,10 +183,6 @@ export default function EnhancedTable<T extends TableData>({
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }

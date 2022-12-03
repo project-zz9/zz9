@@ -1,4 +1,30 @@
 export type Order = "asc" | "desc";
+export interface TableHeaderCell<T> {
+  id: keyof T;
+  label: string;
+  disablePadding: boolean;
+  dataType?: "date" | "number" | "string" | "multi-line";
+}
+
+export function makeHeaderFromRows<T extends Object>(
+  rows: T[]
+): TableHeaderCell<T>[] {
+  return [
+    ...rows.reduce((accumulator: Set<string>, item) => {
+      Object.keys(item).forEach((key) => {
+        accumulator.add(key);
+      });
+      return accumulator;
+    }, new Set<string>()),
+  ].map(
+    (id) =>
+      ({
+        id,
+        label: id,
+        disablePadding: false,
+      } as TableHeaderCell<T>)
+  );
+}
 
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {

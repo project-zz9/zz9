@@ -8,14 +8,7 @@ import {
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
 import { ChangeEvent, MouseEvent } from "react";
-import type { Order } from "./utilities";
-
-export interface TableHeaderCell<T> {
-  disablePadding: boolean;
-  id: keyof T;
-  label: string;
-  numeric: boolean;
-}
+import type { Order, TableHeaderCell } from "./utilities";
 
 interface EnhancedTableProps<T> {
   tableHeader: readonly TableHeaderCell<T>[];
@@ -58,7 +51,7 @@ function EnhancedTableHead<T>({
         {tableHeader.map((cell) => (
           <TableCell
             key={cell.id.toString()}
-            align={cell.numeric ? "right" : "left"}
+            align={cell.dataType === "number" ? "right" : "left"}
             padding={cell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === cell.id ? order : false}
           >
