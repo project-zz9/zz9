@@ -56,7 +56,7 @@ const setTimeTable = async (visitor: string, timestamp: string) => {
 
 export const getTimeTable = async (date: string): Promise<DateTime[]> => {
   try {
-    return await scheduleApi.get<DateTime[]>(["date", "==", date]);
+    return (await scheduleApi.get<DateTime[]>(["date", "==", date])) || [];
   } catch {
     return [];
   }

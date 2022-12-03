@@ -18,7 +18,9 @@ export class FirestoreApi {
     return timestamp.now().seconds;
   }
 
-  async get<T>(query?: string | [string, WhereFilterOp, string]): Promise<T> {
+  async get<T>(
+    query?: string | [string, WhereFilterOp, string]
+  ): Promise<T | null> {
     if (isWhereFilter(query)) {
       const [field, operator, value] = query;
       const data: any[] = [];
@@ -36,7 +38,8 @@ export class FirestoreApi {
     try {
       if (query) {
         const document = await this.collection.doc(query).get();
-        return { id: document.id, ...document.data() } as T;
+        const data = document.data();
+        return data ? ({ id: document.id, ...data } as T) : null;
       } else {
         const data: any[] = [];
         (await this.collection.get()).forEach((document) => {
