@@ -52,7 +52,7 @@ function SignInPageForeground() {
                 checkAuthorize(id).then((role) => {
                   if (role) {
                     setRole(role);
-                    history.push(MANAGEMENT_PATH);
+                    history.push(`${MANAGEMENT_PATH}/${role}`);
                   } else {
                     setModal({
                       type: "information",

@@ -23,7 +23,7 @@ type GuestbookData = {
 
 type Guestbook = FetchedData & GuestbookData & { timestamp: number };
 
-type Role = "admin" | "manager";
+type Role = "admin" | "art-wall" | "qr-scanner";
 
 type EmphasisTextForm = {
   type?: "common" | "emphasis";

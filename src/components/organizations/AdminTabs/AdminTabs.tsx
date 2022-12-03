@@ -12,10 +12,9 @@ import styled from "styled-components";
 import type { ManagementTabs } from "~/layers/foreground/ManagementForeground";
 import { MANAGEMENT_PATH } from "~/pages";
 import GuestbookTable from "../GuestbookTable";
-import QrScanner from "../QrScanner";
 import VisitorTable from "../VisitorTable";
 
-type TOOLS = "/qr-scanner" | "/visitors" | "/guestbooks";
+type TOOLS = "/visitors" | "/guestbooks";
 
 const managementTools: Record<TOOLS, { label: string; Component: FC<{}> }> = {
   "/visitors": {
@@ -26,24 +25,12 @@ const managementTools: Record<TOOLS, { label: string; Component: FC<{}> }> = {
     label: "방명록",
     Component: () => <GuestbookTable />,
   },
-  "/qr-scanner": {
-    label: "QR 스캐너(모바일)",
-    Component: () => <QrScanner />,
-  },
 };
 
 function AdminTabs({ role }: ManagementTabs) {
   const location = useLocation();
   const history = useHistory();
-  useEffect(() => {
-    history.replace(`${MANAGEMENT_PATH}/${role}${tab}`);
-    setTab(tab);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const handleChange = (_: SyntheticEvent | null, tab: TOOLS) => {
-    history.push(`${MANAGEMENT_PATH}/${role}${tab}`);
-    setTab(tab);
-  };
+
   const tools = useMemo(
     () =>
       Object.entries(managementTools).map(
@@ -55,7 +42,17 @@ function AdminTabs({ role }: ManagementTabs) {
       ),
     []
   );
+
   const [tab, setTab] = useState<TOOLS>(tools[0].path);
+
+  const handleChange = (_: SyntheticEvent | null, tab: TOOLS) => {
+    setTab(tab);
+  };
+
+  useEffect(() => {
+    history.replace(`${MANAGEMENT_PATH}/${role}${tab}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
 
   const tool = useMemo(() => {
     const paths = location.pathname.split(role);
