@@ -3,12 +3,14 @@ import { alpha } from "@mui/material/styles";
 import { Filter, Trash } from "react-feather";
 
 interface EnhancedTableToolbarProps {
+  title: string;
   numSelected: number;
   onFilterHandler?: () => void;
   onDeleteHandler?: () => void;
 }
 
 function EnhancedTableToolbar({
+  title,
   numSelected,
   onFilterHandler,
   onDeleteHandler,
@@ -34,7 +36,7 @@ function EnhancedTableToolbar({
           variant="subtitle1"
           component="div"
         >
-          {numSelected} selected
+          {numSelected}개 선택
         </Typography>
       ) : (
         <Typography
@@ -43,22 +45,24 @@ function EnhancedTableToolbar({
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {title}
         </Typography>
       )}
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <Trash />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Filter />
-          </IconButton>
-        </Tooltip>
-      )}
+      {numSelected > 0
+        ? onDeleteHandler && (
+            <Tooltip title="Delete">
+              <IconButton onClick={onDeleteHandler}>
+                <Trash />
+              </IconButton>
+            </Tooltip>
+          )
+        : onFilterHandler && (
+            <Tooltip title="Filter list">
+              <IconButton onClick={onFilterHandler}>
+                <Filter />
+              </IconButton>
+            </Tooltip>
+          )}
     </Toolbar>
   );
 }

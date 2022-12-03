@@ -28,19 +28,22 @@ interface TableData {
 }
 
 interface IEnhancedTableProps<T> {
+  title: string;
   rows: T[];
   preDefinedHeader?: readonly TableHeaderCell<T>[];
   defaultOrderBy: keyof T;
   defaultOrder: Order;
   refresh?: () => void;
+  onDeleteHandler?: (keys: string[]) => void;
 }
 
 export default function EnhancedTable<T extends TableData>({
+  title,
   rows,
   preDefinedHeader,
   defaultOrderBy,
   defaultOrder,
-  refresh,
+  onDeleteHandler,
 }: IEnhancedTableProps<T>) {
   const [order, setOrder] = useState<Order>(defaultOrder);
   const [orderBy, setOrderBy] = useState<keyof T>(defaultOrderBy);
@@ -52,6 +55,13 @@ export default function EnhancedTable<T extends TableData>({
     () => preDefinedHeader || makeHeaderFromRows(rows),
     [preDefinedHeader, rows]
   );
+
+  const handleDelete = () => {
+    if (typeof onDeleteHandler === "function") {
+      onDeleteHandler(selected);
+    }
+  };
+
   const handleRequestSort = (event: MouseEvent<unknown>, property: keyof T) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -105,7 +115,11 @@ export default function EnhancedTable<T extends TableData>({
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          title={title}
+          numSelected={selected.length}
+          onDeleteHandler={handleDelete}
+        />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
