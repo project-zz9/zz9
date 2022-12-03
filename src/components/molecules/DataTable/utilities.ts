@@ -1,3 +1,4 @@
+import dayjs from "dayjs/esm";
 export type Order = "asc" | "desc";
 export interface TableHeaderCell<T> {
   id: keyof T;
@@ -7,9 +8,9 @@ export interface TableHeaderCell<T> {
   width?: number;
 }
 
-export function makeHeaderFromRows<T extends Object>(
+export const makeHeaderFromRows = <T extends Object>(
   rows: T[]
-): TableHeaderCell<T>[] {
+): TableHeaderCell<T>[] => {
   return [
     ...rows.reduce((accumulator: Set<string>, item) => {
       Object.keys(item).forEach((key) => {
@@ -25,9 +26,27 @@ export function makeHeaderFromRows<T extends Object>(
         disablePadding: false,
       } as TableHeaderCell<T>)
   );
-}
+};
 
-export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+export const parseData = (
+  type: TableHeaderCell<any>["dataType"],
+  data: any
+) => {
+  switch (type) {
+    case "date": {
+      return dayjs(data).format("YYYY. MM. DD HH:mm");
+    }
+    case "number": {
+      return data?.toLocaleString("ko-KR");
+    }
+    case "multi-line": {
+      return data;
+    }
+  }
+  return data;
+};
+
+export const descendingComparator = <T>(a: T, b: T, orderBy: keyof T) => {
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -35,24 +54,24 @@ export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     return 1;
   }
   return 0;
-}
+};
 
-export function getComparator<Key extends keyof any>(
+export const getComparator = <Key extends keyof any>(
   order: Order,
   orderBy: Key
-): (
+): ((
   a: { [key in Key]: number | string },
   b: { [key in Key]: number | string }
-) => number {
+) => number) => {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
-}
+};
 
-export function stableSort<T>(
+export const stableSort = <T>(
   array: readonly T[],
   comparator: (a: T, b: T) => number
-) {
+) => {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -62,4 +81,4 @@ export function stableSort<T>(
     return a[1] - b[1];
   });
   return stabilizedThis.map((el) => el[0]);
-}
+};

@@ -16,6 +16,7 @@ import {
   getComparator,
   makeHeaderFromRows,
   Order,
+  parseData,
   stableSort,
   TableHeaderCell,
 } from "./utilities";
@@ -142,13 +143,13 @@ export default function EnhancedTable<T extends TableData>({
                           }}
                         />
                       </TableCell>
-                      {header.map(({ id, width }, index) => (
+                      {header.map(({ id, dataType, width }, index) => (
                         <TableCell
                           key={getKey(id.toString(), index)}
                           align="left"
                           width={width}
                         >
-                          {row[id]}
+                          {parseData(dataType, row[id])}
                         </TableCell>
                       ))}
                     </TableRow>
