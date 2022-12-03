@@ -25,7 +25,7 @@ export class FirestoreApi {
       try {
         (await this.collection.where(field, operator, value).get()).forEach(
           (document) => {
-            data.push(document.data());
+            data.push({ id: document.id, ...document.data() });
           }
         );
         return data as T;
@@ -35,11 +35,12 @@ export class FirestoreApi {
     }
     try {
       if (query) {
-        return (await this.collection.doc(query).get()).data() as T;
+        const document = await this.collection.doc(query).get();
+        return { id: document.id, ...document.data() } as T;
       } else {
         const data: any[] = [];
         (await this.collection.get()).forEach((document) => {
-          data.push(document.data());
+          data.push({ id: document.id, ...document.data() });
         });
         return data as T;
       }
