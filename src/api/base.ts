@@ -15,7 +15,7 @@ export class FirestoreApi {
     this.collection = firestore.collection(collection);
   }
   static serverTime(): number {
-    return timestamp.now().seconds;
+    return timestamp.now().toMillis();
   }
 
   async get<T>(
