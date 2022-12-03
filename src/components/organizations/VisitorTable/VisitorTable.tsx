@@ -82,7 +82,7 @@ function VisitorTable() {
               dataType: "date",
             },
           ]}
-          defaultOrder="desc"
+          defaultOrder="asc"
           defaultOrderBy={"name"}
           refresh={refresh}
           onDeleteHandler={onDeleteHandler}

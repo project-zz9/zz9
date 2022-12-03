@@ -78,7 +78,6 @@ function AdminTabs({ role }: ManagementTabs) {
 export default AdminTabs;
 
 const TabFrame = styled.div`
-  background-color: red;
   margin-bottom: 1rem;
 `;
 
