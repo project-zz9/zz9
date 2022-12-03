@@ -34,7 +34,7 @@ interface IEnhancedTableProps<T> {
   defaultOrderBy: keyof T;
   defaultOrder: Order;
   refresh?: () => void;
-  onDeleteHandler?: (keys: string[]) => void;
+  onDeleteHandler?: (keys: string[], callback?: () => void) => void;
 }
 
 export default function EnhancedTable<T extends TableData>({
@@ -58,7 +58,9 @@ export default function EnhancedTable<T extends TableData>({
 
   const handleDelete = () => {
     if (typeof onDeleteHandler === "function") {
-      onDeleteHandler(selected);
+      onDeleteHandler(selected, () => {
+        setSelected([]);
+      });
     }
   };
 
