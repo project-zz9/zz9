@@ -24,11 +24,10 @@ const Root = styled.div`
   justify-content: center;
   align-items: flex-start;
   pointer-events: "none";
+  ${overflowYScroll}
 `;
 
 const Content = styled.div`
   padding: 10px;
   pointer-events: all;
-
-  ${overflowYScroll}
 `;
