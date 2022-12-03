@@ -34,3 +34,13 @@ export const updateGuestbook = async (key: string): Promise<string | null> => {
     return null;
   }
 };
+
+export const removeGuestbook = async (key: string): Promise<string | null> => {
+  if (!key) return null;
+  try {
+    await guestbookApi.delete(key);
+    return key;
+  } catch {
+    return null;
+  }
+};

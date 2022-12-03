@@ -67,6 +67,14 @@ export class FirestoreApi {
       throw new Error(error);
     }
   }
+
+  async delete(key: string): Promise<void> {
+    try {
+      await this.collection.doc(key).delete();
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
 }
 
 export const visitorApi = new FirestoreApi(VISITOR_COLLECTION);

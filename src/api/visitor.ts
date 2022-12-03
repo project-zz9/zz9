@@ -46,6 +46,15 @@ export const updateVisitorVisited = async (
   }
 };
 
+export const removeVisitor = async (key: string): Promise<string | null> => {
+  try {
+    await visitorApi.delete(key);
+    return key;
+  } catch {
+    return null;
+  }
+};
+
 const setTimeTable = async (visitor: string, timestamp: string) => {
   const [date, time] = timestamp.split(" ");
   scheduleApi.post(visitor, {
