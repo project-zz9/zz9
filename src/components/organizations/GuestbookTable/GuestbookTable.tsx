@@ -103,11 +103,13 @@ function GuestbookTable() {
               disablePadding: false,
               label: "등록시간",
               width: 200,
+              dataType: "date",
             },
             {
               id: "message",
               disablePadding: false,
               label: "방명록",
+              dataType: "multi-line",
             },
           ]}
           defaultOrder="desc"

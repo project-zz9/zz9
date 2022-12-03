@@ -4,21 +4,23 @@ import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import type { ManagementTabs } from "~/layers/foreground/ManagementForeground";
 import { MANAGEMENT_PATH } from "~/pages";
+import GuestbookTable from "../GuestbookTable";
 import QrScanner from "../QrScanner";
+import VisitorTable from "../VisitorTable";
 
 type TOOLS = "/qr-scanner" | "/visitors" | "/guestbooks";
 
 const managementTools: Record<TOOLS, { label: string; Component: FC<{}> }> = {
   "/visitors": {
     label: "사전예약자",
-    Component: () => null,
+    Component: () => <VisitorTable />,
   },
   "/guestbooks": {
     label: "방명록",
-    Component: () => null,
+    Component: () => <GuestbookTable />,
   },
   "/qr-scanner": {
-    label: "QR Scanner",
+    label: "QR 스캐너(모바일)",
     Component: () => <QrScanner />,
   },
 };
@@ -68,6 +70,9 @@ function AdminTabs({ role }: ManagementTabs) {
 
 export default AdminTabs;
 
-const TabFrame = styled.div``;
+const TabFrame = styled.div`
+  background-color: red;
+  margin-bottom: 1rem;
+`;
 
 const TabPanelFrame = styled.div``;
