@@ -5,6 +5,7 @@ export interface TableHeaderCell<T> {
   label: string;
   disablePadding: boolean;
   dataType?: "date" | "number" | "string" | "multi-line";
+  getData?: (data: any) => string;
   width?: number;
 }
 
@@ -34,7 +35,7 @@ export const parseData = (
 ) => {
   switch (type) {
     case "date": {
-      return dayjs(data).format("YYYY. MM. DD HH:mm");
+      return dayjs(data).format("YYYY-MM-DD HH:mm");
     }
     case "number": {
       return data?.toLocaleString("ko-KR");

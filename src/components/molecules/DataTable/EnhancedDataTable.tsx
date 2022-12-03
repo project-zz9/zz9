@@ -159,13 +159,16 @@ export default function EnhancedTable<T extends TableData>({
                           }}
                         />
                       </TableCell>
-                      {header.map(({ id, dataType, width }, index) => (
+                      {header.map(({ id, dataType, width, getData }, index) => (
                         <TableCell
                           key={getKey(id.toString(), index)}
                           align="left"
                           width={width}
                         >
-                          {parseData(dataType, row[id])}
+                          {parseData(
+                            dataType,
+                            getData ? getData(row[id]) : row[id]
+                          )}
                         </TableCell>
                       ))}
                     </TableRow>
