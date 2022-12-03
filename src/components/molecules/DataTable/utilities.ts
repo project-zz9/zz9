@@ -9,6 +9,11 @@ export interface TableHeaderCell<T> {
   width?: number;
 }
 
+export type DataParserMap<T> = Record<
+  keyof T,
+  Pick<TableHeaderCell<T>, "dataType" | "getData">
+>;
+
 export const makeHeaderFromRows = <T extends Object>(
   rows: T[]
 ): TableHeaderCell<T>[] => {
@@ -33,6 +38,7 @@ export const parseData = (
   type: TableHeaderCell<any>["dataType"],
   data: any
 ) => {
+  if (!data) return "";
   switch (type) {
     case "date": {
       return dayjs(data).format("YYYY-MM-DD HH:mm");
@@ -82,4 +88,25 @@ export const stableSort = <T>(
     return a[1] - b[1];
   });
   return stabilizedThis.map((el) => el[0]);
+};
+
+export const searchWithKeyword = <T extends Object>(
+  array: readonly T[],
+  keyword: string | null,
+  dataParserMap?: DataParserMap<T>
+) => {
+  return keyword
+    ? array.filter((item) =>
+        Object.entries(item).some(([key, value]) => {
+          const { getData, dataType } = dataParserMap?.[key as keyof T] || {};
+          return (
+            getData
+              ? getData(parseData(dataType, value))
+              : parseData(dataType, value)
+          )
+            .toString()
+            .includes(keyword);
+        })
+      )
+    : array;
 };

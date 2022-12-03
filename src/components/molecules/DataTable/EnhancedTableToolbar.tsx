@@ -1,20 +1,30 @@
-import { IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { Filter, Trash } from "react-feather";
+import { useState } from "react";
+import { Trash, X } from "react-feather";
+import styled from "styled-components";
 
 interface EnhancedTableToolbarProps {
   title: string;
   numSelected: number;
-  onFilterHandler?: () => void;
+  onSearchHandler?: (keyword: string | null) => void;
   onDeleteHandler?: () => void;
 }
 
 function EnhancedTableToolbar({
   title,
   numSelected,
-  onFilterHandler,
+  onSearchHandler,
   onDeleteHandler,
 }: EnhancedTableToolbarProps) {
+  const [keyword, setKeyword] = useState("");
   return (
     <Toolbar
       sx={{
@@ -48,6 +58,7 @@ function EnhancedTableToolbar({
           {title}
         </Typography>
       )}
+
       {numSelected > 0
         ? onDeleteHandler && (
             <Tooltip title="Delete">
@@ -56,15 +67,50 @@ function EnhancedTableToolbar({
               </IconButton>
             </Tooltip>
           )
-        : onFilterHandler && (
-            <Tooltip title="Filter list">
-              <IconButton onClick={onFilterHandler}>
-                <Filter />
-              </IconButton>
-            </Tooltip>
+        : onSearchHandler && (
+            <SearchFrame>
+              <TextField
+                label="Search"
+                variant="outlined"
+                size="small"
+                autoComplete="off"
+                onChange={({ target }) => setKeyword(target.value)}
+                value={keyword}
+                onKeyDown={({ key }) => {
+                  if (key === "Enter") {
+                    onSearchHandler(keyword);
+                  }
+                }}
+                {...(keyword.length > 0
+                  ? {
+                      InputProps: {
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={() => {
+                                setKeyword("");
+                                onSearchHandler(null);
+                              }}
+                            >
+                              <X />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      },
+                    }
+                  : {})}
+              />
+            </SearchFrame>
           )}
     </Toolbar>
   );
 }
 
 export default EnhancedTableToolbar;
+
+const SearchFrame = styled.div`
+  display: contents;
+  .MuiTextField-root {
+    width: 25vw;
+  }
+`;

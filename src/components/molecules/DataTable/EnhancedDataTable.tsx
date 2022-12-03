@@ -13,10 +13,12 @@ import {
 import EnhancedTableHead from "./EnhancedTableHead";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import {
+  DataParserMap,
   getComparator,
   makeHeaderFromRows,
   Order,
   parseData,
+  searchWithKeyword,
   stableSort,
   TableHeaderCell,
 } from "./utilities";
@@ -45,6 +47,7 @@ export default function EnhancedTable<T extends TableData>({
   defaultOrder,
   onDeleteHandler,
 }: IEnhancedTableProps<T>) {
+  const [keyword, setKeyword] = useState<string | null>(null);
   const [order, setOrder] = useState<Order>(defaultOrder);
   const [orderBy, setOrderBy] = useState<keyof T>(defaultOrderBy);
   const [selected, setSelected] = useState<T["id"][]>([]);
@@ -55,6 +58,24 @@ export default function EnhancedTable<T extends TableData>({
     () => preDefinedHeader || makeHeaderFromRows(rows),
     [preDefinedHeader, rows]
   );
+
+  const dataParserMap = useMemo(
+    () =>
+      header.reduce((accumulator, { id, dataType, getData }) => {
+        if (dataType || getData) {
+          accumulator[id] = {
+            dataType,
+            getData,
+          };
+        }
+        return accumulator;
+      }, {} as DataParserMap<T>),
+    [header]
+  );
+
+  const handleSearch = (keyword: string | null) => {
+    setKeyword(keyword);
+  };
 
   const handleDelete = () => {
     if (typeof onDeleteHandler === "function") {
@@ -120,6 +141,7 @@ export default function EnhancedTable<T extends TableData>({
         <EnhancedTableToolbar
           title={title}
           numSelected={selected.length}
+          onSearchHandler={handleSearch}
           onDeleteHandler={handleDelete}
         />
         <TableContainer>
@@ -134,7 +156,10 @@ export default function EnhancedTable<T extends TableData>({
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort<T>(rows, getComparator(order, orderBy))
+              {stableSort<T>(
+                searchWithKeyword<T>(rows, keyword, dataParserMap),
+                getComparator(order, orderBy)
+              )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
