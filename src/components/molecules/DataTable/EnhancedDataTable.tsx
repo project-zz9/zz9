@@ -1,4 +1,4 @@
-import EnhancedTableToolbar from "./EnhancedTableToolbar";
+import { MouseEvent, ChangeEvent, useMemo, useState } from "react";
 import {
   Box,
   Checkbox,
@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@mui/material";
 import EnhancedTableHead from "./EnhancedTableHead";
+import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import {
   getComparator,
   makeHeaderFromRows,
@@ -19,7 +20,6 @@ import {
   TableHeaderCell,
 } from "./utilities";
 import { getKey } from "~/utils/crypto";
-import { MouseEvent, ChangeEvent, useMemo, useState } from "react";
 
 interface TableData {
   id: string;
