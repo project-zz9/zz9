@@ -100,7 +100,7 @@ import Switch from "@mui/material/Switch";
 
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import { Checkbox, Paper } from "@mui/material";
-import EnhancedTableHead from "./EnhancedTableHead";
+import EnhancedTableHead, { TableHeaderCell } from "./EnhancedTableHead";
 import { getComparator, Order, stableSort } from "./utilities";
 
 interface Data {
@@ -141,6 +141,39 @@ const rows = [
   createData("Marshmallow", 318, 0, 81, 2.0),
   createData("Nougat", 360, 19.0, 9, 37.0),
   createData("Oreo", 437, 18.0, 63, 4.0),
+];
+
+const headCells: readonly TableHeaderCell<Data>[] = [
+  {
+    id: "name",
+    numeric: false,
+    disablePadding: true,
+    label: "Dessert (100g serving)",
+  },
+  {
+    id: "calories",
+    numeric: true,
+    disablePadding: false,
+    label: "Calories",
+  },
+  {
+    id: "fat",
+    numeric: true,
+    disablePadding: false,
+    label: "Fat (g)",
+  },
+  {
+    id: "carbs",
+    numeric: true,
+    disablePadding: false,
+    label: "Carbs (g)",
+  },
+  {
+    id: "protein",
+    numeric: true,
+    disablePadding: false,
+    label: "Protein (g)",
+  },
 ];
 
 export default function EnhancedTable() {
@@ -206,7 +239,6 @@ export default function EnhancedTable() {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -221,6 +253,7 @@ export default function EnhancedTable() {
             size={dense ? "small" : "medium"}
           >
             <EnhancedTableHead
+              tableHeader={headCells}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}

@@ -4,11 +4,15 @@ import { Filter, Trash } from "react-feather";
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  onFilterHandler?: () => void;
+  onDeleteHandler?: () => void;
 }
 
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
-
+function EnhancedTableToolbar({
+  numSelected,
+  onFilterHandler,
+  onDeleteHandler,
+}: EnhancedTableToolbarProps) {
   return (
     <Toolbar
       sx={{

@@ -7,74 +7,35 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
+import { ChangeEvent, MouseEvent } from "react";
 import type { Order } from "./utilities";
 
-interface Data {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
-
-interface HeadCell<T> {
+export interface TableHeaderCell<T> {
   disablePadding: boolean;
   id: keyof T;
   label: string;
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell<Data>[] = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Dessert (100g serving)",
-  },
-  {
-    id: "calories",
-    numeric: true,
-    disablePadding: false,
-    label: "Calories",
-  },
-  {
-    id: "fat",
-    numeric: true,
-    disablePadding: false,
-    label: "Fat (g)",
-  },
-  {
-    id: "carbs",
-    numeric: true,
-    disablePadding: false,
-    label: "Carbs (g)",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Protein (g)",
-  },
-];
-
 interface EnhancedTableProps<T> {
+  tableHeader: readonly TableHeaderCell<T>[];
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof T) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onRequestSort: (event: MouseEvent<unknown>, property: keyof T) => void;
+  onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   order: Order;
-  orderBy: string;
+  orderBy: keyof T;
   rowCount: number;
 }
 
-function EnhancedTableHead<T = Data>(props: EnhancedTableProps<T>) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
+function EnhancedTableHead<T>({
+  tableHeader,
+  onSelectAllClick,
+  order,
+  orderBy,
+  numSelected,
+  rowCount,
+  onRequestSort,
+}: EnhancedTableProps<T>) {
   const createSortHandler =
     (property: keyof T) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -94,20 +55,20 @@ function EnhancedTableHead<T = Data>(props: EnhancedTableProps<T>) {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {tableHeader.map((cell) => (
           <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
+            key={cell.id.toString()}
+            align={cell.numeric ? "right" : "left"}
+            padding={cell.disablePadding ? "none" : "normal"}
+            sortDirection={orderBy === cell.id ? order : false}
           >
             <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id as keyof T)}
+              active={orderBy === cell.id}
+              direction={orderBy === cell.id ? order : "asc"}
+              onClick={createSortHandler(cell.id as keyof T)}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
+              {cell.label}
+              {orderBy === cell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
