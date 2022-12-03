@@ -15,9 +15,7 @@ const label = "관리자 id를 입력하세요";
 function SignInPageForeground() {
   const [, setRole] = useAtom(roleAtom);
   const [, setModal] = useAtom(modalControlAtom);
-  const [id, setId] = useState<string>(
-    "bkzErenoCKaMBjoTsya2iKPyd2bsAsmerH3DTcJy7odcrfhqjsnoixz6nLTcL7RQ"
-  );
+  const [id, setId] = useState<string>("");
   const history = useHistory();
   return (
     <ForegroundLayer>
