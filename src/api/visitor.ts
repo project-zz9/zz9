@@ -11,11 +11,11 @@ export const getVisitor = async (
       ? hashing(getKey(key.phoneNumber, process.env.REACT_APP_SALT))
       : null;
 
-  return (
-    (visitor &&
-      ((await visitorApi.get<VisitorData>(visitor)) as VisitorData)) ||
-    null
-  );
+  return (visitor && (await visitorApi.get<VisitorData>(visitor))) || null;
+};
+
+export const getVisitors = async (): Promise<VisitorData[]> => {
+  return (await visitorApi.get<VisitorData[]>()) || [];
 };
 
 export const setVisitor = async (
@@ -46,6 +46,15 @@ export const updateVisitorVisited = async (
   }
 };
 
+export const removeVisitor = async (key: string): Promise<string | null> => {
+  try {
+    await visitorApi.delete(key);
+    return key;
+  } catch {
+    return null;
+  }
+};
+
 const setTimeTable = async (visitor: string, timestamp: string) => {
   const [date, time] = timestamp.split(" ");
   scheduleApi.post(visitor, {
@@ -56,7 +65,7 @@ const setTimeTable = async (visitor: string, timestamp: string) => {
 
 export const getTimeTable = async (date: string): Promise<DateTime[]> => {
   try {
-    return await scheduleApi.get<DateTime[]>(["date", "==", date]);
+    return (await scheduleApi.get<DateTime[]>(["date", "==", date])) || [];
   } catch {
     return [];
   }

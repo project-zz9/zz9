@@ -8,3 +8,5 @@ export const WEEK = 7 * DAY;
 export const SEPARATOR = "::";
 export const ROOT_PAGE = "https://project-zz9.github.io/zz9/#/zz9";
 export const HOME = "/home";
+
+export const INTERVAL_TIME = MINUTE * 1000;

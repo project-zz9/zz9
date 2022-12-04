@@ -25,3 +25,4 @@ export type { DocumentData, CollectionReference, WhereFilterOp };
 export const VISITOR_COLLECTION = "visitor";
 export const GUESTBOOK_COLLECTION = "guestbook";
 export const SCHEDULE_COLLECTION = "schedule";
+export const AUTH_COLLECTION = "authorization";

@@ -14,6 +14,7 @@ function MonotonicTextArea({ onChange, ...props }: IMonotonicTextAreaProps) {
       {...props}
       multiline
       fullWidth
+      autoComplete="off"
       variant="outlined"
       onChange={({ target }) => onChange(target.value)}
     />
