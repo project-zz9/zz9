@@ -19,19 +19,20 @@ function ConfirmVisitTimeModalInner({
 
   return (
     <ConfirmModalInner
+      titleSize="1.2rem"
       title={[
         [
           {
-            value: "선택하신 날짜와 시간으로",
+            value: "선택하신 날짜와 시간에",
           },
         ],
         [
           {
             type: "emphasis",
-            value: " 방문을 확정",
+            value: "방문",
           },
           {
-            value: "할까요?",
+            value: " 하시겠어요?",
           },
         ],
       ]}

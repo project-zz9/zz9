@@ -1,4 +1,4 @@
-export const MAX_VISITOR_ON_ONE_TIME = 3;
+export const MAX_VISITOR_ON_ONE_TIME = 20;
 
 export const MINUTE = 60;
 export const HOUR = 60 * MINUTE;
