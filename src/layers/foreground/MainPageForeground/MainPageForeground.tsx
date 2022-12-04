@@ -24,7 +24,9 @@ function MainPageForeground() {
         <MessageFrame>지수의 지구에 오신 걸 환영합니다.</MessageFrame>
         <ButtonFrame>
           <MonotonicButton
-            color="secondary"
+            type="contained"
+            background="white"
+            font="black"
             onClick={() => {
               setModal({
                 type: "confirm",

@@ -70,7 +70,9 @@ function InvitationPreviewForeground({
         </Card>
         <ButtonGroupFrame>
           <MonotonicButton
-            color="secondary"
+            type="contained"
+            font="black"
+            background="white"
             onClick={() => {
               navigator.clipboard.writeText(ROOT_PAGE + HOME).then(
                 () => {
@@ -104,7 +106,9 @@ function InvitationPreviewForeground({
           </MonotonicButton>
 
           <MonotonicButton
-            color="primary"
+            type="contained"
+            font="white"
+            background="primary"
             onClick={() => {
               history.push(HOME_PATH);
             }}

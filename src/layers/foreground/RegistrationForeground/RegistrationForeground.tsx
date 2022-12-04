@@ -131,8 +131,17 @@ function RegistrationForeground({
               </SchemaFormFrame>
               <NextButtonFrame>
                 <MonotonicButton
+                  type="contained"
                   disabled={loading || !(data as any)[stages[stage]]}
-                  color={color === "light" ? "inherit" : "primary"}
+                  {...(color === "light"
+                    ? {
+                        background: "black",
+                        font: "white",
+                      }
+                    : {
+                        background: "primary",
+                        font: "white",
+                      })}
                   onClick={() => {
                     const result = validate(data);
                     if (result) {
