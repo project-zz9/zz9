@@ -56,8 +56,8 @@ function InformationCard({ visitor, onFlip }: IInformationCardProps) {
         <MapFrame>
           <MonotonicButton
             type="contained"
-            background="black"
-            font="white"
+            background="white"
+            font="black"
             onClick={() => {
               window.location.href =
                 "https://map.naver.com/v5/entry/place/11621559?c=14138789.5812838,4506075.6035395,16.39,0,0,0,dh";
