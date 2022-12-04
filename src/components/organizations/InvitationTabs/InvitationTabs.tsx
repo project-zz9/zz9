@@ -45,7 +45,8 @@ function InvitationTabs({ uuid, visitor, refetch }: IInvitationTabsProps) {
     tabHistory.length > 1
       ? setTabHistory((history) => history.slice(0, -1))
       : setTabHistory([Tabs.PORTAL]);
-  }, [tabHistory]);
+    refetch();
+  }, [refetch, tabHistory]);
 
   return (
     <Root>
