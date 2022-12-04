@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import AdminTabs from "~/components/organizations/AdminTabs";
+import ArtWall from "~/components/organizations/ArtWall";
 import QrScanner from "~/components/organizations/QrScanner";
 import ForegroundLayer from "../ForegroundLayer";
 
@@ -16,8 +17,8 @@ function ManagementForeground({ role }: IManagementForegroundProps) {
     <ForegroundLayer>
       <RootFrame>
         {role === "admin" && <AdminTabs role={role} />}
-        {role === "art-wall" && <AdminTabs role={role} />}
         {role === "qr-scanner" && <QrScanner />}
+        {role === "art-wall" && <ArtWall />}
       </RootFrame>
     </ForegroundLayer>
   );
