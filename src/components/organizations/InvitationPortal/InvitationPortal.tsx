@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { SEPARATOR } from "~/app/constant";
 import { logos } from "~/assets/images";
-import { overflowYScroll } from "~/assets/styles/scroll";
 import AfterVisit from "~/components/molecules/InvitationTabs/AfterVisit";
 import BeforeVisit from "~/components/molecules/InvitationTabs/BeforeVisit";
 import { ITabProps, Tabs } from "~/components/organizations/InvitationTabs";
@@ -62,7 +61,6 @@ const PortalRoot = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  ${overflowYScroll}
 `;
 
 const LogoFrame = styled.div`

@@ -126,7 +126,6 @@ const CardRoot = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  ${overflowYScroll}
 `;
 
 const HeaderFrame = styled.div`
