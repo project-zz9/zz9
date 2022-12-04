@@ -35,9 +35,12 @@ interface IEnhancedTableProps<T> {
   preDefinedHeader?: readonly TableHeaderCell<T>[];
   defaultOrderBy: keyof T;
   defaultOrder: Order;
+  preDefinedRowsPerPages?: number[];
   refresh?: () => void;
   onDeleteHandler?: (keys: string[], callback?: () => void) => void;
 }
+
+const defaultRowsPerPages = [10, 20, 30];
 
 export default function EnhancedTable<T extends TableData>({
   title,
@@ -45,6 +48,7 @@ export default function EnhancedTable<T extends TableData>({
   preDefinedHeader,
   defaultOrderBy,
   defaultOrder,
+  preDefinedRowsPerPages,
   onDeleteHandler,
 }: IEnhancedTableProps<T>) {
   const [keyword, setKeyword] = useState<string | null>(null);
@@ -52,7 +56,11 @@ export default function EnhancedTable<T extends TableData>({
   const [orderBy, setOrderBy] = useState<keyof T>(defaultOrderBy);
   const [selected, setSelected] = useState<T["id"][]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const rowsPerPages =
+    preDefinedRowsPerPages && preDefinedRowsPerPages.length > 0
+      ? preDefinedRowsPerPages
+      : defaultRowsPerPages;
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPages[0]);
 
   const header = useMemo(
     () => preDefinedHeader || makeHeaderFromRows(rows),
@@ -212,7 +220,7 @@ export default function EnhancedTable<T extends TableData>({
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={rowsPerPages}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

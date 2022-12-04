@@ -26,7 +26,7 @@ function VisitorTable() {
       type: "confirm",
       content: {
         title: "방명록 삭제",
-        body: `선택된 ${keys.length}개의 방명록을 삭제합니다.`,
+        body: `선택된 ${keys.length}개의 사전예약자를 삭제합니다.`,
       },
       onSubmit: {
         label: "삭제",
