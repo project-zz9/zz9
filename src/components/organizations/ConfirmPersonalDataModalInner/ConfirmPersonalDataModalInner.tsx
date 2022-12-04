@@ -27,6 +27,7 @@ function ConfirmPersonalDataModalInner({
           },
         ],
       ]}
+      titleSize="1.2rem"
       contents={[
         ...(name ? [{ label: "이름", value: name }] : []),
         ...(phoneNumber ? [{ label: "연락처", value: phoneNumber }] : []),
