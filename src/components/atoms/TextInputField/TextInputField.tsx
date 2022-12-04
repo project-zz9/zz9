@@ -21,6 +21,7 @@ function TextInputField({
       <StyledTextField
         placeholder={label}
         fullWidth
+        autoComplete="off"
         color="secondary"
         onChange={({ target }) => {
           onChange(target.value);

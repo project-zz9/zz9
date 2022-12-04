@@ -19,9 +19,13 @@ type Visitor = FetchedData & VisitorData & { visited?: number };
 type GuestbookData = {
   displayName?: string;
   message?: string;
+  relationship?: VisitorData["relationship"];
 };
 
-type Guestbook = FetchedData & GuestbookData & { timestamp: number };
+type Guestbook = FetchedData &
+  GuestbookData & {
+    timestamp: number;
+  };
 
 type Role = "admin" | "art-wall" | "qr-scanner";
 

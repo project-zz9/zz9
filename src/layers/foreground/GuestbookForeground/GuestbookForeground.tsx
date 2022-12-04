@@ -73,7 +73,10 @@ function GuestbookForeground({ uuid }: IGuestbookForegroundProps) {
             visitor={visitor}
             setGuestbookData={setData}
             sendGuestbook={() => {
-              setGuestbook(uuid, data).then((result) => {
+              setGuestbook(uuid, {
+                ...data,
+                relationship: visitor.relationship,
+              }).then((result) => {
                 if (result) {
                   setModal({
                     type: "information",

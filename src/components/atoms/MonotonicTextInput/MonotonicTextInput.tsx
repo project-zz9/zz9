@@ -10,6 +10,7 @@ function MonotonicTextInput({ onChange, ...props }: IMonotonicTextInputProps) {
     <MonotonicTextField
       {...props}
       fullWidth
+      autoComplete="off"
       variant="outlined"
       onChange={({ target }) => onChange(target.value)}
     />
