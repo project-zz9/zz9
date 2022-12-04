@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import { glow } from "~/assets/styles/keyframes";
 
 interface IPhotoCardProps {
   source: string;
@@ -59,18 +60,6 @@ const Photo = styled.img<{ activate?: boolean; blur?: boolean }>`
     css`
       filter: drop-shadow(0 0 0 #000);
     `}
-`;
-
-const glow = keyframes`
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
 `;
 
 const Shadow = styled.img<{ activate?: boolean; filter?: ColorCode }>`

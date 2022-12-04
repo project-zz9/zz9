@@ -2,9 +2,8 @@ import { useCallback, useEffect, useMemo } from "react";
 import ForegroundLayer from "../ForegroundLayer";
 import { useState } from "react";
 import { IconButton } from "@mui/material";
-import { ArrowLeft } from "react-feather";
-import styledComponent from "styled-components";
-import MonotonicButton from "~/components/atoms/MonotonicButton";
+import { ArrowRight } from "react-feather";
+import styledComponent, { css } from "styled-components";
 import SchemaForm from "~/components/organizations/SchemaForm";
 import { useHistory } from "react-router-dom";
 import { HOME_PATH } from "~/pages";
@@ -15,6 +14,7 @@ import { useAtom } from "jotai";
 import { permissionAtom, PERSONAL_DATA } from "~/stores/permission";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { useModalBlocker } from "~/hooks/useModalBlocker";
+import { shakeX } from "~/assets/styles/keyframes";
 
 const stages = Object.keys(jsonSchema.properties || {});
 
@@ -36,12 +36,17 @@ function RegistrationForeground({
   const [loading, setLoading] = useState<boolean>(false);
   const history = useHistory();
 
+  const hasNextStage = useMemo(() => stages.length > stage + 1, [stage]);
+  const preventGoNext = useMemo(
+    () => loading || !(data as any)[stages[stage]],
+    [data, loading, stage]
+  );
+
   const goNextStage = useCallback(() => {
-    if (stages.length > stage + 1) {
+    if (hasNextStage) {
       setStage((prev) => prev + 1);
-    } else {
     }
-  }, [stage]);
+  }, [hasNextStage]);
 
   const checkCallbackHandlers = useCheckCallbackHandlers(
     data,
@@ -94,7 +99,7 @@ function RegistrationForeground({
         <CSSTransition key={stage} classNames="fade-tab" timeout={500}>
           {metaData && (
             <RootFrame>
-              <GoBackButtonFrame>
+              <TopButtonGroupFrame>
                 <IconButton
                   aria-label="go-back"
                   onClick={() => {
@@ -117,31 +122,13 @@ function RegistrationForeground({
                     }
                   }}
                 >
-                  <ArrowLeft color={color === "light" ? "#000" : "#fff"} />
+                  <ButtonText color={color === "light" ? "#555" : "#fff"}>
+                    이전
+                  </ButtonText>
                 </IconButton>
-              </GoBackButtonFrame>
-              <SchemaFormFrame>
-                <SchemaForm
-                  name={stages[stage]}
-                  data={data}
-                  onChange={setData}
-                  error={error}
-                  jsonSchema={metaData}
-                />
-              </SchemaFormFrame>
-              <NextButtonFrame>
-                <MonotonicButton
-                  type="contained"
-                  disabled={loading || !(data as any)[stages[stage]]}
-                  {...(color === "light"
-                    ? {
-                        background: "black",
-                        font: "white",
-                      }
-                    : {
-                        background: "primary",
-                        font: "white",
-                      })}
+                <IconButton
+                  aria-label="go-back"
+                  disabled={preventGoNext}
                   onClick={() => {
                     const result = validate(data);
                     if (result) {
@@ -156,9 +143,26 @@ function RegistrationForeground({
                     }
                   }}
                 >
-                  {loading ? "Loading..." : "다음으로"}
-                </MonotonicButton>
-              </NextButtonFrame>
+                  {hasNextStage ? (
+                    <AnimatedIconFrame active={!preventGoNext}>
+                      <ArrowRight />
+                    </AnimatedIconFrame>
+                  ) : (
+                    <ButtonText color={preventGoNext ? "#444" : "#FF5A0D"}>
+                      {loading ? "Wait" : "완료"}
+                    </ButtonText>
+                  )}
+                </IconButton>
+              </TopButtonGroupFrame>
+              <SchemaFormFrame>
+                <SchemaForm
+                  name={stages[stage]}
+                  data={data}
+                  onChange={setData}
+                  error={error}
+                  jsonSchema={metaData}
+                />
+              </SchemaFormFrame>
             </RootFrame>
           )}
         </CSSTransition>
@@ -177,14 +181,28 @@ const RootFrame = styledComponent.div`
     justify-content: flex-start;
 `;
 
-const GoBackButtonFrame = styledComponent.div`
-    margin-top:1rem;
-    margin-left:-1rem;
-    margin-bottom:1rem;
+const TopButtonGroupFrame = styledComponent.div`
+    margin: 1rem -1.5rem 1rem -1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     svg {
-      width:32px;
-      height:32px;
+      width:2.1rem;
+      height:2.1rem;
     }
+`;
+
+const AnimatedIconFrame = styledComponent.div<{ active?: boolean }>`
+    ${({ active }) =>
+      active
+        ? css`
+            color: #ff5a0d;
+            animation: ${shakeX} 0.5s infinite linear alternate;
+          `
+        : css`
+            color: #bbb;
+          `}
 `;
 
 const SchemaFormFrame = styledComponent.div`
@@ -193,6 +211,8 @@ const SchemaFormFrame = styledComponent.div`
     justify-content: space-evenly;
 `;
 
-const NextButtonFrame = styledComponent.div`
-    margin-top: min(3rem, 5vw);
+const ButtonText = styledComponent.span<{ color?: ColorCode }>`
+    color: ${({ color }) => color};
+    font-size:1.2rem;
+    font-weight: bold;
 `;
