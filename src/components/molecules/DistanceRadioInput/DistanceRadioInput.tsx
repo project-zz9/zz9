@@ -62,7 +62,7 @@ const Title = styledComponents.div`
 const OptionGroupFrame = styledComponents.div`
     display: flex;
     flex-direction: row;  
-    height: 3.5rem;
+    height: 4.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 `;
@@ -73,7 +73,7 @@ const Distance = styledComponents.div<{ index: number; checked: boolean }>`
     ${({ checked, index }) =>
       checked &&
       css`
-        width: ${(index + 1) * 3 + 2}rem;
+        width: ${(index + 1) * 10 + 12}vw;
       `}
     margin-left: 2px;
     margin-right: 2px;
@@ -82,13 +82,13 @@ const Distance = styledComponents.div<{ index: number; checked: boolean }>`
 const Tooltip = styledComponents.div`
     padding:5px;
     color: #FF8B5D;
-    font-size: 0.8rem;
+    font-size: 3.2vw;
     font-wight: bold;
     text-align: center;
 `;
 
 const DistanceOption = styled(Chip)<ChipProps>(({ tabIndex }) => ({
-  fontSize: "1rem",
+  fontSize: "4vw",
   fontWeight: "bold",
   height: "1.8rem",
   justifyContent: "flex-start",
