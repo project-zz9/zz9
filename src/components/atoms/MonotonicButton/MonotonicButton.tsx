@@ -3,16 +3,18 @@ import { styled } from "@mui/material/styles";
 import { ReactNode } from "react";
 
 interface IMonotonicMuttonProps {
+  backgroundColor?: "primary" | "black" | "white";
+  fontColor?: "primary" | "black" | "white";
   type?: "outlined" | "contained";
-  color?: "inherit" | "primary" | "secondary";
   disabled?: boolean;
   onClick?: () => void;
   children: string | ReactNode;
 }
 
 function MonotonicButton({
+  backgroundColor = "black",
+  fontColor = "white",
   type = "contained",
-  color = "inherit",
   disabled = false,
   onClick,
   children,
@@ -21,7 +23,8 @@ function MonotonicButton({
     <MonotonicButtonInner
       disabled={disabled}
       variant={type}
-      color={color}
+      fontColor={fontColor}
+      backgroundColor={backgroundColor}
       fullWidth
       onClick={onClick}
     >
@@ -31,68 +34,87 @@ function MonotonicButton({
 }
 export default MonotonicButton;
 
-const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
-  color:
-    props.color === "secondary" || props.variant === "outlined"
-      ? "black"
-      : "white",
+const MonotonicButtonInner = styled(Button)<
+  ButtonProps & {
+    backgroundColor: "primary" | "black" | "white";
+    fontColor: "primary" | "black" | "white";
+  }
+>(({ fontColor, backgroundColor, variant }) => ({
   fontSize: "1.05rem",
-  backgroundColor:
-    props.color === "primary"
-      ? "#FF5A0D"
-      : props.color === "secondary"
-      ? "#FFFFFF"
-      : props.variant === "outlined"
-      ? "rgba(25, 118, 210, 0.04)"
-      : "black",
-  border: `2px solid ${
-    props.color === "primary"
-      ? "#FF5A0D"
-      : props.color === "secondary"
-      ? "#FFFFFF"
-      : "black"
-  }`,
+
+  color: fontColor,
+
+  ...(variant === "contained"
+    ? {
+        backgroundColor:
+          backgroundColor === "primary" ? "#FF5A0D" : backgroundColor,
+        border: `2px solid ${
+          backgroundColor === "primary" ? "#FF5A0D" : backgroundColor
+        }`,
+      }
+    : {
+        backgroundColor:
+          fontColor === "primary"
+            ? "black"
+            : fontColor === "black"
+            ? "white"
+            : "black",
+        border: `2px solid ${
+          backgroundColor === "primary" ? "#FF5A0D" : fontColor
+        }`,
+      }),
+
   fontWeight: "bold",
   padding: "0.5rem 1.1rem",
   borderRadius: "7.5px",
   "&:hover": {
-    backgroundColor:
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : props.variant === "outlined"
-        ? "rgba(25, 118, 210, 0.04)"
-        : "black",
-    border: `2px solid ${
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : "black"
-    }`,
+    ...(variant === "contained"
+      ? {
+          backgroundColor:
+            backgroundColor === "primary" ? "#FF5A0D" : backgroundColor,
+          border: `2px solid ${
+            backgroundColor === "primary" ? "#FF5A0D" : backgroundColor
+          }`,
+        }
+      : {
+          backgroundColor:
+            fontColor === "primary"
+              ? "black"
+              : fontColor === "black"
+              ? "white"
+              : "black",
+          border: `2px solid ${
+            backgroundColor === "primary" ? "#FF5A0D" : fontColor
+          }`,
+        }),
   },
   "&:focus": {
-    backgroundColor:
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : props.variant === "outlined"
-        ? "rgba(25, 118, 210, 0.04)"
-        : "black",
-    border: `2px solid ${
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : "black"
-    }`,
+    ...(variant === "contained"
+      ? {
+          backgroundColor:
+            backgroundColor === "primary" ? "#FF5A0D" : backgroundColor,
+          border: `2px solid ${
+            backgroundColor === "primary" ? "#FF5A0D" : backgroundColor
+          }`,
+        }
+      : {
+          backgroundColor:
+            fontColor === "primary"
+              ? "black"
+              : fontColor === "black"
+              ? "white"
+              : "black",
+          border: `2px solid ${
+            backgroundColor === "primary" ? "#FF5A0D" : fontColor
+          }`,
+        }),
   },
   "&[disabled]": {
-    backgroundColor: props.color === "primary" ? "#D8D8D8" : "#505050",
     color: "white",
-    border: "2px solid #505050",
     opacity: 0.5,
+    backgroundColor: backgroundColor === "primary" ? "#D8D8D8" : "#505050",
+    border: `2px solid ${
+      backgroundColor === "primary" ? "#D8D8D8" : "#505050"
+    }`,
   },
 }));
