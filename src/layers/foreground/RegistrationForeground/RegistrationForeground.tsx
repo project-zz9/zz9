@@ -176,7 +176,6 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height:85vh;
     flex-direction: column;
     justify-content: flex-start;
 `;
