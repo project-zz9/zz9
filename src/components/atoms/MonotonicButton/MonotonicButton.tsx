@@ -3,16 +3,18 @@ import { styled } from "@mui/material/styles";
 import { ReactNode } from "react";
 
 interface IMonotonicMuttonProps {
-  type?: "outlined" | "contained";
-  color?: "inherit" | "primary" | "secondary";
+  type: "outlined" | "contained";
+  background: "primary" | "black" | "white";
+  font: "primary" | "black" | "white";
   disabled?: boolean;
   onClick?: () => void;
   children: string | ReactNode;
 }
 
 function MonotonicButton({
-  type = "contained",
-  color = "inherit",
+  type,
+  background,
+  font,
   disabled = false,
   onClick,
   children,
@@ -21,7 +23,8 @@ function MonotonicButton({
     <MonotonicButtonInner
       disabled={disabled}
       variant={type}
-      color={color}
+      background={background}
+      font={font}
       fullWidth
       onClick={onClick}
     >
@@ -31,68 +34,64 @@ function MonotonicButton({
 }
 export default MonotonicButton;
 
-const MonotonicButtonInner = styled(Button)<ButtonProps>((props) => ({
-  color:
-    props.color === "secondary" || props.variant === "outlined"
-      ? "black"
-      : "white",
+const MonotonicButtonInner = styled(Button)<
+  ButtonProps & {
+    background: "primary" | "black" | "white";
+    font: "primary" | "black" | "white";
+  }
+>(({ font, background, variant }) => ({
   fontSize: "1.05rem",
-  backgroundColor:
-    props.color === "primary"
-      ? "#FF5A0D"
-      : props.color === "secondary"
-      ? "#FFFFFF"
-      : props.variant === "outlined"
-      ? "rgba(25, 118, 210, 0.04)"
-      : "black",
-  border: `2px solid ${
-    props.color === "primary"
-      ? "#FF5A0D"
-      : props.color === "secondary"
-      ? "#FFFFFF"
-      : "black"
-  }`,
+
+  color: font,
+
+  ...(variant === "contained"
+    ? {
+        backgroundColor: background === "primary" ? "#FF5A0D" : background,
+        border: `2px solid ${
+          background === "primary" ? "#FF5A0D" : background
+        }`,
+      }
+    : {
+        backgroundColor:
+          font === "primary" ? "black" : font === "black" ? "white" : "black",
+        border: `2px solid ${background === "primary" ? "#FF5A0D" : font}`,
+      }),
+
   fontWeight: "bold",
   padding: "0.5rem 1.1rem",
   borderRadius: "7.5px",
   "&:hover": {
-    backgroundColor:
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : props.variant === "outlined"
-        ? "rgba(25, 118, 210, 0.04)"
-        : "black",
-    border: `2px solid ${
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : "black"
-    }`,
+    ...(variant === "contained"
+      ? {
+          backgroundColor: background === "primary" ? "#FF5A0D" : background,
+          border: `2px solid ${
+            background === "primary" ? "#FF5A0D" : background
+          }`,
+        }
+      : {
+          backgroundColor:
+            font === "primary" ? "black" : font === "black" ? "white" : "black",
+          border: `2px solid ${background === "primary" ? "#FF5A0D" : font}`,
+        }),
   },
   "&:focus": {
-    backgroundColor:
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : props.variant === "outlined"
-        ? "rgba(25, 118, 210, 0.04)"
-        : "black",
-    border: `2px solid ${
-      props.color === "primary"
-        ? "#FF5A0D"
-        : props.color === "secondary"
-        ? "#FFFFFF"
-        : "black"
-    }`,
+    ...(variant === "contained"
+      ? {
+          backgroundColor: background === "primary" ? "#FF5A0D" : background,
+          border: `2px solid ${
+            background === "primary" ? "#FF5A0D" : background
+          }`,
+        }
+      : {
+          backgroundColor:
+            font === "primary" ? "black" : font === "black" ? "white" : "black",
+          border: `2px solid ${background === "primary" ? "#FF5A0D" : font}`,
+        }),
   },
   "&[disabled]": {
-    backgroundColor: props.color === "primary" ? "#D8D8D8" : "#505050",
     color: "white",
-    border: "2px solid #505050",
     opacity: 0.5,
+    backgroundColor: background === "primary" ? "#D8D8D8" : "#505050",
+    border: `2px solid ${background === "primary" ? "#D8D8D8" : "#505050"}`,
   },
 }));

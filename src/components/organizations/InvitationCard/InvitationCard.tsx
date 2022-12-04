@@ -98,7 +98,20 @@ function InvitationCard({ uuid, visitor, goBack, refetch }: ITabProps) {
         )}
       </CardFrame>
       <ButtonGroupFrame>
-        <MonotonicButton color="secondary" onClick={onFlip}>
+        <MonotonicButton
+          type="outlined"
+          font="white"
+          background="black"
+          onClick={goBack}
+        >
+          닫기
+        </MonotonicButton>
+        <MonotonicButton
+          type="contained"
+          font="black"
+          background="white"
+          onClick={onFlip}
+        >
           뒤집기
         </MonotonicButton>
       </ButtonGroupFrame>
@@ -113,7 +126,6 @@ const CardRoot = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  ${overflowYScroll}
 `;
 
 const HeaderFrame = styled.div`
@@ -181,10 +193,9 @@ const CardOverlay = styled.div`
 const ButtonGroupFrame = styled.div`
   flex-direction: row;
   display: flex;
-  margin: 0 2rem 1rem 2rem;
   button {
-    padding: 10px;
-    margin: 10px;
+    padding: 0.5rem;
+    margin: 0.5rem;
   }
   button:first-child {
     border: 2px solid #fff;

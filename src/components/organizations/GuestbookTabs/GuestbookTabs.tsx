@@ -92,8 +92,13 @@ function GuestbookTabs({
             />
             <BottomButton>
               {!hasNext && (
-                <MonotonicButton color="secondary" onClick={sendGuestbook}>
-                  별 띄우기 💫
+                <MonotonicButton
+                  type="contained"
+                  font="white"
+                  background="primary"
+                  onClick={sendGuestbook}
+                >
+                  별 띄우기
                 </MonotonicButton>
               )}
             </BottomButton>

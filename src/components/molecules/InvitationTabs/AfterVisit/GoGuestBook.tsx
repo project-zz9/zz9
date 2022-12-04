@@ -45,7 +45,8 @@ function GoGuestBook({ goGuestbookHandler }: IGoGuestBookProps) {
       </PositionAnchor>
       <MonotonicButton
         type="contained"
-        color="secondary"
+        font="black"
+        background="white"
         onClick={goGuestbookHandler}
       >
         별 띄우러가기

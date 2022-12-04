@@ -55,7 +55,9 @@ function InformationCard({ visitor, onFlip }: IInformationCardProps) {
         <Value>서울특별시 **구 **로 37 1층</Value>
         <MapFrame>
           <MonotonicButton
-            color="secondary"
+            type="contained"
+            background="white"
+            font="black"
             onClick={() => {
               window.location.href =
                 "https://map.naver.com/v5/entry/place/11621559?c=14138789.5812838,4506075.6035395,16.39,0,0,0,dh";

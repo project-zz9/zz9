@@ -41,7 +41,7 @@ function SendGuestbook({ setData }: ITabProps) {
           ]}
           color="emphasis"
           weight={500}
-          size="0.9rem"
+          size="1rem"
         />
       </SubTitle>
       <PaperFrame>
