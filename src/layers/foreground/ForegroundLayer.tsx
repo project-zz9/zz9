@@ -18,7 +18,7 @@ export default ForegroundLayer;
 
 const Root = styled.div`
   position: fixed;
-  inset: 0 0 10vh 0;
+  inset: 0 0 2.5vh 0;
   display: flex;
   flex: 1;
   justify-content: center;

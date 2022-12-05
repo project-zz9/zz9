@@ -185,7 +185,6 @@ const TopButtonGroupFrame = styledComponent.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     svg {
       width:2.1rem;
       height:2.1rem;
