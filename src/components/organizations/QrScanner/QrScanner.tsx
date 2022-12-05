@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { useAtom } from "jotai";
 import { lazy, Suspense, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -53,7 +54,7 @@ function QrScanner() {
 
   return (
     <RootFrame>
-      <Suspense fallback={<div>Loading</div>}>
+      <Suspense fallback={<CircularProgress color="inherit" />}>
         <QrScannerInput setData={setData} ViewFinder={ViewFinder} />
       </Suspense>
       <TableFrame>
@@ -73,4 +74,7 @@ const TableFrame = styled.div`
   padding-top: 1rem;
   width: 80vw;
   margin: 0 auto;
+  td {
+    color: white;
+  }
 `;
