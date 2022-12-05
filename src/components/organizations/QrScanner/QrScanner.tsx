@@ -10,6 +10,8 @@ import ConfirmVisitorModalInner from "../ConfirmVisitorModalInner";
 
 const QrScannerInput = lazy(() => import("~/components/atoms/QrScannerInput"));
 
+const MAX_HISTORY = 10;
+
 function QrScanner() {
   const [data, setData] = useState<string>("");
   const [history, setHistory] = useState<TableContent[]>([]);
@@ -28,11 +30,13 @@ function QrScanner() {
         handler: () => {
           updateVisitorVisited(data).then(() => {
             setHistory((prev) => [
-              ...prev,
               {
                 label: visitor.name || "unknown",
                 value: visitor.phoneNumber || "No Data",
               },
+              ...(prev.length + 1 > MAX_HISTORY
+                ? prev.slice(0, prev.length - 1)
+                : prev),
             ]);
           });
         },
@@ -49,7 +53,7 @@ function QrScanner() {
 
   return (
     <RootFrame>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading</div>}>
         <QrScannerInput setData={setData} ViewFinder={ViewFinder} />
       </Suspense>
       <TableFrame>
