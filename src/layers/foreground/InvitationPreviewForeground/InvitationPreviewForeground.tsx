@@ -52,7 +52,7 @@ function InvitationPreviewForeground({
             weight="bold"
           />
           <EmphasisText
-            text={[{ value: "선택하신 별은 지수의 지구를 비출거에요." }]}
+            text={[{ value: "선택하신 별은 지수의 지구를 비출 거예요." }]}
             size="1.1rem"
             color="#fff"
           />
