@@ -176,7 +176,6 @@ export default RegistrationForeground;
 const RootFrame = styledComponent.div`
     display: flex;
     width: 80vw;
-    height:85vh;
     flex-direction: column;
     justify-content: flex-start;
 `;
@@ -186,7 +185,6 @@ const TopButtonGroupFrame = styledComponent.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     svg {
       width:2.1rem;
       height:2.1rem;

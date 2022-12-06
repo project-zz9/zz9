@@ -1,13 +1,14 @@
 import { PermissionPersonalData_Detail } from "~/assets/contents";
 import styled from "styled-components";
 import { lazy, Suspense } from "react";
+import { CircularProgress } from "@mui/material";
 
 const MarkdownViewer = lazy(() => import("~/components/atoms/MarkdownViewer"));
 
 function ApprovePermissionModalDetailInner() {
   return (
     <MarkdownViewerFrame>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CircularProgress color="inherit" />}>
         <MarkdownViewer markdown={PermissionPersonalData_Detail} />
       </Suspense>
     </MarkdownViewerFrame>

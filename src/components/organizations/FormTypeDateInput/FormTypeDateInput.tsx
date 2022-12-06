@@ -22,12 +22,7 @@ interface IFormTypeDateInputProps<T = Record<string, string>>
     };
   };
 }
-function FormTypeDateInput({
-  name,
-  onChange,
-  error,
-  props,
-}: IFormTypeDateInputProps) {
+function FormTypeDateInput({ name, onChange, props }: IFormTypeDateInputProps) {
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const timeTable: DateTime[] | Nullish = useQuery(

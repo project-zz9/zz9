@@ -16,7 +16,7 @@ function BeforeVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
               [{ value: name, type: "emphasis" }, { value: "님," }],
               [{ value: "지수의 지구에 오신 것을 환영해요." }],
             ]}
-            size="1.45rem"
+            size="5.5vw"
             color="#FFF"
             weight="bold"
           />
@@ -27,7 +27,7 @@ function BeforeVisit({ name, star, distance, onClickHandler }: IVisitViewProp) {
               [{ value: "전시를 보고나면 지수에게 말을 남길 수 있는" }],
               [{ value: "기회가 열려요." }],
             ]}
-            size="1rem"
+            size="4.25vw"
             color="#FFF"
             weight="bold"
           />

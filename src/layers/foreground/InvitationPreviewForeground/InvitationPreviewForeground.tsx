@@ -52,7 +52,7 @@ function InvitationPreviewForeground({
             weight="bold"
           />
           <EmphasisText
-            text={[{ value: "선택하신 별은 지수의 지구를 비출거에요." }]}
+            text={[{ value: "선택하신 별은 지수의 지구를 비출 거예요." }]}
             size="1.1rem"
             color="#fff"
           />
@@ -126,7 +126,6 @@ export default InvitationPreviewForeground;
 const RootFrame = styled.div`
   display: flex;
   width: 85vw;
-  height: 90vh;
   flex-direction: column;
   justify-content: flex-start;
 `;
@@ -159,7 +158,6 @@ const ButtonGroupFrame = styled.div`
   display: flex;
   flex: 1;
   align-items: flex-end;
-  padding-bottom: calc(5vh + 1rem);
   button {
     margin: 10px;
     font-size: 4vw;

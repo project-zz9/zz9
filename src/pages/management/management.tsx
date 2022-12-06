@@ -17,7 +17,7 @@ function Management() {
   return (
     <Fragment>
       {role && <ManagementForeground role={role} />}
-      <MonotonicBackground />
+      <MonotonicBackground color={role === "qr-scanner" ? "#000" : "#FFF"} />
     </Fragment>
   );
 }

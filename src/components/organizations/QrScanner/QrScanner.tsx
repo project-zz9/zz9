@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { useAtom } from "jotai";
 import { lazy, Suspense, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -9,6 +10,8 @@ import { modalControlAtom, modalVisibilityAtom } from "~/stores/modal";
 import ConfirmVisitorModalInner from "../ConfirmVisitorModalInner";
 
 const QrScannerInput = lazy(() => import("~/components/atoms/QrScannerInput"));
+
+const MAX_HISTORY = 10;
 
 function QrScanner() {
   const [data, setData] = useState<string>("");
@@ -28,11 +31,13 @@ function QrScanner() {
         handler: () => {
           updateVisitorVisited(data).then(() => {
             setHistory((prev) => [
-              ...prev,
               {
                 label: visitor.name || "unknown",
                 value: visitor.phoneNumber || "No Data",
               },
+              ...(prev.length + 1 > MAX_HISTORY
+                ? prev.slice(0, prev.length - 1)
+                : prev),
             ]);
           });
         },
@@ -49,7 +54,7 @@ function QrScanner() {
 
   return (
     <RootFrame>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CircularProgress color="inherit" />}>
         <QrScannerInput setData={setData} ViewFinder={ViewFinder} />
       </Suspense>
       <TableFrame>
@@ -69,4 +74,7 @@ const TableFrame = styled.div`
   padding-top: 1rem;
   width: 80vw;
   margin: 0 auto;
+  td {
+    color: white;
+  }
 `;
